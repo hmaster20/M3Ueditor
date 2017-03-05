@@ -60,12 +60,10 @@ namespace M3Ueditor
                 {
                     case ".m3u":
                         ParseM3U(playlist);
-                        //updateboolean = true;
                         break;
 
                     case ".csv":
                         //ParseCSV();
-                        //updateboolean = true;
                         break;
                 }
             }
@@ -98,7 +96,6 @@ namespace M3Ueditor
 
         public void ParseM3U(StreamReader playlist)
         {
-            //updateboolean = false;
             string line = "";
             List<string> data = new List<string>();
 
@@ -152,7 +149,6 @@ namespace M3Ueditor
             else
             {
                 splitContainer1.Panel2Collapsed = false;
-                //enableEditing();
             }
         }
 

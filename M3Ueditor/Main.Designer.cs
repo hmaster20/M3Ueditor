@@ -40,12 +40,24 @@
             this.tsRemove = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dgvTV = new System.Windows.Forms.DataGridView();
-            this.saveFile = new System.Windows.Forms.SaveFileDialog();
+            this.panel = new System.Windows.Forms.Panel();
+            this.tvgNameBox = new System.Windows.Forms.TextBox();
+            this.tvglogoBox = new System.Windows.Forms.TextBox();
+            this.groupTitleBox = new System.Windows.Forms.TextBox();
+            this.UDPbox = new System.Windows.Forms.TextBox();
+            this.NameBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).BeginInit();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // status
@@ -87,7 +99,7 @@
             this.tsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsNew.Name = "tsNew";
             this.tsNew.Size = new System.Drawing.Size(23, 22);
-            this.tsNew.Text = "toolStripButton1";
+            this.tsNew.Text = "Новый плейлист";
             this.tsNew.Click += new System.EventHandler(this.tsNew_Click);
             // 
             // ts1
@@ -102,7 +114,7 @@
             this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsOpen.Name = "tsOpen";
             this.tsOpen.Size = new System.Drawing.Size(23, 22);
-            this.tsOpen.Text = "toolStripButton2";
+            this.tsOpen.Text = "Открыть";
             this.tsOpen.Click += new System.EventHandler(this.tsOpen_Click);
             // 
             // tsSave
@@ -112,7 +124,7 @@
             this.tsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsSave.Name = "tsSave";
             this.tsSave.Size = new System.Drawing.Size(23, 22);
-            this.tsSave.Text = "toolStripButton3";
+            this.tsSave.Text = "Сохранить";
             this.tsSave.Click += new System.EventHandler(this.tsSave_Click);
             // 
             // ts2
@@ -128,7 +140,7 @@
             this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsAdd.Name = "tsAdd";
             this.tsAdd.Size = new System.Drawing.Size(23, 22);
-            this.tsAdd.Text = "toolStripButton1";
+            this.tsAdd.Text = "Добавить";
             // 
             // tsRemove
             // 
@@ -138,7 +150,7 @@
             this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsRemove.Name = "tsRemove";
             this.tsRemove.Size = new System.Drawing.Size(23, 22);
-            this.tsRemove.Text = "toolStripButton2";
+            this.tsRemove.Text = "Удалить";
             // 
             // splitContainer1
             // 
@@ -149,6 +161,10 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.dgvTV);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel);
             this.splitContainer1.Size = new System.Drawing.Size(1025, 507);
             this.splitContainer1.SplitterDistance = 720;
             this.splitContainer1.TabIndex = 3;
@@ -170,6 +186,105 @@
             this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTV.Size = new System.Drawing.Size(720, 507);
             this.dgvTV.TabIndex = 0;
+            this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.label2);
+            this.panel.Controls.Add(this.label5);
+            this.panel.Controls.Add(this.label4);
+            this.panel.Controls.Add(this.label3);
+            this.panel.Controls.Add(this.label1);
+            this.panel.Controls.Add(this.NameBox);
+            this.panel.Controls.Add(this.UDPbox);
+            this.panel.Controls.Add(this.groupTitleBox);
+            this.panel.Controls.Add(this.tvglogoBox);
+            this.panel.Controls.Add(this.tvgNameBox);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(301, 507);
+            this.panel.TabIndex = 0;
+            // 
+            // tvgNameBox
+            // 
+            this.tvgNameBox.Location = new System.Drawing.Point(18, 78);
+            this.tvgNameBox.Name = "tvgNameBox";
+            this.tvgNameBox.Size = new System.Drawing.Size(271, 20);
+            this.tvgNameBox.TabIndex = 0;
+            // 
+            // tvglogoBox
+            // 
+            this.tvglogoBox.Location = new System.Drawing.Point(18, 125);
+            this.tvglogoBox.Name = "tvglogoBox";
+            this.tvglogoBox.Size = new System.Drawing.Size(271, 20);
+            this.tvglogoBox.TabIndex = 0;
+            // 
+            // groupTitleBox
+            // 
+            this.groupTitleBox.Location = new System.Drawing.Point(18, 170);
+            this.groupTitleBox.Name = "groupTitleBox";
+            this.groupTitleBox.Size = new System.Drawing.Size(271, 20);
+            this.groupTitleBox.TabIndex = 0;
+            // 
+            // UDPbox
+            // 
+            this.UDPbox.Location = new System.Drawing.Point(18, 216);
+            this.UDPbox.Name = "UDPbox";
+            this.UDPbox.Size = new System.Drawing.Size(271, 20);
+            this.UDPbox.TabIndex = 0;
+            // 
+            // NameBox
+            // 
+            this.NameBox.Location = new System.Drawing.Point(18, 261);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(271, 20);
+            this.NameBox.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 109);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "tvglogo";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 62);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "tvgName";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 154);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "groupTitle";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 200);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "UDP";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 245);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Name";
             // 
             // Main
             // 
@@ -186,9 +301,12 @@
             this.toolS.ResumeLayout(false);
             this.toolS.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).EndInit();
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,7 +326,17 @@
         private System.Windows.Forms.ToolStripSeparator ts2;
         private System.Windows.Forms.ToolStripButton tsAdd;
         private System.Windows.Forms.ToolStripButton tsRemove;
-        private System.Windows.Forms.SaveFileDialog saveFile;
+        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox NameBox;
+        private System.Windows.Forms.TextBox UDPbox;
+        private System.Windows.Forms.TextBox groupTitleBox;
+        private System.Windows.Forms.TextBox tvglogoBox;
+        private System.Windows.Forms.TextBox tvgNameBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
 
