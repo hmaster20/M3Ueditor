@@ -20,31 +20,32 @@ namespace M3Ueditor
             InitializeComponent();
         }
 
-        private void saveM3U()
-        {
-            StreamWriter file = new StreamWriter(saveFile.FileName, false, Encoding.UTF8);
-            file.WriteLine("#EXTM3U");
-            for (int i = 0; i < channels.Count; i++)
-            {
-                file.WriteLine("#EXTINF: -1"
-                    + "tvg-name=\"" + channels[i].tvgName + "\" "
-                    + "tvg-logo=\"" + channels[i].tvglogo + "\" "
-                    + " group-title=\"" + channels[i].groupTitle + "\""
-                    + "," + channels[i].tvgName);
-                file.WriteLine(channels[i].UDP);
-            }
-            file.Close();
-        }
-
+ 
         private void tsNew_Click(object sender, EventArgs e)
         {
+            channels.Clear();
 
+            string tvgName = "New Channel";
+            string tvglogo = "New Logo";
+            string groupTitle = "New Group";
+            string Name = "New Channel";
+            string udp = "udp://@224.1.1.1:6000";
+
+            channels.Add(new TVChannel(
+                        _tvgName: tvgName.Trim(),
+                        _tvglogo: tvglogo.Trim(),
+                        _groupTitle: groupTitle.Trim(),
+                        _udp: udp.Trim(),
+                        _Name: Name.Trim()
+                        ));
+
+            dgvTV.DataSource = channels;
         }
 
         private void tsOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Playlist Files (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
+            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
             fileDialog.Title = "Открыть плейлист";
             fileDialog.RestoreDirectory = true;
 
@@ -59,12 +60,12 @@ namespace M3Ueditor
                 {
                     case ".m3u":
                         ParseM3U(playlist);
-                        updateboolean = true;
+                        //updateboolean = true;
                         break;
 
                     case ".csv":
                         //ParseCSV();
-                        updateboolean = true;
+                        //updateboolean = true;
                         break;
                 }
             }
@@ -72,17 +73,32 @@ namespace M3Ueditor
 
         private void tsSave_Click(object sender, EventArgs e)
         {
-            DialogResult dialogStatus = saveFile.ShowDialog();
-            if (dialogStatus == DialogResult.OK)
-            {
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
+            fileDialog.Title = "Сохранить плейлист";
+            fileDialog.RestoreDirectory = true;
 
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter file = new StreamWriter(fileDialog.FileName, false, Encoding.UTF8);
+                file.WriteLine("#EXTM3U");
+                for (int i = 0; i < channels.Count; i++)
+                {
+                    file.WriteLine("#EXTINF:-1 "
+                        + "tvg-name=\"" + channels[i].tvgName + "\" "
+                        + "tvg-logo=\"" + channels[i].tvglogo + "\" "
+                        + "group-title=\"" + channels[i].groupTitle + "\""
+                        + "," + channels[i].tvgName);
+                    file.WriteLine(channels[i].UDP);
+                }
+                file.Close();
             }
         }
 
 
         public void ParseM3U(StreamReader playlist)
         {
-            updateboolean = false;
+            //updateboolean = false;
             string line = "";
             List<string> data = new List<string>();
 
@@ -138,6 +154,20 @@ namespace M3Ueditor
                 splitContainer1.Panel2Collapsed = false;
                 //enableEditing();
             }
+        }
+
+        private void dgvTV_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvTV.SelectedRows.Count == 0)
+                return;
+
+            int selectedRow = dgvTV.SelectedRows[0].Index;
+
+            tvgNameBox.Text = channels[selectedRow].tvgName;
+            tvglogoBox.Text = channels[selectedRow].tvglogo;
+            groupTitleBox.Text = channels[selectedRow].groupTitle;
+            UDPbox.Text = channels[selectedRow].UDP;
+            NameBox.Text = channels[selectedRow].Name;
         }
     }
 }
