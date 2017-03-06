@@ -85,6 +85,8 @@
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
     <Content Include="Resources\Add.png" />
+    <Content Include="Resources\arrow_Down.png" />
+    <Content Include="Resources\arrow_Up.png" />
     <Content Include="Resources\FileNew.png" />
     <Content Include="Resources\FileOpen.png" />
     <Content Include="Resources\FileSave.png" />

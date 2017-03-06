@@ -31,18 +31,15 @@
             this.status = new System.Windows.Forms.StatusStrip();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.toolS = new System.Windows.Forms.ToolStrip();
-            this.tsNew = new System.Windows.Forms.ToolStripButton();
             this.ts1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsOpen = new System.Windows.Forms.ToolStripButton();
-            this.tsSave = new System.Windows.Forms.ToolStripButton();
             this.ts2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsAdd = new System.Windows.Forms.ToolStripButton();
-            this.tsRemove = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tree = new System.Windows.Forms.TreeView();
             this.dgvTV = new System.Windows.Forms.DataGridView();
             this.panel = new System.Windows.Forms.Panel();
+            this.btnChangeCancel = new System.Windows.Forms.Button();
+            this.btnChangeApprove = new System.Windows.Forms.Button();
             this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,8 +50,14 @@
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
-            this.btnChangeApprove = new System.Windows.Forms.Button();
-            this.btnChangeCancel = new System.Windows.Forms.Button();
+            this.ts3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsNew = new System.Windows.Forms.ToolStripButton();
+            this.tsOpen = new System.Windows.Forms.ToolStripButton();
+            this.tsSave = new System.Windows.Forms.ToolStripButton();
+            this.tsAdd = new System.Windows.Forms.ToolStripButton();
+            this.tsRemove = new System.Windows.Forms.ToolStripButton();
+            this.tsUp = new System.Windows.Forms.ToolStripButton();
+            this.tsDown = new System.Windows.Forms.ToolStripButton();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -93,72 +96,25 @@
             this.tsSave,
             this.ts2,
             this.tsAdd,
-            this.tsRemove});
+            this.tsRemove,
+            this.ts3,
+            this.tsUp,
+            this.tsDown});
             this.toolS.Location = new System.Drawing.Point(0, 24);
             this.toolS.Name = "toolS";
             this.toolS.Size = new System.Drawing.Size(1025, 25);
             this.toolS.TabIndex = 2;
             this.toolS.Text = "toolStrip1";
             // 
-            // tsNew
-            // 
-            this.tsNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsNew.Image = global::M3Ueditor.Properties.Resources.FileNew;
-            this.tsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsNew.Name = "tsNew";
-            this.tsNew.Size = new System.Drawing.Size(23, 22);
-            this.tsNew.Text = "Новый плейлист";
-            this.tsNew.Click += new System.EventHandler(this.tsNew_Click);
-            // 
             // ts1
             // 
             this.ts1.Name = "ts1";
             this.ts1.Size = new System.Drawing.Size(6, 25);
             // 
-            // tsOpen
-            // 
-            this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsOpen.Image = global::M3Ueditor.Properties.Resources.FileOpen;
-            this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsOpen.Name = "tsOpen";
-            this.tsOpen.Size = new System.Drawing.Size(23, 22);
-            this.tsOpen.Text = "Открыть";
-            this.tsOpen.Click += new System.EventHandler(this.tsOpen_Click);
-            // 
-            // tsSave
-            // 
-            this.tsSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsSave.Image = global::M3Ueditor.Properties.Resources.FileSave;
-            this.tsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsSave.Name = "tsSave";
-            this.tsSave.Size = new System.Drawing.Size(23, 22);
-            this.tsSave.Text = "Сохранить";
-            this.tsSave.Click += new System.EventHandler(this.tsSave_Click);
-            // 
             // ts2
             // 
             this.ts2.Name = "ts2";
             this.ts2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsAdd
-            // 
-            this.tsAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsAdd.Image = global::M3Ueditor.Properties.Resources.Add;
-            this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsAdd.Name = "tsAdd";
-            this.tsAdd.Size = new System.Drawing.Size(23, 22);
-            this.tsAdd.Text = "Добавить";
-            this.tsAdd.Click += new System.EventHandler(this.tsAdd_Click);
-            // 
-            // tsRemove
-            // 
-            this.tsRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsRemove.Image = global::M3Ueditor.Properties.Resources.Remove;
-            this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsRemove.Name = "tsRemove";
-            this.tsRemove.Size = new System.Drawing.Size(23, 22);
-            this.tsRemove.Text = "Удалить";
-            this.tsRemove.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // splitContainer1
             // 
@@ -242,6 +198,28 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(301, 507);
             this.panel.TabIndex = 0;
+            // 
+            // btnChangeCancel
+            // 
+            this.btnChangeCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnChangeCancel.Location = new System.Drawing.Point(214, 274);
+            this.btnChangeCancel.Name = "btnChangeCancel";
+            this.btnChangeCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnChangeCancel.TabIndex = 3;
+            this.btnChangeCancel.Text = "Отмена";
+            this.btnChangeCancel.UseVisualStyleBackColor = true;
+            this.btnChangeCancel.Click += new System.EventHandler(this.btnChangeCancel_Click);
+            // 
+            // btnChangeApprove
+            // 
+            this.btnChangeApprove.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnChangeApprove.Location = new System.Drawing.Point(18, 274);
+            this.btnChangeApprove.Name = "btnChangeApprove";
+            this.btnChangeApprove.Size = new System.Drawing.Size(75, 23);
+            this.btnChangeApprove.TabIndex = 3;
+            this.btnChangeApprove.Text = "Применить";
+            this.btnChangeApprove.UseVisualStyleBackColor = true;
+            this.btnChangeApprove.Click += new System.EventHandler(this.btnChangeApprove_Click);
             // 
             // groupTitleComboBox
             // 
@@ -337,27 +315,80 @@
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
-            // btnChangeApprove
+            // ts3
             // 
-            this.btnChangeApprove.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnChangeApprove.Location = new System.Drawing.Point(18, 274);
-            this.btnChangeApprove.Name = "btnChangeApprove";
-            this.btnChangeApprove.Size = new System.Drawing.Size(75, 23);
-            this.btnChangeApprove.TabIndex = 3;
-            this.btnChangeApprove.Text = "Применить";
-            this.btnChangeApprove.UseVisualStyleBackColor = true;
-            this.btnChangeApprove.Click += new System.EventHandler(this.btnChangeApprove_Click);
+            this.ts3.Name = "ts3";
+            this.ts3.Size = new System.Drawing.Size(6, 25);
             // 
-            // btnChangeCancel
+            // tsNew
             // 
-            this.btnChangeCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnChangeCancel.Location = new System.Drawing.Point(214, 274);
-            this.btnChangeCancel.Name = "btnChangeCancel";
-            this.btnChangeCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnChangeCancel.TabIndex = 3;
-            this.btnChangeCancel.Text = "Отмена";
-            this.btnChangeCancel.UseVisualStyleBackColor = true;
-            this.btnChangeCancel.Click += new System.EventHandler(this.btnChangeCancel_Click);
+            this.tsNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsNew.Image = global::M3Ueditor.Properties.Resources.FileNew;
+            this.tsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsNew.Name = "tsNew";
+            this.tsNew.Size = new System.Drawing.Size(23, 22);
+            this.tsNew.Text = "Новый плейлист";
+            this.tsNew.Click += new System.EventHandler(this.tsNew_Click);
+            // 
+            // tsOpen
+            // 
+            this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsOpen.Image = global::M3Ueditor.Properties.Resources.FileOpen;
+            this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsOpen.Name = "tsOpen";
+            this.tsOpen.Size = new System.Drawing.Size(23, 22);
+            this.tsOpen.Text = "Открыть";
+            this.tsOpen.Click += new System.EventHandler(this.tsOpen_Click);
+            // 
+            // tsSave
+            // 
+            this.tsSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsSave.Image = global::M3Ueditor.Properties.Resources.FileSave;
+            this.tsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsSave.Name = "tsSave";
+            this.tsSave.Size = new System.Drawing.Size(23, 22);
+            this.tsSave.Text = "Сохранить";
+            this.tsSave.Click += new System.EventHandler(this.tsSave_Click);
+            // 
+            // tsAdd
+            // 
+            this.tsAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsAdd.Image = global::M3Ueditor.Properties.Resources.Add;
+            this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsAdd.Name = "tsAdd";
+            this.tsAdd.Size = new System.Drawing.Size(23, 22);
+            this.tsAdd.Text = "Добавить";
+            this.tsAdd.Click += new System.EventHandler(this.tsAdd_Click);
+            // 
+            // tsRemove
+            // 
+            this.tsRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsRemove.Image = global::M3Ueditor.Properties.Resources.Remove;
+            this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsRemove.Name = "tsRemove";
+            this.tsRemove.Size = new System.Drawing.Size(23, 22);
+            this.tsRemove.Text = "Удалить";
+            this.tsRemove.Click += new System.EventHandler(this.tsRemove_Click);
+            // 
+            // tsUp
+            // 
+            this.tsUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsUp.Image = global::M3Ueditor.Properties.Resources.arrow_Up;
+            this.tsUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsUp.Name = "tsUp";
+            this.tsUp.Size = new System.Drawing.Size(23, 22);
+            this.tsUp.Text = "toolStripButton1";
+            this.tsUp.Click += new System.EventHandler(this.tsUp_Click);
+            // 
+            // tsDown
+            // 
+            this.tsDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsDown.Image = global::M3Ueditor.Properties.Resources.arrow_Down;
+            this.tsDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsDown.Name = "tsDown";
+            this.tsDown.Size = new System.Drawing.Size(23, 22);
+            this.tsDown.Text = "toolStripButton2";
+            this.tsDown.Click += new System.EventHandler(this.tsDown_Click);
             // 
             // Main
             // 
@@ -371,6 +402,7 @@
             this.MainMenuStrip = this.menu;
             this.Name = "Main";
             this.Text = "M3U editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.toolS.ResumeLayout(false);
             this.toolS.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -418,6 +450,9 @@
         private System.Windows.Forms.ComboBox groupTitleComboBox;
         private System.Windows.Forms.Button btnChangeCancel;
         private System.Windows.Forms.Button btnChangeApprove;
+        private System.Windows.Forms.ToolStripSeparator ts3;
+        private System.Windows.Forms.ToolStripButton tsUp;
+        private System.Windows.Forms.ToolStripButton tsDown;
     }
 }
 
