@@ -14,6 +14,7 @@ namespace M3Ueditor
     public partial class Main : Form
     {
         private SortableBindingList<TVChannel> channels = new SortableBindingList<TVChannel>();
+        private bool isChange { get; set; } = false;
         List<string> groupList { get; set; }
 
         public Main()
@@ -36,7 +37,7 @@ namespace M3Ueditor
                 groupTitleComboBox.Items.AddRange(groupList.ToArray());
 
                 tree.Nodes.Clear();
-               // tree.Nodes.Add("Все");
+                // tree.Nodes.Add("Все");
 
                 TreeNode root = new TreeNode("Все");
                 tree.Nodes.Add(root);
@@ -50,11 +51,17 @@ namespace M3Ueditor
                         // tree.Nodes.Add(groupList[i]);
                     }
                     tree.ExpandAll();
-                }    
+                }
             }
         }
 
-        
+        void Changed()
+        {
+            isChange = true;
+            UpdategroupList();
+        }
+
+
         private void tsNew_Click(object sender, EventArgs e)
         {
             channels.Clear();
@@ -75,10 +82,11 @@ namespace M3Ueditor
 
             dgvTV.DataSource = channels;
         }
-
+        
 
         private void tsOpen_Click(object sender, EventArgs e)
         {
+            CheckChanged(sender, e);
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
             fileDialog.Title = "Открыть плейлист";
@@ -106,6 +114,18 @@ namespace M3Ueditor
             }
         }
 
+        private void CheckChanged(object sender, EventArgs e)
+        {
+            if (isChange)
+            {
+                DialogResult dialog = MessageBox.Show("Файл изменен. Выполнить сохранение?!", "Предупреждение", MessageBoxButtons.OKCancel);
+                if (dialog == DialogResult.OK)
+                {
+                    tsSave_Click(sender, e);
+                    //return;
+                }
+            }
+        }
 
         private void tsSave_Click(object sender, EventArgs e)
         {
@@ -129,6 +149,7 @@ namespace M3Ueditor
                 }
                 file.Close();
             }
+            isChange = false;
         }
 
 
@@ -206,8 +227,6 @@ namespace M3Ueditor
 
         private void tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            //TableRefresh(e.Node.FullPath, true);
-            
             if (e.Node == tree.TopNode)
             {
                 TableRefresh(e.Node.Text, false);
@@ -220,7 +239,6 @@ namespace M3Ueditor
 
         void TableRefresh(string node = "", bool refresh = false)
         {
-            // if (refresh && node!="Все")
             if (refresh)
             {
                 //IEnumerable<TVChannel> sel = channels.Where(m => m.groupTitle == node);
@@ -277,6 +295,7 @@ namespace M3Ueditor
 
             dgvTV.Rows[channels.Count - 1].Selected = true;
             dgvTV.FirstDisplayedScrollingRowIndex = channels.Count - 1;
+            Changed();
         }
 
         private void tsRemove_Click(object sender, EventArgs e)
@@ -292,6 +311,8 @@ namespace M3Ueditor
                 dgvTV.Rows[selectedRow + 1].Selected = true;
 
             channels.RemoveAt(selectedRow);
+
+            Changed();
         }
 
         private void btnChangeCancel_Click(object sender, EventArgs e)
@@ -305,8 +326,8 @@ namespace M3Ueditor
         {
             if (dgvTV.SelectedRows.Count == 0)
                 return;
- 
-                int selectedRow = dgvTV.SelectedRows[0].Index;
+
+            int selectedRow = dgvTV.SelectedRows[0].Index;
 
             channels[selectedRow].tvgName = tvgNameBox.Text;
             channels[selectedRow].tvglogo = tvglogoBox.Text;
@@ -319,6 +340,41 @@ namespace M3Ueditor
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
 
             TableRefresh();
+
+            Changed();
+        }
+
+        private void tsUp_Click(object sender, EventArgs e)
+        {
+            if (dgvTV.SelectedRows.Count == 0)
+                return;
+
+            int selectedRow = dgvTV.SelectedRows[0].Index;
+            TVChannel current = channels[selectedRow];
+            TVChannel previous = channels[selectedRow - 1];
+            channels.RemoveAt(selectedRow);
+
+            channels.Insert(selectedRow -= 1, current);
+            dgvTV.Rows[selectedRow].Selected = true;
+        }
+
+        private void tsDown_Click(object sender, EventArgs e)
+        {
+            if (dgvTV.SelectedRows.Count == 0)
+                return;
+
+            int selectedRow = dgvTV.SelectedRows[0].Index;
+            TVChannel current = channels[selectedRow];
+            TVChannel next = channels[selectedRow + 1];
+            channels.RemoveAt(selectedRow);
+
+            channels.Insert(selectedRow += 1, current);
+            dgvTV.Rows[selectedRow].Selected = true;
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CheckChanged(sender, e);
         }
     }
 }
