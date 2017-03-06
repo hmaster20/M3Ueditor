@@ -14,13 +14,35 @@ namespace M3Ueditor
     public partial class Main : Form
     {
         private SortableBindingList<TVChannel> channels = new SortableBindingList<TVChannel>();
+        List<string> groupList { get; set; }
 
         public Main()
         {
             InitializeComponent();
+
+            groupList = new List<string>();
         }
 
- 
+        void UpdategroupList()
+        {
+            if (channels.Count > 0)
+            {
+                for (int i = 0; i < channels.Count; i++)
+                {
+                    groupList.Add(channels[i].groupTitle);
+                }
+                groupList = groupList.Distinct().ToList();
+                groupTitleComboBox.Items.AddRange(groupList.ToArray());
+
+                for (int i = 0; i < groupList.Count; i++)
+                {
+                    tree.Nodes.Add(groupList[i]);
+                }
+            }
+        }
+
+
+
         private void tsNew_Click(object sender, EventArgs e)
         {
             channels.Clear();
@@ -66,6 +88,7 @@ namespace M3Ueditor
                         //ParseCSV();
                         break;
                 }
+                UpdategroupList();
             }
         }
 
@@ -161,7 +184,7 @@ namespace M3Ueditor
 
             tvgNameBox.Text = channels[selectedRow].tvgName;
             tvglogoBox.Text = channels[selectedRow].tvglogo;
-            groupTitleBox.Text = channels[selectedRow].groupTitle;
+            groupTitleComboBox.Text = channels[selectedRow].groupTitle;
             UDPbox.Text = channels[selectedRow].UDP;
             NameBox.Text = channels[selectedRow].Name;
         }
