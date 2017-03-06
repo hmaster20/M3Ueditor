@@ -43,7 +43,6 @@
             this.panel = new System.Windows.Forms.Panel();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
-            this.groupTitleBox = new System.Windows.Forms.TextBox();
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,6 +50,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tree = new System.Windows.Forms.TreeView();
+            this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -58,6 +60,10 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).BeginInit();
             this.panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // status
@@ -160,7 +166,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.dgvTV);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
@@ -184,12 +190,13 @@
             this.dgvTV.ReadOnly = true;
             this.dgvTV.RowHeadersVisible = false;
             this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTV.Size = new System.Drawing.Size(720, 507);
+            this.dgvTV.Size = new System.Drawing.Size(484, 507);
             this.dgvTV.TabIndex = 0;
             this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
             // 
             // panel
             // 
+            this.panel.Controls.Add(this.groupTitleComboBox);
             this.panel.Controls.Add(this.label2);
             this.panel.Controls.Add(this.label5);
             this.panel.Controls.Add(this.label4);
@@ -197,7 +204,6 @@
             this.panel.Controls.Add(this.label1);
             this.panel.Controls.Add(this.NameBox);
             this.panel.Controls.Add(this.UDPbox);
-            this.panel.Controls.Add(this.groupTitleBox);
             this.panel.Controls.Add(this.tvglogoBox);
             this.panel.Controls.Add(this.tvgNameBox);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -208,6 +214,8 @@
             // 
             // tvgNameBox
             // 
+            this.tvgNameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tvgNameBox.Location = new System.Drawing.Point(18, 78);
             this.tvgNameBox.Name = "tvgNameBox";
             this.tvgNameBox.Size = new System.Drawing.Size(271, 20);
@@ -215,20 +223,17 @@
             // 
             // tvglogoBox
             // 
+            this.tvglogoBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tvglogoBox.Location = new System.Drawing.Point(18, 125);
             this.tvglogoBox.Name = "tvglogoBox";
             this.tvglogoBox.Size = new System.Drawing.Size(271, 20);
             this.tvglogoBox.TabIndex = 0;
             // 
-            // groupTitleBox
-            // 
-            this.groupTitleBox.Location = new System.Drawing.Point(18, 170);
-            this.groupTitleBox.Name = "groupTitleBox";
-            this.groupTitleBox.Size = new System.Drawing.Size(271, 20);
-            this.groupTitleBox.TabIndex = 0;
-            // 
             // UDPbox
             // 
+            this.UDPbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.UDPbox.Location = new System.Drawing.Point(18, 216);
             this.UDPbox.Name = "UDPbox";
             this.UDPbox.Size = new System.Drawing.Size(271, 20);
@@ -236,7 +241,9 @@
             // 
             // NameBox
             // 
-            this.NameBox.Location = new System.Drawing.Point(18, 261);
+            this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameBox.Location = new System.Drawing.Point(18, 31);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(271, 20);
             this.NameBox.TabIndex = 0;
@@ -273,18 +280,51 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 200);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 1;
-            this.label4.Text = "UDP";
+            this.label4.Text = "UDP/IP";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 245);
+            this.label5.Location = new System.Drawing.Point(15, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(133, 13);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Name";
+            this.label5.Text = "Name (Название канала)";
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tree);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.dgvTV);
+            this.splitContainer2.Size = new System.Drawing.Size(720, 507);
+            this.splitContainer2.SplitterDistance = 232;
+            this.splitContainer2.TabIndex = 1;
+            // 
+            // tree
+            // 
+            this.tree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tree.Location = new System.Drawing.Point(0, 0);
+            this.tree.Name = "tree";
+            this.tree.Size = new System.Drawing.Size(232, 507);
+            this.tree.TabIndex = 0;
+            // 
+            // groupTitleComboBox
+            // 
+            this.groupTitleComboBox.FormattingEnabled = true;
+            this.groupTitleComboBox.Location = new System.Drawing.Point(18, 170);
+            this.groupTitleComboBox.Name = "groupTitleComboBox";
+            this.groupTitleComboBox.Size = new System.Drawing.Size(271, 21);
+            this.groupTitleComboBox.TabIndex = 2;
             // 
             // Main
             // 
@@ -307,6 +347,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).EndInit();
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,13 +374,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.TextBox UDPbox;
-        private System.Windows.Forms.TextBox groupTitleBox;
         private System.Windows.Forms.TextBox tvglogoBox;
         private System.Windows.Forms.TextBox tvgNameBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TreeView tree;
+        private System.Windows.Forms.ComboBox groupTitleComboBox;
     }
 }
 
