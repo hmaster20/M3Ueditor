@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("Редактор M3U")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Редактор M3U - это специализированная программа для редактирования списка каналов IPTV в формате соместимом с прошивкой DNK для ТВ-приставок MAG-250 и IPTV RT-STB-HD. Программа  распространяется бесплатно по принципу «As is» («Как есть») без каких либо гарантий на бесперебойную работу и отсутствие ошибок. Пожелания, предложения и информацию об ошибках можно направлять по адресу: support@it-enginer.ru")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("M3Ueditor")]
-[assembly: AssemblyCopyright("Copyright (C) 2016-2017 Бирюков Сергей")]
+[assembly: AssemblyCopyright("Copyright (C) 2017 Бирюков Сергей")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
