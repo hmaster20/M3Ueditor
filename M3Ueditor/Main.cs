@@ -22,10 +22,26 @@ namespace M3Ueditor
             InitializeComponent();
 
             groupList = new List<string>();
+
+            ButtonStateChange();
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e) => CheckChanged();
 
+        void ButtonStateChange(bool state = false)
+        {
+            tsAdd.Enabled = state;
+            tsRemove.Enabled = state;
+            tsUp.Enabled = state;
+            tsDown.Enabled = state;
+            tsSave.Enabled = state;
+            //  panelEdit.Enabled = state;
+            //  panelEdit.Visible = state;
+            //  splitContainer2.Panel1Collapsed = true;
+            //splitContainer2.Panel2Collapsed = true;
+            //splitContainer.Panel1Collapsed = true; // видна только panelEdit
+            splitContainer.Panel2Collapsed = !state;// видна только tree & dgv
+        }
 
         #region Menu
         private void tsNew_Click(object sender, EventArgs e) => newListTV();
@@ -60,6 +76,9 @@ namespace M3Ueditor
                         ));
 
             dgvTV.DataSource = channels;
+
+            // UpdategroupListAndTree();
+            ButtonStateChange(true);
         }
 
         private void OpenListTV()
@@ -88,8 +107,10 @@ namespace M3Ueditor
                         break;
                 }
                 TableRefresh();
-                UpdategroupList();
+                UpdategroupListAndTree();
             }
+
+            ButtonStateChange(true);
         }
 
         private void SaveListTv()
@@ -117,7 +138,7 @@ namespace M3Ueditor
             isChange = false;
         }
 
-        void UpdategroupList()
+        void UpdategroupListAndTree()
         {
             if (channels.Count > 0)
             {
@@ -127,6 +148,8 @@ namespace M3Ueditor
                     groupList.Add(channels[i].groupTitle);
                 }
                 groupList = groupList.Distinct().ToList();
+
+                groupTitleComboBox.Items.Clear();
                 groupTitleComboBox.Items.AddRange(groupList.ToArray());
 
                 tree.Nodes.Clear();
@@ -151,7 +174,7 @@ namespace M3Ueditor
         void Changed()
         {
             isChange = true;
-            UpdategroupList();
+            UpdategroupListAndTree();
         }
 
         private void CheckChanged()
@@ -220,7 +243,7 @@ namespace M3Ueditor
             }
             else
             {
-                splitContainer1.Panel2Collapsed = false;
+                splitContainer.Panel2Collapsed = false;
             }
         }
 
@@ -264,30 +287,42 @@ namespace M3Ueditor
 
         private void Up()
         {
-            if (dgvTV.SelectedRows.Count == 0)
-                return;
+            if (dgvTV.RowCount > 1 && dgvTV.SelectedRows.Count != 0)
+            {
+                int selectedRow = dgvTV.SelectedRows[0].Index;
+                if (selectedRow == 0)
+                {
+                    return;
+                }
 
-            int selectedRow = dgvTV.SelectedRows[0].Index;
-            TVChannel current = channels[selectedRow];
-            TVChannel previous = channels[selectedRow - 1];
-            channels.RemoveAt(selectedRow);
+                TVChannel current = channels[selectedRow];
+                TVChannel previous = channels[selectedRow - 1];
+                channels.RemoveAt(selectedRow);
 
-            channels.Insert(selectedRow -= 1, current);
-            dgvTV.Rows[selectedRow].Selected = true;
+                channels.Insert(selectedRow -= 1, current);
+                dgvTV.Rows[selectedRow].Selected = true;
+            }
         }
 
         private void Down()
         {
-            if (dgvTV.SelectedRows.Count == 0)
-                return;
+            if (dgvTV.RowCount > 1 && dgvTV.SelectedRows.Count != 0)
+            {
+                int selectedRow = dgvTV.SelectedRows[0].Index;
 
-            int selectedRow = dgvTV.SelectedRows[0].Index;
-            TVChannel current = channels[selectedRow];
-            TVChannel next = channels[selectedRow + 1];
-            channels.RemoveAt(selectedRow);
+                if (selectedRow == dgvTV.RowCount - 1)
+                {
+                    return;
+                }
 
-            channels.Insert(selectedRow += 1, current);
-            dgvTV.Rows[selectedRow].Selected = true;
+                TVChannel current = channels[selectedRow];
+                TVChannel next = channels[selectedRow + 1];
+
+                channels.RemoveAt(selectedRow);
+
+                channels.Insert(selectedRow += 1, current);
+                dgvTV.Rows[selectedRow].Selected = true;
+            }
         }
 
         #endregion
@@ -437,13 +472,24 @@ namespace M3Ueditor
             if (dgvTV.SelectedRows.Count == 0)
                 return;
 
-            int selectedRow = dgvTV.SelectedRows[0].Index;
+            TVChannel tvc = GetSelected();
+            if (tvc != null)
+            {
+                tvc.tvgName = tvgNameBox.Text;
+                tvc.tvglogo = tvglogoBox.Text;
+                tvc.groupTitle = groupTitleComboBox.Text;
+                tvc.UDP = UDPbox.Text;
+                tvc.Name = NameBox.Text;
+            }
 
-            channels[selectedRow].tvgName = tvgNameBox.Text;
-            channels[selectedRow].tvglogo = tvglogoBox.Text;
-            channels[selectedRow].groupTitle = groupTitleComboBox.Text;
-            channels[selectedRow].UDP = UDPbox.Text;
-            channels[selectedRow].Name = NameBox.Text;
+
+            //int selectedRow = dgvTV.SelectedRows[0].Index;
+
+            //channels[selectedRow].tvgName = tvgNameBox.Text;
+            //channels[selectedRow].tvglogo = tvglogoBox.Text;
+            //channels[selectedRow].groupTitle = groupTitleComboBox.Text;
+            //channels[selectedRow].UDP = UDPbox.Text;
+            //channels[selectedRow].Name = NameBox.Text;
 
             tree.Enabled = true;      // Разблокировка дерева
             dgvTV.Enabled = true;     // Разблокировка таблицы
