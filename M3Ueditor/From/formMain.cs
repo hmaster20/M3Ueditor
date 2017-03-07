@@ -511,5 +511,10 @@ namespace M3Ueditor
 
         #endregion
 
+        private void tsmAbout_Click(object sender, EventArgs e)
+        {
+            formAbout about = new formAbout();
+            about.ShowDialog();
+        }
     }
 }
