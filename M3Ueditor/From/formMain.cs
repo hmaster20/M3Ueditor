@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -511,10 +512,20 @@ namespace M3Ueditor
 
         #endregion
 
+
         private void tsmAbout_Click(object sender, EventArgs e)
         {
             formAbout about = new formAbout();
             about.ShowDialog();
+        }
+
+        private void tsmHistory_Click(object sender, EventArgs e)
+        {
+            string ChangeLog = "ChangeLog.txt";
+            if (File.Exists(ChangeLog))
+            {
+                Process.Start(ChangeLog);
+            }
         }
     }
 }
