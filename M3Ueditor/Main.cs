@@ -297,6 +297,7 @@ namespace M3Ueditor
         #region Таблица
         void TableRefresh(string node = "", bool refresh = false)
         {
+            TVChannel tvc = GetSelected();
             if (refresh)
             {
                 //IEnumerable<TVChannel> sel = channels.Where(m => m.groupTitle == node);
@@ -307,6 +308,7 @@ namespace M3Ueditor
             {
                 dgvTV.DataSource = channels;
             }
+            if (tvc != null) Selected(dgvTV, tvc);
         }
 
         private void dgvTV_SelectionChanged(object sender, EventArgs e)
@@ -340,6 +342,108 @@ namespace M3Ueditor
             }
         }
 
+        private void dgvTV_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
+        {
+            TableDragDrop(e);
+        }
+        private void TableDragDrop(DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                DataGridView dgv = dgvTV;
+                if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                    if (dgv.SelectedRows[0].Index == e.RowIndex) dgv.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+            }
+        }
+
+        private void tree_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop
+        {
+            Point pt = tree.PointToClient(new Point(e.X, e.Y));
+            TreeNode destinationNode = tree.GetNodeAt(pt);
+            TreeNode dragedNode = new TreeNode();
+
+            TVChannel tvc = GetSelected();
+            if (tvc != null)
+            {
+                try
+                {
+                    if (destinationNode != tree.TopNode)
+                    {
+                        tvc.groupTitle = destinationNode.Text;
+                        TableRefresh();
+                    }
+
+                    //if (destinationNode == tree.TopNode)
+                    //{
+                    //    MessageBox.Show("Top");
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show(destinationNode.Text);
+                    //}
+
+
+                    //if (destinationNode.Level == 0 && destinationNode.Index == 0)
+                    //{ //если условие верно, то это главный узел
+                    //  //MessageBox.Show(destinationNode.FullPath);
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show(tvc.Name + " = " + destinationNode.Text);
+                    //    string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
+
+                    //    if (File.Exists(Path.Combine(record.Path, record.FileName)))
+                    //        if (Directory.Exists(dirPath))
+                    //            File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
+
+                    //    record.DirName = destinationNode.Text;
+                    //    record.Path = dirPath;
+
+                    //    _videoCollection.Save();
+                    //    PrepareRefresh();
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void tree_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private TVChannel GetSelected()
+        {
+            DataGridView dgv = dgvTV;
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                TVChannel tvc = null;
+                if (dgv.SelectedRows[0].DataBoundItem is TVChannel) tvc = dgv.SelectedRows[0].DataBoundItem as TVChannel;
+                if (tvc != null) return tvc;
+
+                //List<string> nnn = new List<string>();
+
+                //foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
+                //    if (item != null && item.Value != null)
+                //        nnn.Add(item.Value.ToString());
+            }
+            return null;
+        }
+
+        private void Selected(DataGridView dgv, TVChannel tvc)
+        {
+            dgv.ClearSelection();
+            foreach (DataGridViewRow row in dgv.Rows)
+                if ((row.DataBoundItem as TVChannel).Name == tvc.Name)
+                {
+                    row.Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = row.Index;
+                    break;
+                }
+        }
         #endregion
 
 
@@ -400,5 +504,10 @@ namespace M3Ueditor
 
 
         #endregion
+
+
+
+
+
     }
 }
