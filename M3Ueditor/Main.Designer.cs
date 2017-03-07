@@ -41,11 +41,11 @@
             this.ts3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsUp = new System.Windows.Forms.ToolStripButton();
             this.tsDown = new System.Windows.Forms.ToolStripButton();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tree = new System.Windows.Forms.TreeView();
             this.dgvTV = new System.Windows.Forms.DataGridView();
-            this.panel = new System.Windows.Forms.Panel();
+            this.panelEdit = new System.Windows.Forms.Panel();
             this.btnChangeCancel = new System.Windows.Forms.Button();
             this.btnChangeApprove = new System.Windows.Forms.Button();
             this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
@@ -59,16 +59,16 @@
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.toolS.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).BeginInit();
-            this.panel.SuspendLayout();
+            this.panelEdit.SuspendLayout();
             this.SuspendLayout();
             // 
             // status
@@ -178,7 +178,7 @@
             this.tsUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsUp.Name = "tsUp";
             this.tsUp.Size = new System.Drawing.Size(23, 22);
-            this.tsUp.Text = "toolStripButton1";
+            this.tsUp.Text = "Сдвинуть строку выше";
             this.tsUp.Click += new System.EventHandler(this.tsUp_Click);
             // 
             // tsDown
@@ -188,25 +188,25 @@
             this.tsDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsDown.Name = "tsDown";
             this.tsDown.Size = new System.Drawing.Size(23, 22);
-            this.tsDown.Text = "toolStripButton2";
+            this.tsDown.Text = "Сдвинуть строку ниже";
             this.tsDown.Click += new System.EventHandler(this.tsDown_Click);
             // 
-            // splitContainer1
+            // splitContainer
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 49);
+            this.splitContainer.Name = "splitContainer";
             // 
-            // splitContainer1.Panel1
+            // splitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.splitContainer.Panel1.Controls.Add(this.splitContainer2);
             // 
-            // splitContainer1.Panel2
+            // splitContainer.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel);
-            this.splitContainer1.Size = new System.Drawing.Size(1025, 507);
-            this.splitContainer1.SplitterDistance = 720;
-            this.splitContainer1.TabIndex = 3;
+            this.splitContainer.Panel2.Controls.Add(this.panelEdit);
+            this.splitContainer.Size = new System.Drawing.Size(1025, 507);
+            this.splitContainer.SplitterDistance = 720;
+            this.splitContainer.TabIndex = 3;
             // 
             // splitContainer2
             // 
@@ -258,25 +258,25 @@
             this.dgvTV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseDown);
             this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
             // 
-            // panel
+            // panelEdit
             // 
-            this.panel.Controls.Add(this.btnChangeCancel);
-            this.panel.Controls.Add(this.btnChangeApprove);
-            this.panel.Controls.Add(this.groupTitleComboBox);
-            this.panel.Controls.Add(this.label2);
-            this.panel.Controls.Add(this.label5);
-            this.panel.Controls.Add(this.label4);
-            this.panel.Controls.Add(this.label3);
-            this.panel.Controls.Add(this.label1);
-            this.panel.Controls.Add(this.NameBox);
-            this.panel.Controls.Add(this.UDPbox);
-            this.panel.Controls.Add(this.tvglogoBox);
-            this.panel.Controls.Add(this.tvgNameBox);
-            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(301, 507);
-            this.panel.TabIndex = 0;
+            this.panelEdit.Controls.Add(this.btnChangeCancel);
+            this.panelEdit.Controls.Add(this.btnChangeApprove);
+            this.panelEdit.Controls.Add(this.groupTitleComboBox);
+            this.panelEdit.Controls.Add(this.label2);
+            this.panelEdit.Controls.Add(this.label5);
+            this.panelEdit.Controls.Add(this.label4);
+            this.panelEdit.Controls.Add(this.label3);
+            this.panelEdit.Controls.Add(this.label1);
+            this.panelEdit.Controls.Add(this.NameBox);
+            this.panelEdit.Controls.Add(this.UDPbox);
+            this.panelEdit.Controls.Add(this.tvglogoBox);
+            this.panelEdit.Controls.Add(this.tvgNameBox);
+            this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelEdit.Location = new System.Drawing.Point(0, 0);
+            this.panelEdit.Name = "panelEdit";
+            this.panelEdit.Size = new System.Drawing.Size(301, 507);
+            this.panelEdit.TabIndex = 0;
             // 
             // btnChangeCancel
             // 
@@ -399,7 +399,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 578);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.toolS);
             this.Controls.Add(this.status);
             this.Controls.Add(this.menu);
@@ -409,17 +409,17 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.toolS.ResumeLayout(false);
             this.toolS.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).EndInit();
-            this.panel.ResumeLayout(false);
-            this.panel.PerformLayout();
+            this.panelEdit.ResumeLayout(false);
+            this.panelEdit.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -434,12 +434,12 @@
         private System.Windows.Forms.ToolStripSeparator ts1;
         private System.Windows.Forms.ToolStripButton tsOpen;
         private System.Windows.Forms.ToolStripButton tsSave;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.DataGridView dgvTV;
         private System.Windows.Forms.ToolStripSeparator ts2;
         private System.Windows.Forms.ToolStripButton tsAdd;
         private System.Windows.Forms.ToolStripButton tsRemove;
-        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Panel panelEdit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.TextBox UDPbox;
