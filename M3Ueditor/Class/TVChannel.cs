@@ -15,19 +15,47 @@ namespace M3Ueditor
     {
         public TVChannel(string _tvgName, string _tvglogo, string _groupTitle, string _udp, string _Name)
         {
-            tvgName = _tvgName;
-            tvglogo = _tvglogo;
-            groupTitle = _groupTitle;
+            TvgName = _tvgName;
+            Tvglogo = _tvglogo;
+            GroupTitle = _groupTitle;
             UDP = _udp;
             Name = _Name;
         }
 
-        public string tvgName { get; set; }
-        public string tvglogo { get; set; }
-        public string groupTitle { get; set; }
-        public string UDP { get; set; }
-        public string Name { get; set; }
+        private string tvgName;
+        public string TvgName
+        {
+            get { return tvgName; }
+            set { tvgName = (value != "") ? value : "N/A"; }
+        }
 
+        private string tvglogo;
+        public string Tvglogo
+        {
+            get { return tvglogo; }
+            set { tvglogo = (value != "") ? value : "N/A"; }
+        }
+
+        private string groupTitle;
+        public string GroupTitle
+        {
+            get { return groupTitle; }
+            set { groupTitle = (value != "") ? value : "N/A"; }
+        }
+
+        private string uDP;
+        public string UDP
+        {
+            get { return uDP; }
+            set { uDP = (value != "") ? value : "N/A"; }
+        }
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set { name = (value != "") ? value : "N/A"; }
+        }
 
         public bool Equals(TVChannel tvc)
         {
