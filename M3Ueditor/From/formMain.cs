@@ -249,6 +249,7 @@ namespace M3Ueditor
                     tree.ExpandAll();
                 }
                 ButtonStateChange(true);
+                tssLabel.Text = "Загружено " + channels.Count + " записей";
             }
             else
             {
@@ -256,6 +257,7 @@ namespace M3Ueditor
                 tree.Nodes.Clear();
                 dgvTV.DataSource = null;
                 ButtonStateChange(false);
+                tssLabel.Text = "";
             }
         }
 

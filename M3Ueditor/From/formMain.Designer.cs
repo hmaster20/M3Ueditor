@@ -35,7 +35,9 @@
             this.tss1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMerge = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.tss3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,8 +72,8 @@
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
-            this.tsmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.tss2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -88,6 +90,8 @@
             // 
             // status
             // 
+            this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssLabel});
             this.status.Location = new System.Drawing.Point(0, 556);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(1025, 22);
@@ -147,12 +151,24 @@
             this.tsmMerge.Text = "Объединить...";
             this.tsmMerge.Click += new System.EventHandler(this.tsmMerge_Click);
             // 
+            // tss2
+            // 
+            this.tss2.Name = "tss2";
+            this.tss2.Size = new System.Drawing.Size(159, 6);
+            // 
             // tsmSave
             // 
             this.tsmSave.Name = "tsmSave";
             this.tsmSave.Size = new System.Drawing.Size(162, 22);
             this.tsmSave.Text = "Сохранить";
             this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
+            // 
+            // tsmSaveAs
+            // 
+            this.tsmSaveAs.Name = "tsmSaveAs";
+            this.tsmSaveAs.Size = new System.Drawing.Size(162, 22);
+            this.tsmSaveAs.Text = "Сохранить как...";
+            this.tsmSaveAs.Click += new System.EventHandler(this.tsmSaveAs_Click);
             // 
             // tss3
             // 
@@ -505,17 +521,10 @@
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
-            // tsmSaveAs
+            // tssLabel
             // 
-            this.tsmSaveAs.Name = "tsmSaveAs";
-            this.tsmSaveAs.Size = new System.Drawing.Size(162, 22);
-            this.tsmSaveAs.Text = "Сохранить как...";
-            this.tsmSaveAs.Click += new System.EventHandler(this.tsmSaveAs_Click);
-            // 
-            // tss2
-            // 
-            this.tss2.Name = "tss2";
-            this.tss2.Size = new System.Drawing.Size(159, 6);
+            this.tssLabel.Name = "tssLabel";
+            this.tssLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // Main
             // 
@@ -530,6 +539,8 @@
             this.Name = "Main";
             this.Text = "M3U editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
+            this.status.ResumeLayout(false);
+            this.status.PerformLayout();
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.toolS.ResumeLayout(false);
@@ -596,6 +607,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmMerge;
         private System.Windows.Forms.ToolStripMenuItem tsmSaveAs;
         private System.Windows.Forms.ToolStripSeparator tss2;
+        private System.Windows.Forms.ToolStripStatusLabel tssLabel;
     }
 }
 
