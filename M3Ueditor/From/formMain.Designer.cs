@@ -36,11 +36,11 @@
             this.tsmOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMerge = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.tss2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tss3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHistory = new System.Windows.Forms.ToolStripMenuItem();
-            this.tss3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tss4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolS = new System.Windows.Forms.ToolStrip();
             this.tsNew = new System.Windows.Forms.ToolStripButton();
@@ -71,6 +71,7 @@
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.tsmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -111,9 +112,10 @@
             this.tss1,
             this.tsmOpen,
             this.tsmMerge,
+            this.tss2,
             this.tsmSave,
             this.tsmSaveAs,
-            this.tss2,
+            this.tss3,
             this.tsmExit});
             this.tsmFile.Name = "tsmFile";
             this.tsmFile.Size = new System.Drawing.Size(48, 20);
@@ -124,6 +126,7 @@
             this.tsmNew.Name = "tsmNew";
             this.tsmNew.Size = new System.Drawing.Size(162, 22);
             this.tsmNew.Text = "Новый";
+            this.tsmNew.Click += new System.EventHandler(this.tsmNew_Click);
             // 
             // tss1
             // 
@@ -135,6 +138,7 @@
             this.tsmOpen.Name = "tsmOpen";
             this.tsmOpen.Size = new System.Drawing.Size(162, 22);
             this.tsmOpen.Text = "Открыть";
+            this.tsmOpen.Click += new System.EventHandler(this.tsmOpen_Click);
             // 
             // tsmMerge
             // 
@@ -150,22 +154,23 @@
             this.tsmSave.Text = "Сохранить";
             this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
             // 
-            // tss2
+            // tss3
             // 
-            this.tss2.Name = "tss2";
-            this.tss2.Size = new System.Drawing.Size(159, 6);
+            this.tss3.Name = "tss3";
+            this.tss3.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmExit
             // 
             this.tsmExit.Name = "tsmExit";
             this.tsmExit.Size = new System.Drawing.Size(162, 22);
             this.tsmExit.Text = "Выход";
+            this.tsmExit.Click += new System.EventHandler(this.tsmExit_Click);
             // 
             // tsmHelp
             // 
             this.tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmHistory,
-            this.tss3,
+            this.tss4,
             this.tsmAbout});
             this.tsmHelp.Name = "tsmHelp";
             this.tsmHelp.Size = new System.Drawing.Size(65, 20);
@@ -178,10 +183,10 @@
             this.tsmHistory.Text = "История изменений";
             this.tsmHistory.Click += new System.EventHandler(this.tsmHistory_Click);
             // 
-            // tss3
+            // tss4
             // 
-            this.tss3.Name = "tss3";
-            this.tss3.Size = new System.Drawing.Size(182, 6);
+            this.tss4.Name = "tss4";
+            this.tss4.Size = new System.Drawing.Size(182, 6);
             // 
             // tsmAbout
             // 
@@ -507,6 +512,11 @@
             this.tsmSaveAs.Text = "Сохранить как...";
             this.tsmSaveAs.Click += new System.EventHandler(this.tsmSaveAs_Click);
             // 
+            // tss2
+            // 
+            this.tss2.Name = "tss2";
+            this.tss2.Size = new System.Drawing.Size(159, 6);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -577,14 +587,15 @@
         private System.Windows.Forms.ToolStripSeparator tss1;
         private System.Windows.Forms.ToolStripMenuItem tsmOpen;
         private System.Windows.Forms.ToolStripMenuItem tsmSave;
-        private System.Windows.Forms.ToolStripSeparator tss2;
+        private System.Windows.Forms.ToolStripSeparator tss3;
         private System.Windows.Forms.ToolStripMenuItem tsmExit;
         private System.Windows.Forms.ToolStripMenuItem tsmHelp;
         private System.Windows.Forms.ToolStripMenuItem tsmAbout;
         private System.Windows.Forms.ToolStripMenuItem tsmHistory;
-        private System.Windows.Forms.ToolStripSeparator tss3;
+        private System.Windows.Forms.ToolStripSeparator tss4;
         private System.Windows.Forms.ToolStripMenuItem tsmMerge;
         private System.Windows.Forms.ToolStripMenuItem tsmSaveAs;
+        private System.Windows.Forms.ToolStripSeparator tss2;
     }
 }
 
