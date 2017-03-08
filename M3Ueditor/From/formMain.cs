@@ -47,9 +47,13 @@ namespace M3Ueditor
 
 
         #region  Main Menu
+
+        private void tsmNew_Click(object sender, EventArgs e) => newListTV();
+        private void tsmOpen_Click(object sender, EventArgs e) => OpenListTV();
         private void tsmMerge_Click(object sender, EventArgs e) => MergeListTV();
         private void tsmSave_Click(object sender, EventArgs e) => SaveListTv();
         private void tsmSaveAs_Click(object sender, EventArgs e) => SaveListTvAs();
+        private void tsmExit_Click(object sender, EventArgs e) => Close();
         private void tsmHistory_Click(object sender, EventArgs e) => History();
         private void tsmAbout_Click(object sender, EventArgs e) => About();
 
@@ -112,28 +116,46 @@ namespace M3Ueditor
             }
         }
 
-
-        void MergeListTV()
+        private void MergeListTV()
         {
-            CheckChanged();
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u";
-            fileDialog.Title = "Открыть плейлист";
-            fileDialog.RestoreDirectory = true;
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (channelsCorrect())
             {
-                string file = fileDialog.FileName;
+                CheckChanged();
+                OpenFileDialog fileDialog = new OpenFileDialog();
+                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
+                fileDialog.Title = "Открыть плейлист";
+                fileDialog.RestoreDirectory = true;
 
-                StreamReader playlist = new StreamReader(file);
-                channels.Clear();
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = new FileInfo(fileDialog.FileName);
+                    StreamReader playlist = new StreamReader(fileName.FullName);
 
-                ParseM3U(playlist);
+                    SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);
 
-
-                TableRefresh();
-                UpdategroupListAndTree();
+                    foreach (TVChannel tvc in channelsForMerge)
+                    {
+                        if (!TVchannelExist(tvc))
+                        {
+                            channels.Add(tvc);
+                        }
+                    }
+                    TableRefresh();
+                    UpdategroupListAndTree();
+                }
             }
+        }
+
+        private bool TVchannelExist(TVChannel tvc)
+        {
+            foreach (TVChannel _tvc in channels)    // проверка наличия канала в листе
+            {
+                if (_tvc.Equals(tvc))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -181,13 +203,22 @@ namespace M3Ueditor
         }
 
 
-        private void UpdategroupListAndTree()
+        private bool channelsCorrect()
         {
             if (channels != null && channels.Count > 0)
             {
-                //}
-                //if (channels.Count > 0)
-                //{
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void UpdategroupListAndTree()
+        {
+            if (channelsCorrect())
+            {
                 groupList.Clear();
                 for (int i = 0; i < channels.Count; i++)
                 {
@@ -199,18 +230,14 @@ namespace M3Ueditor
                 groupTitleComboBox.Items.AddRange(groupList.ToArray());
 
                 tree.Nodes.Clear();
-                // tree.Nodes.Add("Все");
-
                 TreeNode root = new TreeNode("Все");
                 tree.Nodes.Add(root);
-                //root.Nodes.Add(tn);
 
                 if (!(groupList.Count == 1 && groupList[0] == ""))
                 {
                     for (int i = 0; i < groupList.Count; i++)
                     {
                         root.Nodes.Add(groupList[i]);
-                        // tree.Nodes.Add(groupList[i]);
                     }
                     tree.ExpandAll();
                 }
@@ -250,7 +277,7 @@ namespace M3Ueditor
             tsUp.Enabled = state;
             tsDown.Enabled = state;
             tsSave.Enabled = state;
-            splitContainer.Panel2Collapsed = !state;// видна только tree & dgv
+            splitContainer.Panel2Collapsed = !state;    // видна только tree & dgv
         }
 
         public SortableBindingList<TVChannel> ParseM3U(StreamReader playlist)
@@ -307,13 +334,6 @@ namespace M3Ueditor
                 MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 fileName = null;
             }
-
-            //else
-            //{
-            //   // splitContainer.Panel2Collapsed = false;
-            //    ButtonStateChange();
-            //}
-
             return ListTV;
         }
 
@@ -430,7 +450,6 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (refresh)
             {
-                //IEnumerable<TVChannel> sel = channels.Where(m => m.groupTitle == node);
                 SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.groupTitle == node).ToList());
                 dgvTV.DataSource = filteredList;
             }
@@ -605,9 +624,6 @@ namespace M3Ueditor
 
 
         #endregion
-
-
-
 
     }
 }
