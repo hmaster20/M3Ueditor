@@ -72,7 +72,8 @@
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
-            this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
@@ -91,7 +92,8 @@
             // status
             // 
             this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssLabel});
+            this.tssLabel1,
+            this.tssLabel2});
             this.status.Location = new System.Drawing.Point(0, 556);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(1025, 22);
@@ -521,10 +523,15 @@
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
-            // tssLabel
+            // tssLabel1
             // 
-            this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(0, 17);
+            this.tssLabel1.Name = "tssLabel1";
+            this.tssLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tssLabel2
+            // 
+            this.tssLabel2.Name = "tssLabel2";
+            this.tssLabel2.Size = new System.Drawing.Size(0, 17);
             // 
             // Main
             // 
@@ -607,7 +614,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmMerge;
         private System.Windows.Forms.ToolStripMenuItem tsmSaveAs;
         private System.Windows.Forms.ToolStripSeparator tss2;
-        private System.Windows.Forms.ToolStripStatusLabel tssLabel;
+        private System.Windows.Forms.ToolStripStatusLabel tssLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel tssLabel2;
     }
 }
 
