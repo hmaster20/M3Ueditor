@@ -101,6 +101,8 @@
     <Content Include="Resources\FileNew.png" />
     <Content Include="Resources\FileOpen.png" />
     <Content Include="Resources\FileSave.png" />
+    <Content Include="Resources\m3u_icon.ico" />
+    <Content Include="Resources\m3u.png" />
     <Content Include="Resources\Remove.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

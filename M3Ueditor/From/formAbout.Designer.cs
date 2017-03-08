@@ -31,9 +31,9 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.pBoxLogo = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.linkLabelHome = new System.Windows.Forms.LinkLabel();
             this.labelHome = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.lVersion = new System.Windows.Forms.Label();
             this.lName = new System.Windows.Forms.Label();
             this.lCopyright = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             // 
             // pBoxLogo
             // 
-            //this.pBoxLogo.Image = global::FilmCollection.Properties.Resources.FilmCollectionLogo;
+            this.pBoxLogo.Image = global::M3Ueditor.Properties.Resources.m3u;
             this.pBoxLogo.Location = new System.Drawing.Point(12, 9);
             this.pBoxLogo.Name = "pBoxLogo";
             this.pBoxLogo.Size = new System.Drawing.Size(107, 105);
@@ -70,6 +70,19 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информация о программе";
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Location = new System.Drawing.Point(9, 19);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.ReadOnly = true;
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxDescription.Size = new System.Drawing.Size(305, 110);
+            this.textBoxDescription.TabIndex = 24;
+            this.textBoxDescription.TabStop = false;
+            this.textBoxDescription.Text = "Описание";
             // 
             // linkLabelHome
             // 
@@ -90,19 +103,6 @@
             this.labelHome.Size = new System.Drawing.Size(115, 13);
             this.labelHome.TabIndex = 25;
             this.labelHome.Text = "Домашняя страница:";
-            // 
-            // textBoxDescription
-            // 
-            this.textBoxDescription.Location = new System.Drawing.Point(9, 19);
-            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.textBoxDescription.Multiline = true;
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDescription.Size = new System.Drawing.Size(305, 110);
-            this.textBoxDescription.TabIndex = 24;
-            this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "Описание";
             // 
             // lVersion
             // 
@@ -128,7 +128,7 @@
             this.lCopyright.TabIndex = 26;
             this.lCopyright.Text = "Автор";
             // 
-            // formAb
+            // formAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -145,7 +145,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "formAb";
+            this.Name = "formAbout";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
