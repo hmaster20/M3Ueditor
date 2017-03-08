@@ -92,7 +92,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChangeLog.txt" />
+    <Content Include="ChangeLog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Add.png" />
     <Content Include="Resources\arrow_Down.png" />
     <Content Include="Resources\arrow_Up.png" />
