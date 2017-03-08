@@ -135,6 +135,11 @@ namespace M3Ueditor
 
                     SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);
 
+
+                    //if (new FormMerge(channels, channelsForMerge).ShowDialog() == DialogResult.OK)
+                    //{
+                    //}
+
                     foreach (TVChannel tvc in channelsForMerge)
                     {
                         if (!TVchannelExist(tvc))
@@ -195,10 +200,10 @@ namespace M3Ueditor
             for (int i = 0; i < channels.Count; i++)
             {
                 file.WriteLine("#EXTINF:-1 "
-                    + "tvg-name=\"" + channels[i].tvgName + "\" "
-                    + "tvg-logo=\"" + channels[i].tvglogo + "\" "
-                    + "group-title=\"" + channels[i].groupTitle + "\""
-                    + "," + channels[i].tvgName);
+                    + "tvg-name=\"" + channels[i].TvgName + "\" "
+                    + "tvg-logo=\"" + channels[i].Tvglogo + "\" "
+                    + "group-title=\"" + channels[i].GroupTitle + "\""
+                    + "," + channels[i].TvgName);
                 file.WriteLine(channels[i].UDP);
             }
             file.Close();
@@ -224,7 +229,7 @@ namespace M3Ueditor
                 groupList.Clear();
                 for (int i = 0; i < channels.Count; i++)
                 {
-                    groupList.Add(channels[i].groupTitle);
+                    groupList.Add(channels[i].GroupTitle);
                 }
                 groupList = groupList.Distinct().ToList();
 
@@ -298,6 +303,7 @@ namespace M3Ueditor
             {
                 if (line.StartsWith("#EXTINF"))
                 {
+                    tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
                     tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
                     tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
                     groupTitle = stringOperations.Between(line, "group-title=\"", "\"");
@@ -452,7 +458,7 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (refresh)
             {
-                SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.groupTitle == node).ToList());
+                SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.GroupTitle == node).ToList());
                 dgvTV.DataSource = filteredList;
             }
             else
@@ -469,9 +475,9 @@ namespace M3Ueditor
 
             int selectedRow = dgvTV.SelectedRows[0].Index;
 
-            tvgNameBox.Text = channels[selectedRow].tvgName;
-            tvglogoBox.Text = channels[selectedRow].tvglogo;
-            groupTitleComboBox.Text = channels[selectedRow].groupTitle;
+            tvgNameBox.Text = channels[selectedRow].TvgName;
+            tvglogoBox.Text = channels[selectedRow].Tvglogo;
+            groupTitleComboBox.Text = channels[selectedRow].GroupTitle;
             UDPbox.Text = channels[selectedRow].UDP;
             NameBox.Text = channels[selectedRow].Name;
         }
@@ -520,7 +526,7 @@ namespace M3Ueditor
                 {
                     if (destinationNode != tree.TopNode)
                     {
-                        tvc.groupTitle = destinationNode.Text;
+                        tvc.GroupTitle = destinationNode.Text;
                         TableRefresh();
                     }
                 }
@@ -592,9 +598,9 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (tvc != null)
             {
-                tvc.tvgName = tvgNameBox.Text;
-                tvc.tvglogo = tvglogoBox.Text;
-                tvc.groupTitle = groupTitleComboBox.Text;
+                tvc.TvgName = tvgNameBox.Text;
+                tvc.Tvglogo = tvglogoBox.Text;
+                tvc.GroupTitle = groupTitleComboBox.Text;
                 tvc.UDP = UDPbox.Text;
                 tvc.Name = NameBox.Text;
             }
