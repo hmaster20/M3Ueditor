@@ -27,5 +27,22 @@ namespace M3Ueditor
         public string groupTitle { get; set; }
         public string UDP { get; set; }
         public string Name { get; set; }
+
+
+        public bool Equals(TVChannel tvc)
+        {
+            if (tvc is TVChannel && tvc != null)
+            {
+                if (tvc.UDP == this.UDP)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
     }
 }
