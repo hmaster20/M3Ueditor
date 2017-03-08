@@ -23,6 +23,8 @@ namespace M3Ueditor
         {
             InitializeComponent();
 
+            this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
+
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;
 
             groupList = new List<string>();
