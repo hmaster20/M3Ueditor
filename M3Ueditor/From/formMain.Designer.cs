@@ -34,10 +34,13 @@
             this.tsmNew = new System.Windows.Forms.ToolStripMenuItem();
             this.tss1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmMerge = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tss2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolS = new System.Windows.Forms.ToolStrip();
             this.tsNew = new System.Windows.Forms.ToolStripButton();
@@ -67,9 +70,7 @@
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
-            this.tsmHistory = new System.Windows.Forms.ToolStripMenuItem();
-            this.tss3 = new System.Windows.Forms.ToolStripSeparator();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -109,7 +110,9 @@
             this.tsmNew,
             this.tss1,
             this.tsmOpen,
+            this.tsmMerge,
             this.tsmSave,
+            this.tsmSaveAs,
             this.tss2,
             this.tsmExit});
             this.tsmFile.Name = "tsmFile";
@@ -119,47 +122,66 @@
             // tsmNew
             // 
             this.tsmNew.Name = "tsmNew";
-            this.tsmNew.Size = new System.Drawing.Size(152, 22);
+            this.tsmNew.Size = new System.Drawing.Size(162, 22);
             this.tsmNew.Text = "Новый";
             // 
             // tss1
             // 
             this.tss1.Name = "tss1";
-            this.tss1.Size = new System.Drawing.Size(149, 6);
+            this.tss1.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmOpen
             // 
             this.tsmOpen.Name = "tsmOpen";
-            this.tsmOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmOpen.Size = new System.Drawing.Size(162, 22);
             this.tsmOpen.Text = "Открыть";
+            // 
+            // tsmMerge
+            // 
+            this.tsmMerge.Name = "tsmMerge";
+            this.tsmMerge.Size = new System.Drawing.Size(162, 22);
+            this.tsmMerge.Text = "Объединить...";
+            this.tsmMerge.Click += new System.EventHandler(this.tsmMerge_Click);
             // 
             // tsmSave
             // 
             this.tsmSave.Name = "tsmSave";
-            this.tsmSave.Size = new System.Drawing.Size(152, 22);
+            this.tsmSave.Size = new System.Drawing.Size(162, 22);
             this.tsmSave.Text = "Сохранить";
+            this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
             // 
             // tss2
             // 
             this.tss2.Name = "tss2";
-            this.tss2.Size = new System.Drawing.Size(149, 6);
+            this.tss2.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmExit
             // 
             this.tsmExit.Name = "tsmExit";
-            this.tsmExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmExit.Size = new System.Drawing.Size(162, 22);
             this.tsmExit.Text = "Выход";
             // 
             // tsmHelp
             // 
             this.tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.справкаToolStripMenuItem,
             this.tsmHistory,
             this.tss3,
             this.tsmAbout});
             this.tsmHelp.Name = "tsmHelp";
             this.tsmHelp.Size = new System.Drawing.Size(65, 20);
             this.tsmHelp.Text = "Справка";
+            // 
+            // tsmHistory
+            // 
+            this.tsmHistory.Name = "tsmHistory";
+            this.tsmHistory.Size = new System.Drawing.Size(185, 22);
+            this.tsmHistory.Text = "История изменений";
+            this.tsmHistory.Click += new System.EventHandler(this.tsmHistory_Click);
+            // 
+            // tss3
+            // 
+            this.tss3.Name = "tss3";
+            this.tss3.Size = new System.Drawing.Size(182, 6);
             // 
             // tsmAbout
             // 
@@ -361,6 +383,7 @@
             // 
             // btnChangeCancel
             // 
+            this.btnChangeCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnChangeCancel.Location = new System.Drawing.Point(214, 274);
             this.btnChangeCancel.Name = "btnChangeCancel";
@@ -383,6 +406,8 @@
             // 
             // groupTitleComboBox
             // 
+            this.groupTitleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupTitleComboBox.FormattingEnabled = true;
             this.groupTitleComboBox.Location = new System.Drawing.Point(18, 170);
             this.groupTitleComboBox.Name = "groupTitleComboBox";
@@ -475,23 +500,12 @@
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
-            // tsmHistory
+            // tsmSaveAs
             // 
-            this.tsmHistory.Name = "tsmHistory";
-            this.tsmHistory.Size = new System.Drawing.Size(185, 22);
-            this.tsmHistory.Text = "История изменений";
-            this.tsmHistory.Click += new System.EventHandler(this.tsmHistory_Click);
-            // 
-            // tss3
-            // 
-            this.tss3.Name = "tss3";
-            this.tss3.Size = new System.Drawing.Size(182, 6);
-            // 
-            // справкаToolStripMenuItem
-            // 
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.справкаToolStripMenuItem.Text = "Справка";
+            this.tsmSaveAs.Name = "tsmSaveAs";
+            this.tsmSaveAs.Size = new System.Drawing.Size(162, 22);
+            this.tsmSaveAs.Text = "Сохранить как...";
+            this.tsmSaveAs.Click += new System.EventHandler(this.tsmSaveAs_Click);
             // 
             // Main
             // 
@@ -567,9 +581,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmExit;
         private System.Windows.Forms.ToolStripMenuItem tsmHelp;
         private System.Windows.Forms.ToolStripMenuItem tsmAbout;
-        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmHistory;
         private System.Windows.Forms.ToolStripSeparator tss3;
+        private System.Windows.Forms.ToolStripMenuItem tsmMerge;
+        private System.Windows.Forms.ToolStripMenuItem tsmSaveAs;
     }
 }
 
