@@ -249,7 +249,11 @@ namespace M3Ueditor
                     tree.ExpandAll();
                 }
                 ButtonStateChange(true);
-                tssLabel.Text = "Загружено " + channels.Count + " записей";
+                tssLabel1.Text = "Количество каналов: " + channels.Count;
+                if (fileName != null)
+                {
+                    this.Text = fileName.FullName + " - M3U editor";
+                }
             }
             else
             {
@@ -257,7 +261,8 @@ namespace M3Ueditor
                 tree.Nodes.Clear();
                 dgvTV.DataSource = null;
                 ButtonStateChange(false);
-                tssLabel.Text = "";
+                tssLabel1.Text = "";
+                this.Text = "M3U editor";
             }
         }
 
@@ -462,10 +467,12 @@ namespace M3Ueditor
             {
                 SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.GroupTitle == node).ToList());
                 dgvTV.DataSource = filteredList;
+                tssLabel2.Text = "В составе группы: " + filteredList.Count;
             }
             else
             {
                 dgvTV.DataSource = channels;
+                tssLabel2.Text = "";
             }
             if (tvc != null) Selected(dgvTV, tvc);
         }
