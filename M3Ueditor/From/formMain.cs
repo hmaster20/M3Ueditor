@@ -100,19 +100,23 @@ namespace M3Ueditor
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileName = new FileInfo(fileDialog.FileName);
-                StreamReader playlist = new StreamReader(fileName.FullName);
-                channels.Clear();
 
-                switch (Path.GetExtension(fileName.FullName))
+                using (StreamReader playlist = new StreamReader(fileName.FullName))
                 {
-                    case ".m3u":
-                        channels = ParseM3U(playlist);
-                        break;
+                    channels.Clear();
 
-                    case ".csv":
-                        //ParseCSV();
-                        break;
+                    switch (Path.GetExtension(fileName.FullName))
+                    {
+                        case ".m3u":
+                            channels = ParseM3U(playlist);
+                            break;
+
+                        case ".csv":
+                            //ParseCSV();
+                            break;
+                    }
                 }
+
                 TableRefresh();
                 UpdategroupListAndTree();
             }
@@ -135,18 +139,24 @@ namespace M3Ueditor
 
                     SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);
 
-
-                    //if (new FormMerge(channels, channelsForMerge).ShowDialog() == DialogResult.OK)
-                    //{
-                    //}
-
-                    foreach (TVChannel tvc in channelsForMerge)
+                    FormMerge form = new FormMerge(channels, channelsForMerge);
+                    if (form.ShowDialog() == DialogResult.OK)
                     {
-                        if (!TVchannelExist(tvc))
+                        if (channels != null)
                         {
-                            channels.Add(tvc);
+                            channels.Clear();
+                            channels = form.ModChannels;
                         }
                     }
+
+                    //// синхронизация листов
+                    //foreach (TVChannel tvc in channelsForMerge)
+                    //{
+                    //    if (!TVchannelExist(tvc))
+                    //    {
+                    //        channels.Add(tvc);
+                    //    }
+                    //}
                     TableRefresh();
                     UpdategroupListAndTree();
                 }
