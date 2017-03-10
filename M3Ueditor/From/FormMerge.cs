@@ -17,6 +17,7 @@ namespace M3Ueditor
         public FormMerge()
         {
             InitializeComponent();
+            this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
         }
 
         public FormMerge(SortableBindingList<TVChannel> tvcCurrent, SortableBindingList<TVChannel> tvcMerge)
@@ -26,7 +27,7 @@ namespace M3Ueditor
             NewChannels = new SortableBindingList<TVChannelMerge>();
             ModChannels = new SortableBindingList<TVChannel>();
 
-            dataGridView1.AutoGenerateColumns = false;
+            dgvMerge.AutoGenerateColumns = false;
 
             foreach (var item in tvcCurrent)
             {
@@ -36,7 +37,7 @@ namespace M3Ueditor
                                 _groupTitle: item.GroupTitle,
                                 _udp: item.UDP,
                                 _Name: item.Name,
-                                _check: false));
+                                _check: true));
             }
 
             foreach (var item in tvcMerge)
@@ -49,56 +50,50 @@ namespace M3Ueditor
                 _Name: item.Name,
                 _check: false));
             }
-            dataGridView1.DataSource = NewChannels;
+            dgvMerge.DataSource = NewChannels;
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void button6_Click(object sender, EventArgs e)
         {
 
-            dataGridView1.ColumnCount = 3;
-            dataGridView1.Columns[0].Name = "Product ID";
-            dataGridView1.Columns[1].Name = "Product Name";
-            dataGridView1.Columns[2].Name = "Product Price";
+            dgvMerge.ColumnCount = 3;
+            dgvMerge.Columns[0].Name = "Product ID";
+            dgvMerge.Columns[1].Name = "Product Name";
+            dgvMerge.Columns[2].Name = "Product Price";
 
             string[] row = new string[] { "1", "Product 1", "1000" };
-            dataGridView1.Rows.Add(row);
+            dgvMerge.Rows.Add(row);
             row = new string[] { "2", "Product 2", "2000" };
-            dataGridView1.Rows.Add(row);
+            dgvMerge.Rows.Add(row);
             row = new string[] { "3", "Product 3", "3000" };
-            dataGridView1.Rows.Add(row);
+            dgvMerge.Rows.Add(row);
             row = new string[] { "4", "Product 4", "4000" };
-            dataGridView1.Rows.Add(row);
+            dgvMerge.Rows.Add(row);
 
             DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
-            dataGridView1.Columns.Add(chk);
+            dgvMerge.Columns.Add(chk);
             chk.HeaderText = "Check Data";
             chk.Name = "chk";
-            dataGridView1.Rows[2].Cells[3].Value = true;
+            dgvMerge.Rows[2].Cells[3].Value = true;
         }
 
         private void cBoxSelectDubl_CheckedChanged(object sender, EventArgs e)
         {
-            //if (NewChannels.Count > 0)
-            //{
-            //    NewChannels.Where(x => x.)
-            //}
+            int count = 0;
+           // dataGridView1.Sort(dataGridView1.collu, direction);
+            dgvMerge.Sort(dgvMerge.Columns[3], ListSortDirection.Ascending);
 
-            for (int ThisRow = 0; ThisRow < dataGridView1.Rows.Count - 1; ThisRow++)
+            for (int ThisRow = 0; ThisRow < dgvMerge.Rows.Count - 1; ThisRow++)
             {
-               DataGridViewRow CompareRow = dataGridView1.Rows[ThisRow];
-                for (int NextRow = ThisRow + 1; NextRow < dataGridView1.Rows.Count; NextRow++)
+               DataGridViewRow CompareRow = dgvMerge.Rows[ThisRow];
+                for (int NextRow = ThisRow + 1; NextRow < dgvMerge.Rows.Count; NextRow++)
                 {
-                    DataGridViewRow row = dataGridView1.Rows[NextRow];
+                    DataGridViewRow row = dgvMerge.Rows[NextRow];
                     bool DuplicateRow = true;
 
                     string aa = CompareRow.Cells[1].Value.ToString();
 
-                    //if ((CompareRow.Cells[3]) == (row.Cells[3]))
                     if ((CompareRow.Cells[3].Value.ToString()) == (row.Cells[3].Value.ToString()))
                     {
                         //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Red;
@@ -107,11 +102,15 @@ namespace M3Ueditor
                         // dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Red; 
 
                         row.DefaultCellStyle.ForeColor = Color.Silver;
-                        row.DefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Strikeout);
-                        row.DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+                        row.DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Strikeout);
+                        row.DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
+                        row.Cells[5].Value = true;
+                        count++;
+
                         //row.BackColor = System.Drawing.Color.Red;
                         //CompareRow.BackColor = System.Drawing.Color.Red;
-                        CompareRow.DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+
+                        CompareRow.DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
                     }
                     else if (DuplicateRow)
                     {
@@ -119,11 +118,66 @@ namespace M3Ueditor
                     }
                 }
             }
+            label1.Text = "Количество дубликатов: " + count;
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void dgvMerge_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+
+            string message = string.Empty;
+            foreach (DataGridViewRow row in dgvMerge.Rows)
+            {
+                //bool isSelected = Convert.ToBoolean(row.Cells["checkBoxColumn"].Value);
+                bool isSelected = Convert.ToBoolean(row.Cells[5].Value);
+                if (isSelected)
+                {
+                    if (row.Cells[4] != null)
+                    {
+                        message += Environment.NewLine;
+                        message += row.Cells[4].Value.ToString();
+                    }
+               
+                }
+            }
+
+            MessageBox.Show("Selected Values" + message);
+
+            return;
+
+            if (e.ColumnIndex == 5)
+            {
+                DataGridView dgv = (DataGridView)sender;
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)dgv.Rows[e.RowIndex].Cells[5];
+                if (chk.Value == chk.FalseValue || chk.Value == null)
+                {
+                    chk.Value = chk.TrueValue;
+                }
+                else
+                {
+                    chk.Value = chk.FalseValue;
+                }
+
+                //if (chk.Value == chk.FalseValue || chk.Value == null)
+                //{
+                //    chk.Value = chk.TrueValue;
+                //}
+                //else
+                //{
+                //    chk.Value = chk.FalseValue;
+                //}
+            }
+
+
+            //if (row.Cells[5].Value == true)
+            //{
+
+            //}
+        }
+
+        private void dgvMerge_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
     }
 }
