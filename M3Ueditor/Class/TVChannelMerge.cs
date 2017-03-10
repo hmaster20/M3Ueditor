@@ -11,6 +11,6 @@ namespace M3Ueditor
         {
             check = _check;
         }
-        bool check { get; set; }
+        public bool check { get; set; }
     }
 }
