@@ -35,13 +35,13 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dgvMerge = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.infolabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMerge)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,15 +127,10 @@
             this.dgvMerge.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMerge.Size = new System.Drawing.Size(639, 312);
             this.dgvMerge.TabIndex = 3;
-            this.dgvMerge.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellContentClick);
-            this.dgvMerge.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellValueChanged);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(12, 354);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(212, 23);
-            this.label1.TabIndex = 4;
+            this.dgvMerge.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellClick);
+            this.dgvMerge.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellContentClick_1);
+            this.dgvMerge.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvMerge_CellMouseDown);
+            this.dgvMerge.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellValueChanged_1);
             // 
             // Column1
             // 
@@ -180,12 +175,20 @@
             this.Column3.Name = "Column3";
             this.Column3.Width = 50;
             // 
+            // infolabel
+            // 
+            this.infolabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.infolabel.Location = new System.Drawing.Point(12, 354);
+            this.infolabel.Name = "infolabel";
+            this.infolabel.Size = new System.Drawing.Size(212, 23);
+            this.infolabel.TabIndex = 4;
+            // 
             // FormMerge
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(663, 379);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.infolabel);
             this.Controls.Add(this.dgvMerge);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCancel);
@@ -209,7 +212,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dgvMerge;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label infolabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
