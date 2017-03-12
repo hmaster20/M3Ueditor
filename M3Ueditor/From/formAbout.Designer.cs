@@ -37,6 +37,7 @@
             this.lVersion = new System.Windows.Forms.Label();
             this.lName = new System.Windows.Forms.Label();
             this.lCopyright = new System.Windows.Forms.Label();
+            this.btnLicense = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxLogo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +45,7 @@
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(135, 278);
+            this.btnOk.Location = new System.Drawing.Point(257, 278);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 0;
@@ -78,7 +79,6 @@
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxDescription.Size = new System.Drawing.Size(305, 110);
             this.textBoxDescription.TabIndex = 24;
             this.textBoxDescription.TabStop = false;
@@ -128,6 +128,16 @@
             this.lCopyright.TabIndex = 26;
             this.lCopyright.Text = "Автор";
             // 
+            // btnLicense
+            // 
+            this.btnLicense.Location = new System.Drawing.Point(12, 278);
+            this.btnLicense.Name = "btnLicense";
+            this.btnLicense.Size = new System.Drawing.Size(75, 23);
+            this.btnLicense.TabIndex = 1;
+            this.btnLicense.Text = "Лицензия";
+            this.btnLicense.UseVisualStyleBackColor = true;
+            this.btnLicense.Click += new System.EventHandler(this.btnLicense_Click);
+            // 
             // formAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,6 +151,7 @@
             this.Controls.Add(this.linkLabelHome);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pBoxLogo);
+            this.Controls.Add(this.btnLicense);
             this.Controls.Add(this.btnOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -169,5 +180,6 @@
         private System.Windows.Forms.Label lVersion;
         private System.Windows.Forms.Label lName;
         private System.Windows.Forms.Label lCopyright;
+        private System.Windows.Forms.Button btnLicense;
     }
 }

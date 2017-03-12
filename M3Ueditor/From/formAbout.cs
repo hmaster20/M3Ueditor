@@ -103,5 +103,10 @@ namespace M3Ueditor
         {
             System.Diagnostics.Process.Start(linkLabelHome.Text);
         }
+
+        private void btnLicense_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.gnu.org/licenses/gpl-2.0.html");
+        }
     }
 }
