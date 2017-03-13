@@ -51,6 +51,7 @@ namespace M3Ueditor
                 _Name: item.Name,
                 _check: false));
             }
+
             dgvMerge.DataSource = NewChannels;
         }
 
@@ -79,10 +80,14 @@ namespace M3Ueditor
             dgvMerge.Rows[2].Cells[3].Value = true;
         }
 
+        // - CellMouseDown: True  - кнопка нажата но не отпущена
+        // - CellClick: True
+        //  - CellValueChanged: 5False
+
         private void cBoxSelectDubl_CheckedChanged(object sender, EventArgs e)
         {
             int count = 0;
-            // dataGridView1.Sort(dataGridView1.collu, direction);
+
             dgvMerge.Sort(dgvMerge.Columns[3], ListSortDirection.Ascending);
 
             for (int ThisRow = 0; ThisRow < dgvMerge.Rows.Count - 1; ThisRow++)
@@ -97,21 +102,16 @@ namespace M3Ueditor
 
                     if ((CompareRow.Cells[3].Value.ToString()) == (row.Cells[3].Value.ToString()))
                     {
-                        //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Red;
-                        //row.DefaultCellStyle.ForeColor = Color.Silver;
-                        //row.DefaultCellStyle.Font = new Font(TableRec.Font, FontStyle.Strikeout);
-                        // dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Red; 
-
-                        row.DefaultCellStyle.ForeColor = Color.Silver;
+                        row.DefaultCellStyle.ForeColor = Color.Silver;  // дубликат
                         row.DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Strikeout);
                         row.DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
+
                         row.Cells[5].Value = true;
+
+                        CompareRow.DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;   // основная строка
+
+
                         count++;
-
-                        //row.BackColor = System.Drawing.Color.Red;
-                        //CompareRow.BackColor = System.Drawing.Color.Red;
-
-                        CompareRow.DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;
                     }
                     else if (DuplicateRow)
                     {
@@ -121,6 +121,125 @@ namespace M3Ueditor
             }
             infolabel.Text = "Количество дубликатов: " + count;
         }
+
+
+
+
+
+
+
+
+        private void dgvMerge_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+                if (Convert.ToBoolean(dgvMerge.Rows[e.RowIndex].Cells[5].Value))
+                {
+                    RowStyleForDouble(e);
+                }
+                else
+                {
+                    RowStyleForNormal(e);
+                }
+
+
+            //if (e.RowIndex > -1)
+            //{
+            //    Debug.WriteLine(" - CellValueChanged: " + e.ColumnIndex.ToString() + dgvMerge.Rows[e.RowIndex].Cells[5].Value);
+            //}
+            //else
+            //{
+            //    Debug.WriteLine(" - CellValueChanged: -1 ");
+            //}
+        }
+
+
+        private void RowStyleForNormal(DataGridViewCellEventArgs e)
+        {
+            DataGridViewCellStyle currencyCellStyle = new DataGridViewCellStyle();
+            //dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Underline);
+            //dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.SteelBlue;
+            dgvMerge.Rows[e.RowIndex].DefaultCellStyle = currencyCellStyle; // сброс на параметры по умолчанию
+        }
+
+        private void RowStyleForDouble(DataGridViewCellEventArgs e)
+        {
+            dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Strikeout);
+            dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void dgvMerge_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            object obj = null;
+            if (e.RowIndex > -1)
+            {
+                obj = dgvMerge.Rows[e.RowIndex].Cells[5].Value;
+            }
+
+            //if (obj != null)
+            //{
+            //    Debug.WriteLine(" - CellMouseDown: " + obj.ToString());
+            //}
+            //else
+            //{
+            //    Debug.WriteLine(" - CellMouseDown: null ");
+            //}
+        }
+
+        private void dgvMerge_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            object obj = null;
+            if (e.RowIndex > -1)
+            {
+                obj = dgvMerge.Rows[e.RowIndex].Cells[5].Value;
+            }
+
+            //if (obj != null)
+            //{
+            //    Debug.WriteLine(" - CellClick: " + obj.ToString());
+            //}
+            //else
+            //{
+            //    Debug.WriteLine(" - CellClick: null ");
+            //}
+
+            DataGridViewCheckBoxCell cell = this.dgvMerge.CurrentCell as DataGridViewCheckBoxCell;
+
+            if (cell != null && !cell.ReadOnly)
+            {
+                cell.Value = cell.Value == null || !((bool)cell.Value);
+                this.dgvMerge.RefreshEdit();
+                this.dgvMerge.NotifyCurrentCellDirty(true);
+            }
+
+        }
+
+        private void dgvMerge_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            this.dgvMerge.RefreshEdit();
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            foreach (var item in NewChannels)
+            {
+                ModChannels.Add((TVChannel)(item));
+            }
+        }
+
+
+        private void bntDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -212,90 +331,7 @@ namespace M3Ueditor
             }
         }
 
-        private void dgvMerge_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
-                Debug.WriteLine(" - CellValueChanged: " + e.ColumnIndex.ToString() + dgvMerge.Rows[e.RowIndex].Cells[5].Value);
-            }
-            else
-            {
-                Debug.WriteLine(" - CellValueChanged: -1 ");
-            }
-
-            //if (dgvMerge.Rows[e.RowIndex].Cells[5].Value.ToString() == "true")
-            //{
-
-            //}
-
-            if (e.RowIndex > -1)
-                if (Convert.ToBoolean(dgvMerge.Rows[e.RowIndex].Cells[5].Value))
-                {
-                    dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Strikeout);
-                    dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
-                }
-                else
-                {
-                    dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Underline);
-                    dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.SteelBlue;
-                }
 
 
-            //if (Convert.ToBoolean(row.Cells[1].Value))
-            //{
-            //    // what you want to do
-            //}
-        }
-
-        private void dgvMerge_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            object obj = null;
-            if (e.RowIndex > -1)
-            {
-                obj = dgvMerge.Rows[e.RowIndex].Cells[5].Value;
-            }
-
-            if (obj != null)
-            {
-                Debug.WriteLine(" - CellMouseDown: " + obj.ToString());
-            }
-            else
-            {
-                Debug.WriteLine(" - CellMouseDown: null ");
-            }
-        }
-
-        private void dgvMerge_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            object obj = null;
-            if (e.RowIndex > -1)
-            {
-                obj = dgvMerge.Rows[e.RowIndex].Cells[5].Value;
-            }
-
-            if (obj != null)
-            {
-                Debug.WriteLine(" - CellClick: " + obj.ToString());
-            }
-            else
-            {
-                Debug.WriteLine(" - CellClick: null ");
-            }
-
-            DataGridViewCheckBoxCell cell = this.dgvMerge.CurrentCell as DataGridViewCheckBoxCell;
-
-            if (cell != null && !cell.ReadOnly)
-            {
-                cell.Value = cell.Value == null || !((bool)cell.Value);
-                this.dgvMerge.RefreshEdit();
-                this.dgvMerge.NotifyCurrentCellDirty(true);
-            }
-
-        }
-
-        private void dgvMerge_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            this.dgvMerge.RefreshEdit();
-        }
     }
 }
