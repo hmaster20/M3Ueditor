@@ -82,11 +82,11 @@
             // bntDelete
             // 
             this.bntDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bntDelete.Location = new System.Drawing.Point(475, 4);
+            this.bntDelete.Location = new System.Drawing.Point(526, 4);
             this.bntDelete.Name = "bntDelete";
-            this.bntDelete.Size = new System.Drawing.Size(176, 23);
+            this.bntDelete.Size = new System.Drawing.Size(125, 23);
             this.bntDelete.TabIndex = 2;
-            this.bntDelete.Text = "Удалить выбранные дубликаты";
+            this.bntDelete.Text = "Удалить выбранные";
             this.bntDelete.UseVisualStyleBackColor = true;
             this.bntDelete.Click += new System.EventHandler(this.bntDelete_Click);
             // 
@@ -113,9 +113,8 @@
             this.dgvMerge.Size = new System.Drawing.Size(639, 312);
             this.dgvMerge.TabIndex = 3;
             this.dgvMerge.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellClick);
-            this.dgvMerge.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellContentClick_1);
-            this.dgvMerge.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvMerge_CellMouseDown);
-            this.dgvMerge.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellValueChanged_1);
+            this.dgvMerge.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellContentClick);
+            this.dgvMerge.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellValueChanged);
             // 
             // Column1
             // 
