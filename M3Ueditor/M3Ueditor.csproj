@@ -117,6 +117,8 @@
     <Content Include="Resources\m3u_icon.ico" />
     <Content Include="Resources\m3u.png" />
     <Content Include="Resources\Remove.png" />
+    <Content Include="Resources\SelectAll.png" />
+    <Content Include="Resources\unSelectAll.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
