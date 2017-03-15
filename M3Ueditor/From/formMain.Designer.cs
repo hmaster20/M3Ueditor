@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.status = new System.Windows.Forms.StatusStrip();
+            this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.tsmFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,8 +74,6 @@
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
-            this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
@@ -99,6 +99,16 @@
             this.status.Size = new System.Drawing.Size(1025, 22);
             this.status.TabIndex = 0;
             this.status.Text = "statusStrip1";
+            // 
+            // tssLabel1
+            // 
+            this.tssLabel1.Name = "tssLabel1";
+            this.tssLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tssLabel2
+            // 
+            this.tssLabel2.Name = "tssLabel2";
+            this.tssLabel2.Size = new System.Drawing.Size(0, 17);
             // 
             // menu
             // 
@@ -383,6 +393,7 @@
             this.dgvTV.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseClick);
             this.dgvTV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseDown);
             this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
+            this.dgvTV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvTV_KeyDown);
             // 
             // panelEdit
             // 
@@ -522,16 +533,6 @@
             this.tvgNameBox.Size = new System.Drawing.Size(271, 20);
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // tssLabel1
-            // 
-            this.tssLabel1.Name = "tssLabel1";
-            this.tssLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // tssLabel2
-            // 
-            this.tssLabel2.Name = "tssLabel2";
-            this.tssLabel2.Size = new System.Drawing.Size(0, 17);
             // 
             // Main
             // 
