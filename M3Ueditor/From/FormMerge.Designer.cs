@@ -92,6 +92,7 @@
             // 
             // dgvMerge
             // 
+            this.dgvMerge.AllowUserToAddRows = false;
             this.dgvMerge.AllowUserToResizeColumns = false;
             this.dgvMerge.AllowUserToResizeRows = false;
             this.dgvMerge.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
