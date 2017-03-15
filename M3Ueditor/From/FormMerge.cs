@@ -36,7 +36,7 @@ namespace M3Ueditor
             foreach (TVChannel tvc in tvcMerge)
                 CreateTVChannelMerge(tvc);
 
-            TableRefresh();
+            dgvMerge.DataSource = NewChannels;
         }
 
 
@@ -44,7 +44,7 @@ namespace M3Ueditor
 
         private void btnSelectAll_Click(object sender, EventArgs e) => SelectAll();
         private void btnUnSelectAll_Click(object sender, EventArgs e) => UnSelectAll();
-        private void cBoxSelectDubl_CheckedChanged(object sender, EventArgs e) => SelectDublicate();
+        private void cBoxSelectDubl_CheckedChanged(object sender, EventArgs e) => FindAndSelectAllDublicates();
         private void bntDelete_Click(object sender, EventArgs e) => Delete();
         private void btnApply_Click(object sender, EventArgs e) => Apply();
 
@@ -78,16 +78,35 @@ namespace M3Ueditor
                 dgvMerge.Rows[i].Cells[5].Value = false;
             }
         }
-        
-        private void SelectDublicate()
+
+
+        private void FindAndSelectAllDublicates()
         {
             int count = 0;
 
             dgvMerge.Sort(dgvMerge.Columns[3], ListSortDirection.Ascending);
 
+            DataGridViewRow CompareRow = null;
+
             for (int ThisRow = 0; ThisRow < dgvMerge.Rows.Count - 1; ThisRow++)
             {
-                DataGridViewRow CompareRow = dgvMerge.Rows[ThisRow];
+                if (CompareRow == null)
+                {
+                    CompareRow = dgvMerge.Rows[ThisRow];
+                }
+                else
+                {
+                    if (CompareRow.Cells[3].Value.ToString() == dgvMerge.Rows[ThisRow].Cells[3].Value.ToString())
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        CompareRow = dgvMerge.Rows[ThisRow];
+                    }
+                }
+
+                // DataGridViewRow CompareRow = dgvMerge.Rows[ThisRow];
 
                 for (int NextRow = ThisRow + 1; NextRow < dgvMerge.Rows.Count; NextRow++)
                 {
@@ -96,8 +115,8 @@ namespace M3Ueditor
 
                     if ((CompareRow.Cells[3].Value.ToString()) == (currentRow.Cells[3].Value.ToString()))
                     {
-                        RowCompareColor(CompareRow);
-                        RowDublicateColor(currentRow);
+                        RowChangeStyleForCompare(CompareRow);
+                        RowChangeStyleForDublicate(currentRow);
                         count++;
                     }
                     else if (DuplicateRow)
@@ -109,20 +128,14 @@ namespace M3Ueditor
             infolabel.Text = "Количество дубликатов: " + count;
         }
 
-        private static void RowCompareColor(DataGridViewRow CompareRow)
+
+        private static void RowChangeStyleForCompare(DataGridViewRow CompareRow)
         {
             CompareRow.Cells[5].Value = false;
-            CompareRow.DefaultCellStyle = new DataGridViewCellStyle();  // сброс на параметры по умолчанию
-
-            //CompareRow.DefaultCellStyle.BackColor = System.Drawing.Color.LightYellow;   // основная строка
-            //CompareRow.Cells[5].Value = false;
-
-            //DataGridViewCellStyle currencyCellStyle = new DataGridViewCellStyle();
-            ////dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Underline);
-            ////dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.SteelBlue;
-            //dgvMerge.Rows[e.RowIndex].DefaultCellStyle = currencyCellStyle; // сброс на параметры по умолчанию
+            CompareRow.DefaultCellStyle = new DataGridViewCellStyle();
         }
-        private void RowDublicateColor(DataGridViewRow currentRow)  // дубликат
+
+        private void RowChangeStyleForDublicate(DataGridViewRow currentRow)
         {
             currentRow.DefaultCellStyle.ForeColor = Color.Silver;
             currentRow.DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Strikeout);
@@ -133,37 +146,19 @@ namespace M3Ueditor
 
         private void Delete()
         {
+            dgvMerge.MultiSelect = true;
+
             for (int i = 0; i < dgvMerge.RowCount; i++)
             {
-                dgvMerge.Rows.RemoveAt(i);
-
-
-                //TVChannelMerge tvc = null;
-                //if (dgvMerge.SelectedRows[0].DataBoundItem is TVChannelMerge) tvc = dgvMerge.SelectedRows[0].DataBoundItem as TVChannelMerge;
-                //if (tvc != null)
-                //{
-                //    dgvMerge.Rows.RemoveAt(i);
-                //    NewChannels.Remove(tvc);
-                //} 
-
-
-                //if (Convert.ToBoolean(dgvMerge.Rows[i].Cells[5].Value))
-                //{                 
-                //        dgvMerge.Rows[i].Selected = true;
-                //}
-
-                //foreach (DataGridViewRow dr in dgvMerge.SelectedRows)
-                //{
-                //    dgvMerge.Rows.Remove(dr);
-                //    if (!dr.IsNewRow)
-                //    { dgvMerge.Rows.Remove(dr); }
-                //}
-                //dgvMerge.Rows.RemoveAt(i);
-
-
-
+                if (Convert.ToBoolean(dgvMerge.Rows[i].Cells[5].Value))
+                    dgvMerge.Rows[i].Selected = true;
             }
-            //TableRefresh();
+
+            foreach (DataGridViewRow row in dgvMerge.SelectedRows)
+            {
+                if (!row.IsNewRow)
+                    dgvMerge.Rows.Remove(row);
+            }
         }
 
         private void Apply()
@@ -178,11 +173,6 @@ namespace M3Ueditor
                 }
             }
         }
-        void TableRefresh()
-        {
-            dgvMerge.DataSource = NewChannels;
-        }
-
 
         #endregion
 
@@ -205,11 +195,11 @@ namespace M3Ueditor
 
                 if (Convert.ToBoolean(dgvMerge.Rows[e.RowIndex].Cells[5].Value))
                 {
-                    RowDublicateColor(currentRow);
+                    RowChangeStyleForDublicate(currentRow);
                 }
                 else
                 {
-                    RowCompareColor(currentRow);
+                    RowChangeStyleForCompare(currentRow);
                 }
             }
         }
