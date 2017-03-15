@@ -149,14 +149,6 @@ namespace M3Ueditor
                         }
                     }
 
-                    //// синхронизация листов
-                    //foreach (TVChannel tvc in channelsForMerge)
-                    //{
-                    //    if (!TVchannelExist(tvc))
-                    //    {
-                    //        channels.Add(tvc);
-                    //    }
-                    //}
                     TableRefresh();
                     UpdategroupListAndTree();
                 }
@@ -168,9 +160,7 @@ namespace M3Ueditor
             foreach (TVChannel _tvc in channels)    // проверка наличия канала в листе
             {
                 if (_tvc.Equals(tvc))
-                {
                     return true;
-                }
             }
             return false;
         }
@@ -514,14 +504,34 @@ namespace M3Ueditor
                 {
                     System.Diagnostics.Debug.Print("Left click!");
                     dgvTV.MultiSelect = false;
+                    // dgvTV.ReadOnly = true;
                 }
             }
+        }
+
+
+        private void dgvTV_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.F2)
+            //{
+            //    dgvTV.ReadOnly = false;
+            //    e.Handled = true;
+            //    dgvTV.BeginEdit(true);
+            //}
         }
 
         private void dgvTV_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
         {
             TableDragDrop(e);
+
+            //// разрешено редактирование при двойном клике
+            //if (e.Clicks == 2)
+            //{
+            //    dgvTV.ReadOnly = false;
+            //    dgvTV.BeginEdit(true);
+            //}
         }
+
 
         private void TableDragDrop(DataGridViewCellMouseEventArgs e)
         {
@@ -650,7 +660,13 @@ namespace M3Ueditor
         }
 
 
+
+
+
+
+
         #endregion
+
 
     }
 }
