@@ -70,6 +70,7 @@ namespace M3Ueditor
             {
                 dgvMerge.Rows[i].Cells[5].Value = true;
             }
+            DublicateLabel(dgvMerge.RowCount);
         }
         private void UnSelectAll()
         {
@@ -77,6 +78,7 @@ namespace M3Ueditor
             {
                 dgvMerge.Rows[i].Cells[5].Value = false;
             }
+            DublicateLabel(0);
         }
 
 
@@ -125,9 +127,33 @@ namespace M3Ueditor
                     }
                 }
             }
-            infolabel.Text = "Количество дубликатов: " + count;
+            DublicateLabel(count);
         }
 
+        private void DublicateLabel(int count)
+        {
+            if (count != null)
+            {
+                infolabel.Text = "Количество дубликатов: " + count;
+            }
+            else
+            {
+                infolabel.Text = "";
+            }
+        }
+
+        private void DublicateCalculate()
+        {
+            int count = 0;
+            for (int i = 0; i < dgvMerge.RowCount; i++)
+            {
+                if (Convert.ToBoolean(dgvMerge.Rows[i].Cells[5].Value))
+                {
+                    count++;
+                }
+            }
+            DublicateLabel(count);
+        }
 
         private static void RowChangeStyleForCompare(DataGridViewRow CompareRow)
         {
@@ -159,8 +185,9 @@ namespace M3Ueditor
                 if (!row.IsNewRow)
                     dgvMerge.Rows.Remove(row);
             }
-        }
 
+            DublicateCalculate();
+        }
         private void Apply()
         {
             for (int i = 0; i < dgvMerge.RowCount; i++)
@@ -203,6 +230,7 @@ namespace M3Ueditor
                 }
             }
         }
+
         private void dgvCellClick(DataGridViewCellEventArgs e)  //Обработка изменения Checkbox в таблице
         {
             DataGridViewCheckBoxCell cell = this.dgvMerge.CurrentCell as DataGridViewCheckBoxCell;
@@ -213,159 +241,16 @@ namespace M3Ueditor
                 this.dgvMerge.RefreshEdit();
                 this.dgvMerge.NotifyCurrentCellDirty(true);
             }
+
+            DublicateCalculate();
         }
+
         private void dgvCellContentClick()
         {
             dgvMerge.RefreshEdit();
         }
 
-
         #endregion
 
     }
 }
-
-
-
-
-
-
-
-
-
-//private TVChannel GetSelected()
-//{
-//    DataGridView dgv = dgvMerge;
-//    if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-//    {
-//        TVChannelMerge tvc = null;
-//        if (dgv.SelectedRows[0].DataBoundItem is TVChannelMerge) tvc = dgv.SelectedRows[0].DataBoundItem as TVChannelMerge;
-//        if (tvc != null) return tvc;
-//    }
-//    return null;
-//}
-
-
-
-
-
-
-
-// - CellMouseDown: True  - кнопка нажата но не отпущена
-// - CellClick: True
-// - CellValueChanged: 5False
-
-
-
-//private void dgvMerge_CellContentClick(object sender, DataGridViewCellEventArgs e)
-//{
-//    DataGridViewRow _row = dgvMerge.Rows[e.RowIndex];
-//    if (_row.DefaultCellStyle.BackColor == Color.Silver)
-//    {
-//        _row.DefaultCellStyle.BackColor = Color.LightYellow;
-//    }
-//    else
-//    {
-//        _row.DefaultCellStyle.BackColor = Color.Silver;
-//    }
-
-//    return;
-
-//    // DataGridViewRow _row = dgvMerge.Rows[e.RowIndex];
-
-
-
-//    string message = string.Empty;
-//    foreach (DataGridViewRow row in dgvMerge.Rows)
-//    {
-//        //bool isSelected = Convert.ToBoolean(row.Cells["checkBoxColumn"].Value);
-//        bool isSelected = Convert.ToBoolean(row.Cells[5].Value);
-//        if (isSelected)
-//        {
-//            if (row.Cells[4] != null)
-//            {
-//                //message += Environment.NewLine;
-//                message += row.Cells[4].Value.ToString();
-//            }
-
-//        }
-//    }
-
-//    MessageBox.Show("Selected Values" + message);
-
-//    return;
-
-//    if (e.ColumnIndex == 5)
-//    {
-//        DataGridView dgv = (DataGridView)sender;
-//        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)dgv.Rows[e.RowIndex].Cells[5];
-//        if (chk.Value == chk.FalseValue || chk.Value == null)
-//        {
-//            chk.Value = chk.TrueValue;
-//        }
-//        else
-//        {
-//            chk.Value = chk.FalseValue;
-//        }
-
-//        //if (chk.Value == chk.FalseValue || chk.Value == null)
-//        //{
-//        //    chk.Value = chk.TrueValue;
-//        //}
-//        //else
-//        //{
-//        //    chk.Value = chk.FalseValue;
-//        //}
-//    }
-
-
-//    //if (row.Cells[5].Value == true)
-//    //{
-
-//    //}
-//}
-
-//private void dgvMerge_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-//{
-//    if (e.ColumnIndex == 5 && e.RowIndex > -1)
-//    {
-//        if (dgvMerge.Rows[e.RowIndex].Cells[5].Value.ToString() == "true")
-//        {
-//            MessageBox.Show("true");
-//        }
-//        else
-//        {
-//            MessageBox.Show("Test");
-//        }
-//        //if (dgvMerge.Rows[e.RowIndex].Cells[5].Value.ToString() == "true" || dgvMerge.Rows[e.RowIndex].Cells[5].Value.ToString() == "True")
-//        //    dgvMerge[1, e.RowIndex].Selected = true;
-//        //else
-//        //    dgvMerge[1, e.RowIndex].Selected = false;
-//    }
-//}
-
-
-
-//private void button6_Click(object sender, EventArgs e)
-//{
-
-//    dgvMerge.ColumnCount = 3;
-//    dgvMerge.Columns[0].Name = "Product ID";
-//    dgvMerge.Columns[1].Name = "Product Name";
-//    dgvMerge.Columns[2].Name = "Product Price";
-
-//    string[] row = new string[] { "1", "Product 1", "1000" };
-//    dgvMerge.Rows.Add(row);
-//    row = new string[] { "2", "Product 2", "2000" };
-//    dgvMerge.Rows.Add(row);
-//    row = new string[] { "3", "Product 3", "3000" };
-//    dgvMerge.Rows.Add(row);
-//    row = new string[] { "4", "Product 4", "4000" };
-//    dgvMerge.Rows.Add(row);
-
-//    DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
-//    dgvMerge.Columns.Add(chk);
-//    chk.HeaderText = "Check Data";
-//    chk.Name = "chk";
-//    dgvMerge.Rows[2].Cells[3].Value = true;
-//}
