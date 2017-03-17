@@ -1,4 +1,5 @@
-﻿using System;
+﻿using M3Ueditor.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +20,8 @@ namespace M3Ueditor
         bool isChange { get; set; } = false;
         FileInfo fileName { get; set; } // название открытого файла
 
+        #region Main методы
+
         public Main()
         {
             InitializeComponent();
@@ -33,7 +36,24 @@ namespace M3Ueditor
             ButtonStateChange();
         }
 
+        private void Main_Load(object sender, EventArgs e)
+        {
+            // загрузка параметров из файла конфигурации
+            this.Left = Settings.Default.Left;
+            this.Top = Settings.Default.Top;
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // сохранение параметров в файл конфигурации
+            Settings.Default.Left = this.Left;
+            Settings.Default.Top = this.Top;
+            Settings.Default.Save();
+        }
+
         private void Main_FormClosing(object sender, FormClosingEventArgs e) => CheckChanged();
+
+        #endregion
 
 
         #region Menu Button
@@ -375,30 +395,54 @@ namespace M3Ueditor
 
         private void Remove()
         {
-            if (dgvTV.SelectedRows.Count == 0)
-                return;
-
-            if (dgvTV.MultiSelect)
+            if (dgvTV.Rows.Count > 0)
             {
-                foreach (DataGridViewRow dr in dgvTV.SelectedRows)
+                if (dgvTV.SelectedRows.Count == 0)
                 {
-                    if (!dr.IsNewRow)
+                    return;
+                }
+                else
+                {
+                    if (dgvTV.MultiSelect)
                     {
-                        dgvTV.Rows.Remove(dr);
+                        foreach (DataGridViewRow dr in dgvTV.SelectedRows)
+                        {
+                            if (!dr.IsNewRow)
+                            {
+                                dgvTV.Rows.Remove(dr);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int selectedRow = dgvTV.SelectedRows[0].Index;
+
+                        if (channels.Count > 0 && selectedRow - 1 > 0)
+                        {
+                            dgvTV.Rows[selectedRow - 1].Selected = true;
+                        }
+                        else if (channels.Count > 0 && selectedRow + 1 <= channels.Count - 1)
+                        {
+                            dgvTV.Rows[selectedRow + 1].Selected = true;
+                        }
+
+                        channels.RemoveAt(selectedRow);
+
+                        if ((dgvTV.Rows.Count > 0) && (selectedRow - 1 > -1))
+                        {
+                            if (selectedRow == dgvTV.Rows.Count)
+                            {
+                                dgvTV.Rows[selectedRow - 1].Selected = true;
+                            }
+                            else
+                            {
+                                dgvTV.Rows[selectedRow].Selected = true;
+                            }
+                        }
                     }
                 }
+                Changed();
             }
-            else
-            {
-                int selectedRow = dgvTV.SelectedRows[0].Index;
-
-                if (channels.Count > 1 && selectedRow - 1 > 0)
-                    dgvTV.Rows[selectedRow - 1].Selected = true;
-                else if (channels.Count > 1 && selectedRow + 1 <= channels.Count - 1)
-                    dgvTV.Rows[selectedRow + 1].Selected = true;
-                channels.RemoveAt(selectedRow);
-            }
-            Changed();
         }
 
         private void Up()
@@ -658,6 +702,7 @@ namespace M3Ueditor
             dgvTV.Enabled = true;     // Разблокировка таблицы
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
         }
+
 
 
 
