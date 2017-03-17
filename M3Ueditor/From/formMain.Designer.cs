@@ -547,6 +547,8 @@
             this.Name = "Main";
             this.Text = "M3U editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.status.ResumeLayout(false);
             this.status.PerformLayout();
             this.menu.ResumeLayout(false);
