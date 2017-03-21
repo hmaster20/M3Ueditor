@@ -556,26 +556,45 @@ namespace M3Ueditor
 
         private void dgvTV_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.KeyCode == Keys.F2)
-            //{
-            //    dgvTV.ReadOnly = false;
-            //    e.Handled = true;
-            //    dgvTV.BeginEdit(true);
-            //}
+            // редактирование ячейки при нажатии F2
+            if (e.KeyCode == Keys.F2)
+            {
+                dgvTV.ReadOnly = false;
+                e.Handled = true;
+                dgvTV.BeginEdit(true);
+            }
         }
 
         private void dgvTV_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
         {
-            TableDragDrop(e);
+            //TableDragDrop(e);
 
-            //// разрешено редактирование при двойном клике
-            //if (e.Clicks == 2)
-            //{
-            //    dgvTV.ReadOnly = false;
-            //    dgvTV.BeginEdit(true);
-            //}
+            // разрешено редактирование при двойном клике
+            if (e.Clicks == 2)
+            {
+                dgvTV.ReadOnly = false;
+                dgvTV.BeginEdit(true);
+            }
+            if (!dgvTV.IsCurrentCellInEditMode)
+            {
+                TableDragDrop(e);
+            }
+
         }
 
+        private void dgvTV_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+
+        }
+
+        private void dgvTV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                TableRefresh();
+                Changed();
+            }
+        }
 
         private void TableDragDrop(DataGridViewCellMouseEventArgs e)
         {
@@ -702,12 +721,6 @@ namespace M3Ueditor
             dgvTV.Enabled = true;     // Разблокировка таблицы
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
         }
-
-
-
-
-
-
 
 
         #endregion
