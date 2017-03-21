@@ -132,14 +132,15 @@ namespace M3Ueditor
 
         private void DublicateLabel(int count)
         {
-            if (count != null)
-            {
-                infolabel.Text = "Количество дубликатов: " + count;
-            }
-            else
-            {
-                infolabel.Text = "";
-            }
+            infolabel.Text = "Количество дубликатов: " + count;
+            //if (count != null)
+            //{
+            //    infolabel.Text = "Количество дубликатов: " + count;
+            //}
+            //else
+            //{
+            //    infolabel.Text = "";
+            //}
         }
 
         private void DublicateCalculate()
