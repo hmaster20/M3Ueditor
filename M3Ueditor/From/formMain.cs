@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -306,7 +308,7 @@ namespace M3Ueditor
                     if (e != null)
                     {
                         e.Cancel = true;
-                    }         
+                    }
                 }
             }
         }
@@ -683,30 +685,56 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (tvc != null)
             {
-                string UDPText = UDPbox.Text;
-                string[] sss = UDPText.Split(':');
+                //{
+                //    string re1 = "(udp)";   // Word 1
+                //    string re2 = "(:)"; // Any Single Character 1
+                //    string re3 = "(\\/)";   // Any Single Character slash
+                //    string re4 = "(\\/)";   // Any Single Character slash
+                //    string re5 = "(@)"; // Any Single Character at
+                //    string re6 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";   // IPv4 IP Address 1
+                //    string re7 = "(:)"; // Any Single Character 1
+                //    string re8 = "(\\d+)";  // Integer Number 1
+
+                //    Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                //    //Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                //    Match m = r.Match(UDPbox.Text);
+                //    if (m.Success)
+                //    {
+                //        String protocol = m.Groups[1].ToString();
+                //        String c1 = m.Groups[2].ToString();
+                //        String c2 = m.Groups[3].ToString();
+                //        String c3 = m.Groups[4].ToString();
+                //        String c4 = m.Groups[5].ToString();
+                //        String ipaddress1 = m.Groups[6].ToString();
+                //        String c5 = m.Groups[7].ToString();
+                //        String port = m.Groups[8].ToString();
+                //        // Console.Write("(" + word1.ToString() + ")" + "(" + c1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + c4.ToString() + ")" + "(" + ipaddress1.ToString() + ")" + "\n");
+                //        Debug.Print("(" + protocol.ToString() + ")"
+                //            + "(" + c1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + c4.ToString() + ")"
+                //            + "(" + ipaddress1.ToString() + ")"
+                //            + "(" + c5.ToString() + ")"
+                //            + "(" + port.ToString() + ")" + "\n");
+                //        //(udp)(:)(/)(/)(@)(224.1.1.1)
+                //    }
+                //    else
+                //    {
+                //        Debug.Print("Совпадений не выявлено");
+                //    }
+                //}
                 //udp://@224.1.1.1:6000
-                string[] ip = sss[1].Split('.');
-                if (ip.Length<4)
-                {
-                    MessageBox.Show("Test");
-                }
 
-                tvc.TvgName = tvgNameBox.Text;
-                tvc.Tvglogo = tvglogoBox.Text;
-                tvc.GroupTitle = groupTitleComboBox.Text;
-                tvc.UDP = UDPbox.Text;
-                tvc.Name = NameBox.Text;
+                if (ValidatorText(tvgNameBox.Text)) tvc.TvgName = tvgNameBox.Text;
+                if (ValidatorText(tvglogoBox.Text)) tvc.Tvglogo = tvgNameBox.Text;
+                if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = tvgNameBox.Text;
+                if (ValidatorUDP(UDPbox.Text)) tvc.UDP = tvgNameBox.Text;
+                if (ValidatorText(NameBox.Text)) tvc.Name = tvgNameBox.Text;
+
+                // tvc.TvgName = tvgNameBox.Text;
+                // tvc.Tvglogo = tvglogoBox.Text;
+                // tvc.GroupTitle = groupTitleComboBox.Text;
+                // tvc.UDP = UDPbox.Text;
+                // tvc.Name = NameBox.Text;
             }
-
-
-            //int selectedRow = dgvTV.SelectedRows[0].Index;
-
-            //channels[selectedRow].tvgName = tvgNameBox.Text;
-            //channels[selectedRow].tvglogo = tvglogoBox.Text;
-            //channels[selectedRow].groupTitle = groupTitleComboBox.Text;
-            //channels[selectedRow].UDP = UDPbox.Text;
-            //channels[selectedRow].Name = NameBox.Text;
 
             tree.Enabled = true;      // Разблокировка дерева
             dgvTV.Enabled = true;     // Разблокировка таблицы
@@ -717,6 +745,55 @@ namespace M3Ueditor
             Changed();
         }
 
+
+        private bool ValidatorUDP(string UDPserver)
+        {
+            string re1 = "(udp(?!.*udp)|http(?!.*http))";   //protocol
+            string re2 = "(:\\/\\/@)";   // symbols
+            string re6 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";   // IPv4 IP Address 1
+            string re7 = "(:)"; // Any Single Character :
+            string re8 = "(\\d+)";  // Integer Number port
+
+            Regex r = new Regex(re1 + re2 + re6 + re7 + re8, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(UDPbox.Text);
+            if (m.Success)
+            {
+                String protocol = m.Groups[1].ToString();
+                String c1 = m.Groups[2].ToString();
+                String ipaddress1 = m.Groups[3].ToString();
+                String c5 = m.Groups[4].ToString();
+                String port = m.Groups[5].ToString();
+
+                Debug.Print("(" + protocol.ToString() + ")"
+                    + "(" + c1.ToString() + ")"
+                    + "(" + ipaddress1.ToString() + ")"
+                    + "(" + c5.ToString() + ")"
+                    + "(" + port.ToString() + ")" + "\n");
+
+                return true;
+            }
+            else
+            {
+                Debug.Print("UDP сервер не распознан!");
+            }
+            return false;
+        }
+
+        private static bool ValidatorText(string txt)
+        {
+            string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
+
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                String TextAfterParsing = m.Groups[1].ToString();
+                Debug.Print("(" + TextAfterParsing.ToString() + ")" + "\n");
+                return true;
+            }
+            return false;
+        }
+
         private void btnChangeCancel_Click(object sender, EventArgs e)  // Кнопка Отмена
         {
             tree.Enabled = true;      // Разблокировка дерева
@@ -725,7 +802,6 @@ namespace M3Ueditor
             TableRefresh();
             errorProvider.SetError(UDPbox, null);
         }
-
 
 
         #endregion
@@ -740,21 +816,8 @@ namespace M3Ueditor
             {
                 errorProvider.SetError(UDPbox, null);
             }
-            aaa();
         }
 
-        void aaa()
-        {
-            if (!Validate())
-            {
-                Debug.Print("inValidate");
-            }
-            else
-            {
-                Debug.Print("inValidate");
-            }         
-
-        }
 
         private void groupTitleComboBox_Validating(object sender, CancelEventArgs e)
         {
@@ -766,7 +829,6 @@ namespace M3Ueditor
             {
                 errorProvider.SetError(groupTitleComboBox, null);
             }
-
 
         }
 
