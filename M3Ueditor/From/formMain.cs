@@ -51,7 +51,7 @@ namespace M3Ueditor
             Settings.Default.Save();
         }
 
-        private void Main_FormClosing(object sender, FormClosingEventArgs e) => CheckChanged();
+        private void Main_FormClosing(object sender, FormClosingEventArgs e) => CheckChanged(e);
 
         #endregion
 
@@ -292,14 +292,21 @@ namespace M3Ueditor
             UpdategroupListAndTree();
         }
 
-        private void CheckChanged()
+        private void CheckChanged(FormClosingEventArgs e = null)
         {
             if (isChange)
             {
-                DialogResult dialog = MessageBox.Show("Файл изменен. Выполнить сохранение?!", "Предупреждение", MessageBoxButtons.OKCancel);
-                if (dialog == DialogResult.OK)
+                DialogResult dialog = MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
+                if (dialog == DialogResult.Yes)
                 {
                     SaveListTv();
+                }
+                if (dialog == DialogResult.Cancel)
+                {
+                    if (e != null)
+                    {
+                        e.Cancel = true;
+                    }         
                 }
             }
         }
@@ -582,20 +589,6 @@ namespace M3Ueditor
 
         }
 
-        private void dgvTV_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
-        {
-
-        }
-
-        private void dgvTV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (e.ColumnIndex == 2)
-            {
-                TableRefresh();
-                Changed();
-            }
-        }
-
         private void TableDragDrop(DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -690,6 +683,15 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (tvc != null)
             {
+                string UDPText = UDPbox.Text;
+                string[] sss = UDPText.Split(':');
+                //udp://@224.1.1.1:6000
+                string[] ip = sss[1].Split('.');
+                if (ip.Length<4)
+                {
+                    MessageBox.Show("Test");
+                }
+
                 tvc.TvgName = tvgNameBox.Text;
                 tvc.Tvglogo = tvglogoBox.Text;
                 tvc.GroupTitle = groupTitleComboBox.Text;
@@ -720,11 +722,53 @@ namespace M3Ueditor
             tree.Enabled = true;      // Разблокировка дерева
             dgvTV.Enabled = true;     // Разблокировка таблицы
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+            TableRefresh();
+            errorProvider.SetError(UDPbox, null);
         }
+
 
 
         #endregion
 
+        private void UDPbox_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(UDPbox.Text))
+            {
+                errorProvider.SetError(UDPbox, "UDP is incorrect");
+            }
+            else
+            {
+                errorProvider.SetError(UDPbox, null);
+            }
+            aaa();
+        }
+
+        void aaa()
+        {
+            if (!Validate())
+            {
+                Debug.Print("inValidate");
+            }
+            else
+            {
+                Debug.Print("inValidate");
+            }         
+
+        }
+
+        private void groupTitleComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(groupTitleComboBox.Text))
+            {
+                errorProvider.SetError(groupTitleComboBox, "groupTitleComboBox is incorrect");
+            }
+            else
+            {
+                errorProvider.SetError(groupTitleComboBox, null);
+            }
+
+
+        }
 
     }
 }
