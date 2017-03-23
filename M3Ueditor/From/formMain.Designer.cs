@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.status = new System.Windows.Forms.StatusStrip();
             this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -74,6 +75,7 @@
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
@@ -87,6 +89,7 @@
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).BeginInit();
             this.panelEdit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // status
@@ -419,7 +422,7 @@
             // 
             this.btnChangeCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnChangeCancel.Location = new System.Drawing.Point(214, 274);
+            this.btnChangeCancel.Location = new System.Drawing.Point(205, 274);
             this.btnChangeCancel.Name = "btnChangeCancel";
             this.btnChangeCancel.Size = new System.Drawing.Size(75, 23);
             this.btnChangeCancel.TabIndex = 3;
@@ -445,9 +448,10 @@
             this.groupTitleComboBox.FormattingEnabled = true;
             this.groupTitleComboBox.Location = new System.Drawing.Point(18, 170);
             this.groupTitleComboBox.Name = "groupTitleComboBox";
-            this.groupTitleComboBox.Size = new System.Drawing.Size(271, 21);
+            this.groupTitleComboBox.Size = new System.Drawing.Size(262, 21);
             this.groupTitleComboBox.TabIndex = 2;
             this.groupTitleComboBox.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            this.groupTitleComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.groupTitleComboBox_Validating);
             // 
             // label2
             // 
@@ -500,7 +504,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NameBox.Location = new System.Drawing.Point(18, 31);
             this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(271, 20);
+            this.NameBox.Size = new System.Drawing.Size(262, 20);
             this.NameBox.TabIndex = 0;
             this.NameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -510,9 +514,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UDPbox.Location = new System.Drawing.Point(18, 216);
             this.UDPbox.Name = "UDPbox";
-            this.UDPbox.Size = new System.Drawing.Size(271, 20);
+            this.UDPbox.Size = new System.Drawing.Size(262, 20);
             this.UDPbox.TabIndex = 0;
             this.UDPbox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.UDPbox.Validating += new System.ComponentModel.CancelEventHandler(this.UDPbox_Validating);
             // 
             // tvglogoBox
             // 
@@ -520,7 +525,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tvglogoBox.Location = new System.Drawing.Point(18, 125);
             this.tvglogoBox.Name = "tvglogoBox";
-            this.tvglogoBox.Size = new System.Drawing.Size(271, 20);
+            this.tvglogoBox.Size = new System.Drawing.Size(262, 20);
             this.tvglogoBox.TabIndex = 0;
             this.tvglogoBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -530,9 +535,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tvgNameBox.Location = new System.Drawing.Point(18, 78);
             this.tvgNameBox.Name = "tvgNameBox";
-            this.tvgNameBox.Size = new System.Drawing.Size(271, 20);
+            this.tvgNameBox.Size = new System.Drawing.Size(262, 20);
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // Main
             // 
@@ -566,6 +575,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).EndInit();
             this.panelEdit.ResumeLayout(false);
             this.panelEdit.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -619,6 +629,7 @@
         private System.Windows.Forms.ToolStripSeparator tss2;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel1;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel2;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
 
