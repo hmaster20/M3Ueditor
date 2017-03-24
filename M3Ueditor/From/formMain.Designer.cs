@@ -430,6 +430,7 @@
             this.btnChangeCancel.TabIndex = 3;
             this.btnChangeCancel.Text = "Отмена";
             this.btnChangeCancel.UseVisualStyleBackColor = true;
+            this.btnChangeCancel.Visible = false;
             this.btnChangeCancel.Click += new System.EventHandler(this.btnChangeCancel_Click);
             // 
             // btnChangeApprove
@@ -441,6 +442,7 @@
             this.btnChangeApprove.TabIndex = 3;
             this.btnChangeApprove.Text = "Применить";
             this.btnChangeApprove.UseVisualStyleBackColor = true;
+            this.btnChangeApprove.Visible = false;
             this.btnChangeApprove.Click += new System.EventHandler(this.btnChangeApprove_Click);
             // 
             // groupTitleComboBox
