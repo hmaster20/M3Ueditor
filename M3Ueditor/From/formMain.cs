@@ -35,7 +35,7 @@ namespace M3Ueditor
             groupList = new List<string>();
             channels = new SortableBindingList<TVChannel>();
 
-            ButtonStateChange();
+            ButtonMenuEnable();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -187,7 +187,6 @@ namespace M3Ueditor
             return false;
         }
 
-
         private void SaveListTv()
         {
             if (fileName != null)
@@ -231,7 +230,6 @@ namespace M3Ueditor
             file.Close();
         }
 
-
         private bool channelsCorrect()
         {
             if (channels != null && channels.Count > 0)
@@ -270,7 +268,7 @@ namespace M3Ueditor
                     }
                     tree.ExpandAll();
                 }
-                ButtonStateChange(true);
+                ButtonMenuEnable(true);
                 tssLabel1.Text = "Количество каналов: " + channels.Count;
                 if (fileName != null)
                 {
@@ -282,7 +280,7 @@ namespace M3Ueditor
                 //channels.Clear();
                 tree.Nodes.Clear();
                 dgvTV.DataSource = null;
-                ButtonStateChange(false);
+                ButtonMenuEnable(false);
                 tssLabel1.Text = "";
                 this.Text = "M3U editor";
             }
@@ -313,7 +311,7 @@ namespace M3Ueditor
             }
         }
 
-        private void ButtonStateChange(bool state = false)
+        private void ButtonMenuEnable(bool state = false)
         {
             tsAdd.Enabled = state;
             tsRemove.Enabled = state;
@@ -562,7 +560,6 @@ namespace M3Ueditor
             }
         }
 
-
         private void dgvTV_KeyDown(object sender, KeyEventArgs e)
         {
             // редактирование ячейки при нажатии F2
@@ -645,7 +642,7 @@ namespace M3Ueditor
                 if ((row.DataBoundItem as TVChannel).Name == tvc.Name)
                 {
                     row.Selected = true;
-                    dgv.FirstDisplayedScrollingRowIndex = row.Index;
+                    // dgv.FirstDisplayedScrollingRowIndex = row.Index;  // прокрутака таблицы до выбранной строки
                     break;
                 }
         }
@@ -669,13 +666,31 @@ namespace M3Ueditor
 
 
         #region Панель редактирования
-        private void UserModifiedChanged(object sender, EventArgs e) => Modified(); // событие при измнении любого поля
+        private void UserModifiedChanged(object sender, EventArgs e) => Modified(); // событие при изменении любого поля
+
         private void Modified()
         {
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Salmon; // подсветка редактируемой строки в таблице
-            dgvTV.Enabled = false;   // блокировка таблицы
-            tree.Enabled = false; // блокировка дерева
+
+            dgvTVtreeEnabled(false);
+
+            ButtonControlEnabled(true);
         }
+
+        private void dgvTVtreeEnabled(bool state = false)
+        {
+            tree.Enabled = state;   // изменение блокировки дерева
+            dgvTV.Enabled = state;  // изменение блокировки таблицы
+
+            if (state) dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+        }
+
+        private void ButtonControlEnabled(bool state = false)
+        {
+            btnChangeApprove.Visible = state; // отображение кнопки применить
+            btnChangeCancel.Visible = state;
+        }
+
 
         private void btnChangeApprove_Click(object sender, EventArgs e) // Кнопка Применить
         {
@@ -696,23 +711,20 @@ namespace M3Ueditor
                 if (ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
             }
 
-            tree.Enabled = true;      // Разблокировка дерева
-            dgvTV.Enabled = true;     // Разблокировка таблицы
-            dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+            dgvTVtreeEnabled(true);
 
             TableRefresh();
 
             Changed();
         }
 
-
         private void btnChangeCancel_Click(object sender, EventArgs e)  // Кнопка Отмена
         {
-            tree.Enabled = true;      // Разблокировка дерева
-            dgvTV.Enabled = true;     // Разблокировка таблицы
-            dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+            dgvTVtreeEnabled(true);
+
             TableRefresh();
-            errorProvider.SetError(UDPbox, null);
+            
+            errorProvider.Clear();  //errorProvider.SetError(UDPbox, null);
         }
 
         #endregion
@@ -750,10 +762,18 @@ namespace M3Ueditor
         #region Проверка введенных данных в таблицу
         private void CelleError(DataGridViewCellValidatingEventArgs e, Control edit)
         {
-            e.Cancel = true;
-            errorProvider.SetError(edit, "Неверно заполнена ячейка");
-            errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
-            errorProvider.SetIconPadding(edit, -20);
+            try
+            {
+                e.Cancel = true;
+                errorProvider.SetError(edit, "Неверно заполнена ячейка");
+                errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+                errorProvider.SetIconPadding(edit, -20);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("CelleError завершилась ошибкой. \n" + ex.Message);
+                e.Cancel = false;
+            }
         }
 
         private void dgvTV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -818,7 +838,14 @@ namespace M3Ueditor
         private static bool ValidatorText(string txt)
         {
             //string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
-            string pattern = "((?:[а-яА-Яa-zA-Z][а-яА-Яa-zA-Z0-9_]*))"; ;
+            //string pattern = "((?:[а-яА-Яa-zA-Z][а-яА-Яa-zA-Z0-9_]*))"; ;
+            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9_]*))";
+            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+))";
+            //string pattern = @"((^[\w\s+/-]+$))";
+            //string pattern = @"([\w\s]+$)";
+
+            string pattern = @"((?:[\w][\w\s]+$))";
+
 
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             Match m = r.Match(txt);
