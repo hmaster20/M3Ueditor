@@ -806,31 +806,149 @@ namespace M3Ueditor
 
         #endregion
 
-        private void UDPbox_Validating(object sender, CancelEventArgs e)
+        private void NameBox_Validating(object sender, CancelEventArgs e) => CheckErrorTextBox(NameBox.Text, NameBox, lName.Text);
+        private void tvgNameBox_Validating(object sender, CancelEventArgs e) => CheckErrorTextBox(tvgNameBox.Text, tvgNameBox, ltvgName.Text);
+        private void tvglogoBox_Validating(object sender, CancelEventArgs e) => CheckErrorTextBox(tvglogoBox.Text, tvglogoBox, ltvglogo.Text);
+
+        private void CheckErrorTextBox(string txt, TextBox tBox, string lblText)
         {
-            if (string.IsNullOrEmpty(UDPbox.Text))
+            if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
             {
-                errorProvider.SetError(UDPbox, "UDP is incorrect");
+                errorProvider.SetError(tBox, "Поле " + lblText + " заполнено не верно!");
             }
             else
             {
-                errorProvider.SetError(UDPbox, null);
+                errorProvider.SetError(tBox, null);
             }
         }
 
 
         private void groupTitleComboBox_Validating(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrEmpty(groupTitleComboBox.Text))
+            ComboBox cbox = groupTitleComboBox;
+            string txt = groupTitleComboBox.Text;
+            string lblText = lgroupTitle.Text;
+
+            if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
             {
-                errorProvider.SetError(groupTitleComboBox, "groupTitleComboBox is incorrect");
+                errorProvider.SetError(cbox, "Поле " + lblText + " заполнено не верно!");
             }
             else
             {
-                errorProvider.SetError(groupTitleComboBox, null);
+                errorProvider.SetError(cbox, null);
+            }
+        }
+
+        private void UDPbox_Validating(object sender, CancelEventArgs e)
+        {
+
+            TextBox cbox = UDPbox;
+            string txt = UDPbox.Text;
+            string lblText = lUDPbox.Text;
+
+            if (string.IsNullOrEmpty(txt) || (!ValidatorUDP(txt)))
+            {
+                errorProvider.SetError(cbox, "Поле " + lblText + " заполнено не верно!");
+            }
+            else
+            {
+                errorProvider.SetError(cbox, null);
+            }
+        }
+
+
+
+
+#if DEBUG
+
+
+
+        private void dgvTV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            errorProvider.Clear();
+        }
+
+        private void dgvTV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0)
+                return;
+            double val;
+            Control edit = dgvTV.EditingControl;
+            if (edit != null && !Double.TryParse(e.FormattedValue.ToString(), out val))
+            {
+                e.Cancel = true;
+                errorProvider.SetError(edit, "Numeric value required");
+                errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+                errorProvider.SetIconPadding(edit, -20); // icon displays on left side of cell
             }
 
+
+            //if (e.ColumnIndex != -1)
+            //{
+            //    if (e.ColumnIndex == 0)
+            //    {
+            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
+            //    }
+
+            //    if (e.ColumnIndex == 1)
+            //    {
+            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
+            //    }
+
+
+            //}
+
+
+            //if (!this.Validates(e.FormattedValue)) //run some custom validation on the value in that cell
+            //{
+            //    this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Error";
+            //    e.Cancel = true; //will prevent user from leaving cell, may not be the greatest idea, you can decide that yourself.
+            //}
+
+
+            //DataGridViewCell aa = c.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            // CheckErrorCell(aa);
         }
+
+
+        private void CheckErrorCell(DataGridViewCell aa)
+        {
+            if (aa.Value == null)
+            {
+                aa.ErrorText = "Неверно заполнена ячейка";
+                return;
+            }
+           string txt = aa.Value.ToString();
+          //  string lblText = dgvTV.Columns[aa.ColumnIndex].Name;
+
+          //  if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
+           // { }
+
+            if (aa.ColumnIndex > -1 && aa.ColumnIndex < 3 || aa.ColumnIndex ==4)
+            {
+                if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
+                {
+                    aa.ErrorText = "Неверно заполнена ячейка";
+                }
+                else
+                {
+                    aa.ErrorText = string.Empty;
+                }
+            }
+
+
+
+
+            //if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
+            //{
+            //    errorProvider.SetError(tBox, "Поле " + lblText + " заполнено не верно!");
+            //}
+            //else
+            //{
+            //    errorProvider.SetError(tBox, null);
+            //}
+        }
+#endif
 
     }
 }
