@@ -66,11 +66,11 @@
             this.btnChangeCancel = new System.Windows.Forms.Button();
             this.btnChangeApprove = new System.Windows.Forms.Button();
             this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ltvgName = new System.Windows.Forms.Label();
+            this.lName = new System.Windows.Forms.Label();
+            this.lUDPbox = new System.Windows.Forms.Label();
+            this.lgroupTitle = new System.Windows.Forms.Label();
+            this.ltvglogo = new System.Windows.Forms.Label();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.UDPbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
@@ -393,8 +393,13 @@
             this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTV.Size = new System.Drawing.Size(484, 507);
             this.dgvTV.TabIndex = 0;
+#if DEBUG
+            this.dgvTV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTV_CellEndEdit);
+            this.dgvTV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvTV_CellValidating);
+#endif
             this.dgvTV.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseClick);
             this.dgvTV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseDown);
+
             this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
             this.dgvTV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvTV_KeyDown);
             // 
@@ -403,11 +408,11 @@
             this.panelEdit.Controls.Add(this.btnChangeCancel);
             this.panelEdit.Controls.Add(this.btnChangeApprove);
             this.panelEdit.Controls.Add(this.groupTitleComboBox);
-            this.panelEdit.Controls.Add(this.label2);
-            this.panelEdit.Controls.Add(this.label5);
-            this.panelEdit.Controls.Add(this.label4);
-            this.panelEdit.Controls.Add(this.label3);
-            this.panelEdit.Controls.Add(this.label1);
+            this.panelEdit.Controls.Add(this.ltvgName);
+            this.panelEdit.Controls.Add(this.lName);
+            this.panelEdit.Controls.Add(this.lUDPbox);
+            this.panelEdit.Controls.Add(this.lgroupTitle);
+            this.panelEdit.Controls.Add(this.ltvglogo);
             this.panelEdit.Controls.Add(this.NameBox);
             this.panelEdit.Controls.Add(this.UDPbox);
             this.panelEdit.Controls.Add(this.tvglogoBox);
@@ -453,50 +458,50 @@
             this.groupTitleComboBox.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             this.groupTitleComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.groupTitleComboBox_Validating);
             // 
-            // label2
+            // ltvgName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 62);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "tvgName";
+            this.ltvgName.AutoSize = true;
+            this.ltvgName.Location = new System.Drawing.Point(15, 62);
+            this.ltvgName.Name = "ltvgName";
+            this.ltvgName.Size = new System.Drawing.Size(50, 13);
+            this.ltvgName.TabIndex = 1;
+            this.ltvgName.Text = "tvgName";
             // 
-            // label5
+            // lName
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 15);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(133, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Name (Название канала)";
+            this.lName.AutoSize = true;
+            this.lName.Location = new System.Drawing.Point(15, 15);
+            this.lName.Name = "lName";
+            this.lName.Size = new System.Drawing.Size(133, 13);
+            this.lName.TabIndex = 1;
+            this.lName.Text = "Name (Название канала)";
             // 
-            // label4
+            // lUDPbox
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 200);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "UDP/IP";
+            this.lUDPbox.AutoSize = true;
+            this.lUDPbox.Location = new System.Drawing.Point(15, 200);
+            this.lUDPbox.Name = "lUDPbox";
+            this.lUDPbox.Size = new System.Drawing.Size(45, 13);
+            this.lUDPbox.TabIndex = 1;
+            this.lUDPbox.Text = "UDP/IP";
             // 
-            // label3
+            // lgroupTitle
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 154);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "groupTitle";
+            this.lgroupTitle.AutoSize = true;
+            this.lgroupTitle.Location = new System.Drawing.Point(15, 154);
+            this.lgroupTitle.Name = "lgroupTitle";
+            this.lgroupTitle.Size = new System.Drawing.Size(54, 13);
+            this.lgroupTitle.TabIndex = 1;
+            this.lgroupTitle.Text = "groupTitle";
             // 
-            // label1
+            // ltvglogo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 109);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "tvglogo";
+            this.ltvglogo.AutoSize = true;
+            this.ltvglogo.Location = new System.Drawing.Point(15, 109);
+            this.ltvglogo.Name = "ltvglogo";
+            this.ltvglogo.Size = new System.Drawing.Size(42, 13);
+            this.ltvglogo.TabIndex = 1;
+            this.ltvglogo.Text = "tvglogo";
             // 
             // NameBox
             // 
@@ -507,6 +512,7 @@
             this.NameBox.Size = new System.Drawing.Size(262, 20);
             this.NameBox.TabIndex = 0;
             this.NameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.NameBox.Validating += new System.ComponentModel.CancelEventHandler(this.NameBox_Validating);
             // 
             // UDPbox
             // 
@@ -528,6 +534,7 @@
             this.tvglogoBox.Size = new System.Drawing.Size(262, 20);
             this.tvglogoBox.TabIndex = 0;
             this.tvglogoBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.tvglogoBox.Validating += new System.ComponentModel.CancelEventHandler(this.tvglogoBox_Validating);
             // 
             // tvgNameBox
             // 
@@ -538,6 +545,7 @@
             this.tvgNameBox.Size = new System.Drawing.Size(262, 20);
             this.tvgNameBox.TabIndex = 0;
             this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.tvgNameBox.Validating += new System.ComponentModel.CancelEventHandler(this.tvgNameBox_Validating);
             // 
             // errorProvider
             // 
@@ -596,15 +604,15 @@
         private System.Windows.Forms.ToolStripButton tsAdd;
         private System.Windows.Forms.ToolStripButton tsRemove;
         private System.Windows.Forms.Panel panelEdit;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ltvglogo;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.TextBox UDPbox;
         private System.Windows.Forms.TextBox tvglogoBox;
         private System.Windows.Forms.TextBox tvgNameBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label ltvgName;
+        private System.Windows.Forms.Label lName;
+        private System.Windows.Forms.Label lUDPbox;
+        private System.Windows.Forms.Label lgroupTitle;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TreeView tree;
         private System.Windows.Forms.ComboBox groupTitleComboBox;
