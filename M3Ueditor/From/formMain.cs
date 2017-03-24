@@ -686,16 +686,14 @@ namespace M3Ueditor
             if (tvc != null)
             {
                 if (ValidatorText(tvgNameBox.Text)) tvc.TvgName = tvgNameBox.Text;
-                if (ValidatorText(tvglogoBox.Text)) tvc.Tvglogo = tvgNameBox.Text;
-                if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = tvgNameBox.Text;
-                if (ValidatorUDP(UDPbox.Text)) tvc.UDP = tvgNameBox.Text;
-                if (ValidatorText(NameBox.Text)) tvc.Name = tvgNameBox.Text;
 
-                // tvc.TvgName = tvgNameBox.Text;
-                // tvc.Tvglogo = tvglogoBox.Text;
-                // tvc.GroupTitle = groupTitleComboBox.Text;
-                // tvc.UDP = UDPbox.Text;
-                // tvc.Name = NameBox.Text;
+                if (ValidatorText(tvglogoBox.Text)) tvc.Tvglogo = tvglogoBox.Text;
+
+                if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = groupTitleComboBox.Text;
+
+                if (ValidatorUDP(UDPbox.Text)) tvc.UDP = UDPbox.Text;
+
+                if (ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
             }
 
             tree.Enabled = true;      // Разблокировка дерева
@@ -764,9 +762,20 @@ namespace M3Ueditor
                 return;
 
             Control edit = dgvTV.EditingControl;
-            if (e.ColumnIndex != 3 && (!ValidatorText(e.FormattedValue.ToString()))) CelleError(e, edit);
-            if (e.ColumnIndex == 3 && (!ValidatorUDP(e.FormattedValue.ToString()))) CelleError(e, edit);
+
+            if (e.ColumnIndex != 3 && (!ValidatorText(e.FormattedValue.ToString()))
+            || (e.ColumnIndex == 3 && (!ValidatorUDP(e.FormattedValue.ToString()))))
+            {
+                CelleError(e, edit);
+            }
         }
+
+        private void dgvTV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            errorProvider.Clear();
+            TableRefresh();
+        }
+
         #endregion
 
 
@@ -808,7 +817,8 @@ namespace M3Ueditor
 
         private static bool ValidatorText(string txt)
         {
-            string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
+            //string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
+            string pattern = "((?:[а-яА-Яa-zA-Z][а-яА-Яa-zA-Z0-9_]*))"; ;
 
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             Match m = r.Match(txt);
