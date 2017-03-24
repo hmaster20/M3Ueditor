@@ -685,44 +685,6 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (tvc != null)
             {
-                //{
-                //    string re1 = "(udp)";   // Word 1
-                //    string re2 = "(:)"; // Any Single Character 1
-                //    string re3 = "(\\/)";   // Any Single Character slash
-                //    string re4 = "(\\/)";   // Any Single Character slash
-                //    string re5 = "(@)"; // Any Single Character at
-                //    string re6 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";   // IPv4 IP Address 1
-                //    string re7 = "(:)"; // Any Single Character 1
-                //    string re8 = "(\\d+)";  // Integer Number 1
-
-                //    Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                //    //Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                //    Match m = r.Match(UDPbox.Text);
-                //    if (m.Success)
-                //    {
-                //        String protocol = m.Groups[1].ToString();
-                //        String c1 = m.Groups[2].ToString();
-                //        String c2 = m.Groups[3].ToString();
-                //        String c3 = m.Groups[4].ToString();
-                //        String c4 = m.Groups[5].ToString();
-                //        String ipaddress1 = m.Groups[6].ToString();
-                //        String c5 = m.Groups[7].ToString();
-                //        String port = m.Groups[8].ToString();
-                //        // Console.Write("(" + word1.ToString() + ")" + "(" + c1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + c4.ToString() + ")" + "(" + ipaddress1.ToString() + ")" + "\n");
-                //        Debug.Print("(" + protocol.ToString() + ")"
-                //            + "(" + c1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + c4.ToString() + ")"
-                //            + "(" + ipaddress1.ToString() + ")"
-                //            + "(" + c5.ToString() + ")"
-                //            + "(" + port.ToString() + ")" + "\n");
-                //        //(udp)(:)(/)(/)(@)(224.1.1.1)
-                //    }
-                //    else
-                //    {
-                //        Debug.Print("Совпадений не выявлено");
-                //    }
-                //}
-                //udp://@224.1.1.1:6000
-
                 if (ValidatorText(tvgNameBox.Text)) tvc.TvgName = tvgNameBox.Text;
                 if (ValidatorText(tvglogoBox.Text)) tvc.Tvglogo = tvgNameBox.Text;
                 if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = tvgNameBox.Text;
@@ -746,16 +708,81 @@ namespace M3Ueditor
         }
 
 
+        private void btnChangeCancel_Click(object sender, EventArgs e)  // Кнопка Отмена
+        {
+            tree.Enabled = true;      // Разблокировка дерева
+            dgvTV.Enabled = true;     // Разблокировка таблицы
+            dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+            TableRefresh();
+            errorProvider.SetError(UDPbox, null);
+        }
+
+        #endregion
+
+
+        #region Проверка введенных данных в карточку
+        private void NameBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(NameBox, lName.Text);
+        private void tvgNameBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(tvgNameBox, ltvgName.Text);
+        private void tvglogoBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(tvglogoBox, ltvglogo.Text);
+        private void groupTitleComboBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(groupTitleComboBox, lgroupTitle.Text);
+        private void UDPbox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(UDPbox, lUDPbox.Text);
+
+
+        private void TextEnterValidate(Control ctrl, string lblText)
+        {
+            if (string.IsNullOrEmpty(ctrl.Text) || (!RunValidate(ctrl)))
+            {
+                errorProvider.SetError(ctrl, "Поле " + lblText + " заполнено не верно!");
+            }
+            else
+            {
+                errorProvider.SetError(ctrl, null);
+            }
+        }
+
+        bool RunValidate(Control ctrl)
+        {
+            if (ctrl.Name == UDPbox.Name) { return ValidatorUDP(ctrl.Text); }
+            else { return ValidatorText(ctrl.Text); }
+        }
+
+        #endregion
+
+
+        #region Проверка введенных данных в таблицу
+        private void CelleError(DataGridViewCellValidatingEventArgs e, Control edit)
+        {
+            e.Cancel = true;
+            errorProvider.SetError(edit, "Неверно заполнена ячейка");
+            errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(edit, -20);
+        }
+
+        private void dgvTV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0)
+                return;
+
+            Control edit = dgvTV.EditingControl;
+            if (e.ColumnIndex != 3 && (!ValidatorText(e.FormattedValue.ToString()))) CelleError(e, edit);
+            if (e.ColumnIndex == 3 && (!ValidatorUDP(e.FormattedValue.ToString()))) CelleError(e, edit);
+        }
+        #endregion
+
+
+        #region Методы проверки
+
         private bool ValidatorUDP(string UDPserver)
         {
-            string re1 = "(udp(?!.*udp)|http(?!.*http))";   //protocol
-            string re2 = "(:\\/\\/@)";   // symbols
-            string re6 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";   // IPv4 IP Address 1
-            string re7 = "(:)"; // Any Single Character :
-            string re8 = "(\\d+)";  // Integer Number port
+            //udp://@224.1.1.1:6000 - шаблон для парсинга
+            string re1 = "(udp(?!.*udp)|http(?!.*http))";   // Протокол
+            string re2 = "(:\\/\\/@)";   // спец.символы
+            string re6 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";   // IPv4 IP-адресс
+            string re7 = "(:)"; //  :
+            string re8 = "(\\d+)";  // Номер порта
 
             Regex r = new Regex(re1 + re2 + re6 + re7 + re8, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            Match m = r.Match(UDPbox.Text);
+            Match m = r.Match(UDPserver);
             if (m.Success)
             {
                 String protocol = m.Groups[1].ToString();
@@ -794,161 +821,7 @@ namespace M3Ueditor
             return false;
         }
 
-        private void btnChangeCancel_Click(object sender, EventArgs e)  // Кнопка Отмена
-        {
-            tree.Enabled = true;      // Разблокировка дерева
-            dgvTV.Enabled = true;     // Разблокировка таблицы
-            dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
-            TableRefresh();
-            errorProvider.SetError(UDPbox, null);
-        }
-
-
         #endregion
-
-        private void NameBox_Validating(object sender, CancelEventArgs e) => CheckErrorTextBox(NameBox.Text, NameBox, lName.Text);
-        private void tvgNameBox_Validating(object sender, CancelEventArgs e) => CheckErrorTextBox(tvgNameBox.Text, tvgNameBox, ltvgName.Text);
-        private void tvglogoBox_Validating(object sender, CancelEventArgs e) => CheckErrorTextBox(tvglogoBox.Text, tvglogoBox, ltvglogo.Text);
-
-        private void CheckErrorTextBox(string txt, TextBox tBox, string lblText)
-        {
-            if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
-            {
-                errorProvider.SetError(tBox, "Поле " + lblText + " заполнено не верно!");
-            }
-            else
-            {
-                errorProvider.SetError(tBox, null);
-            }
-        }
-
-
-        private void groupTitleComboBox_Validating(object sender, CancelEventArgs e)
-        {
-            ComboBox cbox = groupTitleComboBox;
-            string txt = groupTitleComboBox.Text;
-            string lblText = lgroupTitle.Text;
-
-            if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
-            {
-                errorProvider.SetError(cbox, "Поле " + lblText + " заполнено не верно!");
-            }
-            else
-            {
-                errorProvider.SetError(cbox, null);
-            }
-        }
-
-        private void UDPbox_Validating(object sender, CancelEventArgs e)
-        {
-
-            TextBox cbox = UDPbox;
-            string txt = UDPbox.Text;
-            string lblText = lUDPbox.Text;
-
-            if (string.IsNullOrEmpty(txt) || (!ValidatorUDP(txt)))
-            {
-                errorProvider.SetError(cbox, "Поле " + lblText + " заполнено не верно!");
-            }
-            else
-            {
-                errorProvider.SetError(cbox, null);
-            }
-        }
-
-
-
-
-#if DEBUG
-
-
-
-        private void dgvTV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            errorProvider.Clear();
-        }
-
-        private void dgvTV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (e.ColumnIndex < 0 || e.RowIndex < 0)
-                return;
-            double val;
-            Control edit = dgvTV.EditingControl;
-            if (edit != null && !Double.TryParse(e.FormattedValue.ToString(), out val))
-            {
-                e.Cancel = true;
-                errorProvider.SetError(edit, "Numeric value required");
-                errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
-                errorProvider.SetIconPadding(edit, -20); // icon displays on left side of cell
-            }
-
-
-            //if (e.ColumnIndex != -1)
-            //{
-            //    if (e.ColumnIndex == 0)
-            //    {
-            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
-            //    }
-
-            //    if (e.ColumnIndex == 1)
-            //    {
-            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
-            //    }
-
-
-            //}
-
-
-            //if (!this.Validates(e.FormattedValue)) //run some custom validation on the value in that cell
-            //{
-            //    this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Error";
-            //    e.Cancel = true; //will prevent user from leaving cell, may not be the greatest idea, you can decide that yourself.
-            //}
-
-
-            //DataGridViewCell aa = c.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            // CheckErrorCell(aa);
-        }
-
-
-        private void CheckErrorCell(DataGridViewCell aa)
-        {
-            if (aa.Value == null)
-            {
-                aa.ErrorText = "Неверно заполнена ячейка";
-                return;
-            }
-           string txt = aa.Value.ToString();
-          //  string lblText = dgvTV.Columns[aa.ColumnIndex].Name;
-
-          //  if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
-           // { }
-
-            if (aa.ColumnIndex > -1 && aa.ColumnIndex < 3 || aa.ColumnIndex ==4)
-            {
-                if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
-                {
-                    aa.ErrorText = "Неверно заполнена ячейка";
-                }
-                else
-                {
-                    aa.ErrorText = string.Empty;
-                }
-            }
-
-
-
-
-            //if (string.IsNullOrEmpty(txt) || (!ValidatorText(txt)))
-            //{
-            //    errorProvider.SetError(tBox, "Поле " + lblText + " заполнено не верно!");
-            //}
-            //else
-            //{
-            //    errorProvider.SetError(tBox, null);
-            //}
-        }
-#endif
 
     }
 }

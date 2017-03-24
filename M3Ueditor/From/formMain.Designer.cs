@@ -393,10 +393,7 @@
             this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTV.Size = new System.Drawing.Size(484, 507);
             this.dgvTV.TabIndex = 0;
-#if DEBUG
-            this.dgvTV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTV_CellEndEdit);
             this.dgvTV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvTV_CellValidating);
-#endif
             this.dgvTV.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseClick);
             this.dgvTV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseDown);
 
