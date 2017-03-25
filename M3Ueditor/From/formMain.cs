@@ -670,24 +670,32 @@ namespace M3Ueditor
 
         private void Modified()
         {
-            dgvTV.DefaultCellStyle.SelectionBackColor = Color.Salmon; // подсветка редактируемой строки в таблице
-
             dgvTVtreeEnabled(false);
-
             ButtonControlEnabled(true);
         }
 
         private void dgvTVtreeEnabled(bool state = false)
         {
-            tree.Enabled = state;   // изменение блокировки дерева
-            dgvTV.Enabled = state;  // изменение блокировки таблицы
+            tree.Enabled = state;
+            dgvTV.Enabled = state;
+            dgvTVRowSelectColorRestore(state);
+        }
 
-            if (state) dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+        private void dgvTVRowSelectColorRestore(bool unlocked)
+        {
+            if (unlocked)
+            {
+                dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;
+            }
+            else
+            {
+                dgvTV.DefaultCellStyle.SelectionBackColor = Color.Salmon;
+            }
         }
 
         private void ButtonControlEnabled(bool state = false)
         {
-            btnChangeApprove.Visible = state; // отображение кнопки применить
+            btnChangeApprove.Visible = state;
             btnChangeCancel.Visible = state;
         }
 
@@ -723,7 +731,7 @@ namespace M3Ueditor
             dgvTVtreeEnabled(true);
 
             TableRefresh();
-            
+
             errorProvider.Clear();  //errorProvider.SetError(UDPbox, null);
         }
 
@@ -801,16 +809,16 @@ namespace M3Ueditor
 
         #region Методы проверки
 
-        private bool ValidatorUDP(string UDPserver)
+        public static bool ValidatorUDP(string UDPserver)
         {
             //udp://@224.1.1.1:6000 - шаблон для парсинга
-            string re1 = "(udp(?!.*udp)|http(?!.*http))";   // Протокол
-            string re2 = "(:\\/\\/@)";   // спец.символы
-            string re6 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";   // IPv4 IP-адресс
-            string re7 = "(:)"; //  :
-            string re8 = "(\\d+)";  // Номер порта
+            string re_protocl = "(udp(?!.*udp)|http(?!.*http))";
+            string re_at = "(:\\/\\/@)";
+            string re_IPv4 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";
+            string re7 = "(:)";
+            string re_port = "(\\d+)";
 
-            Regex r = new Regex(re1 + re2 + re6 + re7 + re8, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Regex r = new Regex(re_protocl + re_at + re_IPv4 + re7 + re_port, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             Match m = r.Match(UDPserver);
             if (m.Success)
             {
@@ -835,7 +843,7 @@ namespace M3Ueditor
             return false;
         }
 
-        private static bool ValidatorText(string txt)
+        public static bool ValidatorText(string txt)
         {
             //string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
             //string pattern = "((?:[а-яА-Яa-zA-Z][а-яА-Яa-zA-Z0-9_]*))"; ;
