@@ -146,7 +146,7 @@ namespace M3Ueditor
 
         private void MergeListTV()
         {
-            if (channelsCorrect())
+            if (isChannelsCorrect())
             {
                 CheckChanged();
                 OpenFileDialog fileDialog = new OpenFileDialog();
@@ -230,7 +230,7 @@ namespace M3Ueditor
             file.Close();
         }
 
-        private bool channelsCorrect()
+        private bool isChannelsCorrect()
         {
             if (channels != null && channels.Count > 0)
             {
@@ -244,7 +244,7 @@ namespace M3Ueditor
 
         private void UpdategroupListAndTree()
         {
-            if (channelsCorrect())
+            if (isChannelsCorrect())
             {
                 groupList.Clear();
                 for (int i = 0; i < channels.Count; i++)
@@ -296,7 +296,9 @@ namespace M3Ueditor
         {
             if (isChange)
             {
-                DialogResult dialog = MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
+                DialogResult dialog =
+                    MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
+
                 if (dialog == DialogResult.Yes)
                 {
                     SaveListTv();
@@ -402,55 +404,68 @@ namespace M3Ueditor
 
         private void Remove()
         {
-            if (dgvTV.Rows.Count > 0)
+            if ((dgvTV.Rows.Count < 0) && (dgvTV.SelectedRows.Count == 0))
             {
-                if (dgvTV.SelectedRows.Count == 0)
+                return;
+            }
+            else
+            {
+                if (dgvTV.MultiSelect)
                 {
-                    return;
+                    RemoveMultiSelect();
                 }
                 else
                 {
-                    if (dgvTV.MultiSelect)
-                    {
-                        foreach (DataGridViewRow dr in dgvTV.SelectedRows)
-                        {
-                            if (!dr.IsNewRow)
-                            {
-                                dgvTV.Rows.Remove(dr);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        int selectedRow = dgvTV.SelectedRows[0].Index;
-
-                        if (channels.Count > 0 && selectedRow - 1 > 0)
-                        {
-                            dgvTV.Rows[selectedRow - 1].Selected = true;
-                        }
-                        else if (channels.Count > 0 && selectedRow + 1 <= channels.Count - 1)
-                        {
-                            dgvTV.Rows[selectedRow + 1].Selected = true;
-                        }
-
-                        channels.RemoveAt(selectedRow);
-
-                        if ((dgvTV.Rows.Count > 0) && (selectedRow - 1 > -1))
-                        {
-                            if (selectedRow == dgvTV.Rows.Count)
-                            {
-                                dgvTV.Rows[selectedRow - 1].Selected = true;
-                            }
-                            else
-                            {
-                                dgvTV.Rows[selectedRow].Selected = true;
-                            }
-                        }
-                    }
+                    RemoveSingleSelect();
                 }
-                Changed();
+            }
+            Changed();
+        }
+
+        private void RemoveMultiSelect()
+        {
+            foreach (DataGridViewRow dr in dgvTV.SelectedRows)
+            {
+                if (!dr.IsNewRow)
+                {
+                    dgvTV.Rows.Remove(dr);
+                }
             }
         }
+
+        private void RemoveSingleSelect()
+        {
+            int selectedRow = dgvTV.SelectedRows[0].Index;
+
+            if (channels.Count > 0 && selectedRow - 1 > 0)
+            {
+                dgvTV.Rows[selectedRow - 1].Selected = true;
+            }
+            else if (channels.Count > 0 && selectedRow + 1 <= channels.Count - 1)
+            {
+                dgvTV.Rows[selectedRow + 1].Selected = true;
+            }
+
+            channels.RemoveAt(selectedRow);
+
+            NextRowSelect(selectedRow);
+        }
+
+        private void NextRowSelect(int selectedRow)
+        {
+            if ((dgvTV.Rows.Count > 0) && (selectedRow - 1 > -1))
+            {
+                if (selectedRow == dgvTV.Rows.Count)
+                {
+                    dgvTV.Rows[selectedRow - 1].Selected = true;
+                }
+                else
+                {
+                    dgvTV.Rows[selectedRow].Selected = true;
+                }
+            }
+        }
+
 
         private void Up()
         {
