@@ -381,6 +381,7 @@ namespace M3Ueditor
             return ListTV;
         }
 
+        #region Добавление
         private void Add()
         {
             string tvgName = "New Channel";
@@ -401,6 +402,10 @@ namespace M3Ueditor
             dgvTV.FirstDisplayedScrollingRowIndex = channels.Count - 1;
             Changed();
         }
+        #endregion
+
+
+        #region Удаление
 
         private void Remove()
         {
@@ -466,6 +471,7 @@ namespace M3Ueditor
             }
         }
 
+        #endregion
 
         private void Up()
         {
