@@ -151,15 +151,11 @@ namespace M3Ueditor
         {
             if (isChannelsCorrect())
             {
-                // FileInfo currentfileName = fileName;
-
-                //FileInfo currentfileName = new FileInfo(
-                //    fileName.FullName.Remove(
-                //        (fileName.FullName.Length - fileName.Extension.Count()), fileName.Extension.Count())); //fileName as FileInfo;
+                FileInfo currentfileName = null;
 
                 if (fileName != null)
                 {
-                    FileInfo currentfileName = new FileInfo(fileName.DirectoryName + fileName.Name + "_Merge" + fileName.Extension);
+                    currentfileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
                 }
 
 
@@ -186,6 +182,17 @@ namespace M3Ueditor
                         }
                     }
 
+                    if (currentfileName != null)
+                    {
+                        fileName = currentfileName;
+                    }
+                    else
+                    {
+                        if (fileName != null)
+                        {
+                            fileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
+                        }
+                    }
 
 
                     TableRefresh();
