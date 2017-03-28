@@ -284,14 +284,6 @@ namespace M3Ueditor
                 }
                 ButtonMenuEnable(true);
                 tssLabel1.Text = "Количество каналов: " + channels.Count;
-                if (fileName != null)
-                {
-                    this.Text = fileName.FullName + " - M3U editor";
-                }
-                else
-                {
-                    this.Text = "Новый" + " - M3U editor";
-                }
             }
             else
             {
@@ -300,7 +292,28 @@ namespace M3Ueditor
                 dgvTV.DataSource = null;
                 ButtonMenuEnable(false);
                 tssLabel1.Text = "";
-                this.Text = "M3U editor";
+            }
+
+            FileInfoInMainFormTitle();
+        }
+
+
+        private void FileInfoInMainFormTitle()
+        {
+            if (fileName != null)
+            {
+                this.Text = fileName.FullName + " - M3U editor";
+            }
+            else
+            {
+                if (isChannelsCorrect())
+                {
+                    this.Text = "Новый" + " - M3U editor";
+                }
+                else
+                {
+                    this.Text = "M3U editor";
+                }
             }
         }
 
@@ -312,6 +325,7 @@ namespace M3Ueditor
 
         private void CheckChanged(FormClosingEventArgs e = null)
         {
+            // if (isChange && fileName != null)
             if (isChange)
             {
                 DialogResult dialog =
@@ -420,8 +434,16 @@ namespace M3Ueditor
                         _Name: Name.Trim()
                         ));
 
-            dgvTV.Rows[channels.Count - 1].Selected = true;
-            dgvTV.FirstDisplayedScrollingRowIndex = channels.Count - 1;
+            try
+            {
+                dgvTV.Rows[channels.Count - 1].Selected = true;
+                dgvTV.FirstDisplayedScrollingRowIndex = channels.Count - 1;
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+
             Changed();
         }
         #endregion
