@@ -109,6 +109,7 @@ namespace M3Ueditor
             dgvTV.DataSource = channels;
 
             UpdategroupListAndTree();
+            Changed();
         }
 
         private void OpenListTV()
@@ -140,7 +141,9 @@ namespace M3Ueditor
                 }
 
                 TableRefresh();
+
                 UpdategroupListAndTree();
+                Changed();
             }
         }
 
@@ -172,7 +175,9 @@ namespace M3Ueditor
                     }
 
                     TableRefresh();
+
                     UpdategroupListAndTree();
+                    Changed();
                 }
             }
         }
@@ -206,6 +211,15 @@ namespace M3Ueditor
             fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
             fileDialog.Title = "Сохранить плейлист";
             fileDialog.RestoreDirectory = true;
+
+            if (fileName != null)
+            {
+                fileDialog.FileName = fileName.Name;
+            }
+            else
+            {
+                fileDialog.FileName = "Новый.m3u";
+            }
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -274,6 +288,10 @@ namespace M3Ueditor
                 {
                     this.Text = fileName.FullName + " - M3U editor";
                 }
+                else
+                {
+                    this.Text = "Новый" + " - M3U editor";
+                }
             }
             else
             {
@@ -321,6 +339,10 @@ namespace M3Ueditor
             tsDown.Enabled = state;
             tsSave.Enabled = state;
             splitContainer.Panel2Collapsed = !state;    // видна только tree & dgv
+
+            tsmMerge.Enabled = state;
+            tsmSave.Enabled = state;
+            tsmSaveAs.Enabled = state;
         }
 
         public SortableBindingList<TVChannel> ParseM3U(StreamReader playlist)
@@ -693,7 +715,30 @@ namespace M3Ueditor
         {
             dgvTVtreeEnabled(false);
             ButtonControlEnabled(true);
+            Debug.Print("Modified");
         }
+
+        private void UnModified()
+        {
+            Debug.Print("UnModified - Start");
+
+            //return status
+            tvgNameBox.Modified = false;
+            tvglogoBox.Modified = false;
+            UDPbox.Modified = false;
+            NameBox.Modified = false;
+            Debug.Print("Change status for textBox");
+
+
+            dgvTVtreeEnabled(true);
+            ButtonControlEnabled(false);
+            Debug.Print("UnModified - Finish");
+        }
+
+
+
+
+
 
         private void dgvTVtreeEnabled(bool state = false)
         {
@@ -749,11 +794,18 @@ namespace M3Ueditor
 
         private void btnChangeCancel_Click(object sender, EventArgs e)  // Кнопка Отмена
         {
-            dgvTVtreeEnabled(true);
+            // dgvTVtreeEnabled(true);
+            Debug.Print("btnChangeCancel - Click");
 
             TableRefresh();
+            Debug.Print("btnChangeCancel - TableRefresh");
 
-            errorProvider.Clear();  //errorProvider.SetError(UDPbox, null);
+            //errorProvider.Clear();  //errorProvider.SetError(UDPbox, null);
+            errorProvider.SetError(UDPbox, null);
+            Debug.Print("btnChangeCancel - errorProvider");
+
+            UnModified();
+            Debug.Print("btnChangeCancel - UnModified");
         }
 
         #endregion
@@ -822,7 +874,13 @@ namespace M3Ueditor
         private void dgvTV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             errorProvider.Clear();
+            // TableRefresh();
+
+            dgvTVtreeEnabled(true);
+
             TableRefresh();
+
+            Changed();
         }
 
         #endregion
