@@ -161,6 +161,7 @@
             // 
             // tsmMerge
             // 
+            this.tsmMerge.Enabled = false;
             this.tsmMerge.Name = "tsmMerge";
             this.tsmMerge.Size = new System.Drawing.Size(162, 22);
             this.tsmMerge.Text = "Объединить...";
@@ -173,6 +174,7 @@
             // 
             // tsmSave
             // 
+            this.tsmSave.Enabled = false;
             this.tsmSave.Name = "tsmSave";
             this.tsmSave.Size = new System.Drawing.Size(162, 22);
             this.tsmSave.Text = "Сохранить";
@@ -180,6 +182,7 @@
             // 
             // tsmSaveAs
             // 
+            this.tsmSaveAs.Enabled = false;
             this.tsmSaveAs.Name = "tsmSaveAs";
             this.tsmSaveAs.Size = new System.Drawing.Size(162, 22);
             this.tsmSaveAs.Text = "Сохранить как...";
@@ -455,6 +458,7 @@
             this.groupTitleComboBox.Size = new System.Drawing.Size(262, 21);
             this.groupTitleComboBox.TabIndex = 2;
             this.groupTitleComboBox.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            this.groupTitleComboBox.TextUpdate += new System.EventHandler(this.UserModifiedChanged);
             this.groupTitleComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.groupTitleComboBox_Validating);
             // 
             // ltvgName
