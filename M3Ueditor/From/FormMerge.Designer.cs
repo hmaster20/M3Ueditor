@@ -204,6 +204,7 @@
             this.Controls.Add(this.cBoxSelectDubl);
             this.Name = "FormMerge";
             this.Text = "Слияние плейлистов";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvMerge)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

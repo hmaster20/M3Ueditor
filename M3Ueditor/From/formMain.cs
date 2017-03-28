@@ -143,7 +143,7 @@ namespace M3Ueditor
                 TableRefresh();
 
                 UpdategroupListAndTree();
-                Changed();
+                //Changed();
             }
         }
 
@@ -151,6 +151,18 @@ namespace M3Ueditor
         {
             if (isChannelsCorrect())
             {
+                // FileInfo currentfileName = fileName;
+
+                //FileInfo currentfileName = new FileInfo(
+                //    fileName.FullName.Remove(
+                //        (fileName.FullName.Length - fileName.Extension.Count()), fileName.Extension.Count())); //fileName as FileInfo;
+
+                if (fileName != null)
+                {
+                    FileInfo currentfileName = new FileInfo(fileName.DirectoryName + fileName.Name + "_Merge" + fileName.Extension);
+                }
+
+
                 CheckChanged();
                 OpenFileDialog fileDialog = new OpenFileDialog();
                 fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
@@ -173,6 +185,8 @@ namespace M3Ueditor
                             channels = form.ModChannels;
                         }
                     }
+
+
 
                     TableRefresh();
 
@@ -328,8 +342,12 @@ namespace M3Ueditor
             // if (isChange && fileName != null)
             if (isChange)
             {
+                //DialogResult dialog =
+                //    MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
+
                 DialogResult dialog =
                     MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
+
 
                 if (dialog == DialogResult.Yes)
                 {
