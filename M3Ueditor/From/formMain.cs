@@ -114,36 +114,38 @@ namespace M3Ueditor
 
         private void OpenListTV()
         {
-            CheckChanged();
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
-            fileDialog.Title = "Открыть плейлист";
-            fileDialog.RestoreDirectory = true;
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            // CheckChanged();
+            if (CheckChanged())
             {
-                fileName = new FileInfo(fileDialog.FileName);
+                OpenFileDialog fileDialog = new OpenFileDialog();
+                //fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
+                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u";
+                fileDialog.Title = "Открыть плейлист";
+                fileDialog.RestoreDirectory = true;
 
-                using (StreamReader playlist = new StreamReader(fileName.FullName))
+                if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    channels.Clear();
+                    fileName = new FileInfo(fileDialog.FileName);
 
-                    switch (Path.GetExtension(fileName.FullName))
+                    using (StreamReader playlist = new StreamReader(fileName.FullName))
                     {
-                        case ".m3u":
-                            channels = ParseM3U(playlist);
-                            break;
+                        channels.Clear();
 
-                        case ".csv":
-                            //ParseCSV();
-                            break;
+                        switch (Path.GetExtension(fileName.FullName))
+                        {
+                            case ".m3u":
+                                channels = ParseM3U(playlist);
+                                break;
+
+                            case ".csv":
+                                //ParseCSV();
+                                break;
+                        }
                     }
+
+                    TableRefresh();
+                    UpdategroupListAndTree();
                 }
-
-                TableRefresh();
-
-                UpdategroupListAndTree();
-                //Changed();
             }
         }
 
@@ -152,7 +154,6 @@ namespace M3Ueditor
             if (isChannelsCorrect())
             {
                 FileInfo currentfileName = null;
-
                 if (fileName != null)
                 {
                     currentfileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
@@ -186,12 +187,9 @@ namespace M3Ueditor
                     {
                         fileName = currentfileName;
                     }
-                    else
+                    else if (fileName != null)
                     {
-                        if (fileName != null)
-                        {
-                            fileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
-                        }
+                        fileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
                     }
 
 
@@ -229,7 +227,8 @@ namespace M3Ueditor
         private void SaveListTvAs()
         {
             SaveFileDialog fileDialog = new SaveFileDialog();
-            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
+            //fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
+            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u";
             fileDialog.Title = "Сохранить плейлист";
             fileDialog.RestoreDirectory = true;
 
@@ -344,30 +343,35 @@ namespace M3Ueditor
             UpdategroupListAndTree();
         }
 
-        private void CheckChanged(FormClosingEventArgs e = null)
+        private bool CheckChanged(FormClosingEventArgs e = null)
         {
-            // if (isChange && fileName != null)
-            if (isChange)
+            if (fileName != null && isChannelsCorrect())
             {
-                //DialogResult dialog =
-                //    MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
-
-                DialogResult dialog =
-                    MessageBox.Show("Файл изменен. Выполнить сохранение перед выходом?!", "Предупреждение", MessageBoxButtons.YesNoCancel);
-
-
-                if (dialog == DialogResult.Yes)
+                if (isChange)
                 {
-                    SaveListTv();
-                }
-                if (dialog == DialogResult.Cancel)
-                {
-                    if (e != null)
+                    DialogResult dialog =
+                        MessageBox.Show("Файл был изменен!\nВыполнить сохранение, прежде чем продолжить?", "Предупреждение",
+                        MessageBoxButtons.YesNoCancel);
+
+                    if (dialog == DialogResult.Yes)
                     {
-                        e.Cancel = true;
+                        SaveListTv();
+                    }
+                    if (dialog == DialogResult.Cancel)
+                    {
+                        if (e != null)
+                        {
+                            e.Cancel = true;
+                        }
+                        return false;
                     }
                 }
             }
+            else
+            {
+                isChange = false;
+            }
+            return true;
         }
 
         private void ButtonMenuEnable(bool state = false)
@@ -993,6 +997,5 @@ namespace M3Ueditor
         }
 
         #endregion
-
     }
 }
