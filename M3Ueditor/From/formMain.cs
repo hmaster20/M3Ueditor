@@ -997,5 +997,11 @@ namespace M3Ueditor
         }
 
         #endregion
+
+        private void tsScan_Click(object sender, EventArgs e)
+        {
+            formPortScan about = new formPortScan();
+            about.ShowDialog();
+        }
     }
 }

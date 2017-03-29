@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.status = new System.Windows.Forms.StatusStrip();
             this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -76,6 +77,8 @@
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tsScan = new System.Windows.Forms.ToolStripButton();
+            this.ts4 = new System.Windows.Forms.ToolStripSeparator();
             this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
@@ -241,7 +244,9 @@
             this.tsRemove,
             this.ts3,
             this.tsUp,
-            this.tsDown});
+            this.tsDown,
+            this.ts4,
+            this.tsScan});
             this.toolS.Location = new System.Drawing.Point(0, 24);
             this.toolS.Name = "toolS";
             this.toolS.Size = new System.Drawing.Size(1025, 25);
@@ -554,6 +559,21 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // tsScan
+            // 
+            this.tsScan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsScan.Image = ((System.Drawing.Image)(resources.GetObject("tsScan.Image")));
+            this.tsScan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsScan.Name = "tsScan";
+            this.tsScan.Size = new System.Drawing.Size(23, 22);
+            this.tsScan.Text = "toolStripButton1";
+            this.tsScan.Click += new System.EventHandler(this.tsScan_Click);
+            // 
+            // ts4
+            // 
+            this.ts4.Name = "ts4";
+            this.ts4.Size = new System.Drawing.Size(6, 25);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -641,6 +661,8 @@
         private System.Windows.Forms.ToolStripStatusLabel tssLabel1;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel2;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ToolStripSeparator ts4;
+        private System.Windows.Forms.ToolStripButton tsScan;
     }
 }
 
