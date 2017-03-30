@@ -38,7 +38,7 @@ namespace M3Ueditor
         int found = 0;
         int newchan= 0;
 
-        string localhost = "172.16.3.35";
+        string localhost = "192.168.1.102";
         public string Localhost
         {
             get
@@ -48,9 +48,9 @@ namespace M3Ueditor
 
             set
             {
-                // localhost = value;
+                localhost = value;
                 //localhost = Globals.interfaceip;
-                localhost = "172.16.3.35";
+                //localhost = "172.16.3.35";
             }
         }
 

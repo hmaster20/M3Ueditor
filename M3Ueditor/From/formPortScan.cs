@@ -31,10 +31,31 @@ namespace M3Ueditor
 
             btnStart.Enabled = false;
             btnStop.Enabled = true;
-            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, label9, label18, dataGridView1);
+            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1);
             int timeout = (int)numericUpDown2.Value;
             int port = (int)numericUpDown3.Value;
             scanner.StartScann(ipstart, ipstop, port, timeout);
+        }
+
+        private void formPortScan_Load(object sender, EventArgs e)
+        {
+            dataGridView1.Columns[0].DataPropertyName = "Ip";
+            dataGridView1.Columns[1].DataPropertyName = "Chan";
+            dataGridView1.Columns[2].DataPropertyName = "Name";
+            dataGridView1.Columns[3].DataPropertyName = "Group";
+            dataGridView1.Columns[4].DataPropertyName = "Audio";
+            dataGridView1.Columns[5].DataPropertyName = "Fav";
+            dataGridView1.Columns[6].DataPropertyName = "Skip";
+            dataGridView1.Columns[7].DataPropertyName = "Logo";
+            dataGridView1.Columns[7].Visible = false;
+            dataGridView1.Columns[8].DataPropertyName = "Locked";
+
+            bindingSource1.DataSource = ChannelTable.menu.Tables["Menu"];
+            dataGridView1.DataSource = bindingSource1;
+
+            // show all channels
+            if (bindingSource1.Filter != "")
+                bindingSource1.Filter = "";
         }
     }
 }

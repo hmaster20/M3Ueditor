@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblEndIP = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblStartIP = new System.Windows.Forms.Label();
@@ -39,17 +43,27 @@
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.FoundAddress = new System.Windows.Forms.Label();
+            this.CurrentAddress = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ipEnd = new iptb.IPTextBox();
             this.ipStart = new iptb.IPTextBox();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox4
@@ -70,6 +84,14 @@
             this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Scanner settings";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.progressBar1.Location = new System.Drawing.Point(10, 131);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(262, 15);
+            this.progressBar1.TabIndex = 45;
             // 
             // lblEndIP
             // 
@@ -178,6 +200,139 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnScan_Click);
             // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(395, 21);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 44;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnScan_Click);
+            // 
+            // FoundAddress
+            // 
+            this.FoundAddress.AutoSize = true;
+            this.FoundAddress.Location = new System.Drawing.Point(156, 184);
+            this.FoundAddress.Name = "FoundAddress";
+            this.FoundAddress.Size = new System.Drawing.Size(75, 13);
+            this.FoundAddress.TabIndex = 45;
+            this.FoundAddress.Text = "FoundAddress";
+            // 
+            // CurrentAddress
+            // 
+            this.CurrentAddress.AutoSize = true;
+            this.CurrentAddress.Location = new System.Drawing.Point(28, 184);
+            this.CurrentAddress.Name = "CurrentAddress";
+            this.CurrentAddress.Size = new System.Drawing.Size(79, 13);
+            this.CurrentAddress.TabIndex = 45;
+            this.CurrentAddress.Text = "CurrentAddress";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowDrop = true;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column0,
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7,
+            this.Column8});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 208);
+            this.dataGridView1.Name = "dataGridView1";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView1.Size = new System.Drawing.Size(617, 216);
+            this.dataGridView1.TabIndex = 46;
+            // 
+            // Column0
+            // 
+            this.Column0.HeaderText = "Ip";
+            this.Column0.Name = "Column0";
+            this.Column0.Width = 87;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Št.";
+            this.Column1.Name = "Column1";
+            this.Column1.ToolTipText = "Za sortiranje izberite celotno vrstico in nato uporabite tipki GOR/DOL.";
+            this.Column1.Width = 62;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Ime";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 87;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Skupina";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 87;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Audio";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 87;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Priljubljeni";
+            this.Column5.Name = "Column5";
+            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column5.Width = 71;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Skrij";
+            this.Column6.Name = "Column6";
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column6.Width = 71;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Logo";
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 71;
+            // 
+            // Column8
+            // 
+            this.Column8.FalseValue = "false";
+            this.Column8.HeaderText = "Zaklenjen";
+            this.Column8.Name = "Column8";
+            this.Column8.TrueValue = "true";
+            this.Column8.Width = 71;
+            // 
             // ipEnd
             // 
             this.ipEnd.Location = new System.Drawing.Point(147, 58);
@@ -194,68 +349,26 @@
             this.ipStart.TabIndex = 44;
             this.ipStart.ToolTipText = "";
             // 
-            // btnStop
-            // 
-            this.btnStop.Location = new System.Drawing.Point(395, 21);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 44;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnScan_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.progressBar1.Location = new System.Drawing.Point(10, 131);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(262, 15);
-            this.progressBar1.TabIndex = 45;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(156, 184);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(41, 13);
-            this.label18.TabIndex = 45;
-            this.label18.Text = "label18";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(28, 184);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 45;
-            this.label9.Text = "label9";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(314, 70);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(324, 263);
-            this.dataGridView1.TabIndex = 46;
-            // 
             // formPortScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(650, 345);
+            this.ClientSize = new System.Drawing.Size(650, 436);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label18);
+            this.Controls.Add(this.CurrentAddress);
+            this.Controls.Add(this.FoundAddress);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.groupBox4);
             this.Name = "formPortScan";
             this.Text = "formPortScan";
+            this.Load += new System.EventHandler(this.formPortScan_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,8 +390,18 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label FoundAddress;
+        private System.Windows.Forms.Label CurrentAddress;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column0;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column8;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
