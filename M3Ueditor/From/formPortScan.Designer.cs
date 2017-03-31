@@ -36,8 +36,10 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblEndIP = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.ipEnd = new iptb.IPTextBox();
             this.lblStartIP = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.ipStart = new iptb.IPTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
@@ -47,6 +49,7 @@
             this.FoundAddress = new System.Windows.Forms.Label();
             this.CurrentAddress = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.Column0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,9 +59,6 @@
             this.Column6 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ipEnd = new iptb.IPTextBox();
-            this.ipStart = new iptb.IPTextBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -112,6 +112,14 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "timeout (ms):";
             // 
+            // ipEnd
+            // 
+            this.ipEnd.Location = new System.Drawing.Point(147, 58);
+            this.ipEnd.Name = "ipEnd";
+            this.ipEnd.Size = new System.Drawing.Size(135, 20);
+            this.ipEnd.TabIndex = 47;
+            this.ipEnd.ToolTipText = "";
+            // 
             // lblStartIP
             // 
             this.lblStartIP.AutoSize = true;
@@ -130,6 +138,14 @@
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 22;
             this.label11.Text = "Port:";
+            // 
+            // ipStart
+            // 
+            this.ipStart.Location = new System.Drawing.Point(9, 58);
+            this.ipStart.Name = "ipStart";
+            this.ipStart.Size = new System.Drawing.Size(132, 20);
+            this.ipStart.TabIndex = 44;
+            this.ipStart.ToolTipText = "";
             // 
             // label5
             // 
@@ -269,7 +285,8 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.Size = new System.Drawing.Size(617, 216);
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(737, 216);
             this.dataGridView1.TabIndex = 46;
             // 
             // Column0
@@ -280,20 +297,20 @@
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "Št.";
+            this.Column1.HeaderText = "Chanel";
             this.Column1.Name = "Column1";
             this.Column1.ToolTipText = "Za sortiranje izberite celotno vrstico in nato uporabite tipki GOR/DOL.";
             this.Column1.Width = 62;
             // 
             // Column2
             // 
-            this.Column2.HeaderText = "Ime";
+            this.Column2.HeaderText = "Name";
             this.Column2.Name = "Column2";
             this.Column2.Width = 87;
             // 
             // Column3
             // 
-            this.Column3.HeaderText = "Skupina";
+            this.Column3.HeaderText = "Group";
             this.Column3.Name = "Column3";
             this.Column3.Width = 87;
             // 
@@ -305,7 +322,7 @@
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "Priljubljeni";
+            this.Column5.HeaderText = "Fav";
             this.Column5.Name = "Column5";
             this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -313,7 +330,7 @@
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "Skrij";
+            this.Column6.HeaderText = "Skip";
             this.Column6.Name = "Column6";
             this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -328,32 +345,16 @@
             // Column8
             // 
             this.Column8.FalseValue = "false";
-            this.Column8.HeaderText = "Zaklenjen";
+            this.Column8.HeaderText = "Locked";
             this.Column8.Name = "Column8";
             this.Column8.TrueValue = "true";
             this.Column8.Width = 71;
-            // 
-            // ipEnd
-            // 
-            this.ipEnd.Location = new System.Drawing.Point(147, 58);
-            this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(135, 20);
-            this.ipEnd.TabIndex = 47;
-            this.ipEnd.ToolTipText = "";
-            // 
-            // ipStart
-            // 
-            this.ipStart.Location = new System.Drawing.Point(9, 58);
-            this.ipStart.Name = "ipStart";
-            this.ipStart.Size = new System.Drawing.Size(132, 20);
-            this.ipStart.TabIndex = 44;
-            this.ipStart.ToolTipText = "";
             // 
             // formPortScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(650, 436);
+            this.ClientSize = new System.Drawing.Size(766, 436);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.CurrentAddress);
             this.Controls.Add(this.FoundAddress);
@@ -393,6 +394,7 @@
         private System.Windows.Forms.Label FoundAddress;
         private System.Windows.Forms.Label CurrentAddress;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column0;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -402,6 +404,5 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column8;
-        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }

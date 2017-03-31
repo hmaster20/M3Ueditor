@@ -40,7 +40,7 @@ namespace M3Ueditor
         private void formPortScan_Load(object sender, EventArgs e)
         {
             dataGridView1.Columns[0].DataPropertyName = "Ip";
-            dataGridView1.Columns[1].DataPropertyName = "Chan";
+            dataGridView1.Columns[1].DataPropertyName = "Chanel";
             dataGridView1.Columns[2].DataPropertyName = "Name";
             dataGridView1.Columns[3].DataPropertyName = "Group";
             dataGridView1.Columns[4].DataPropertyName = "Audio";
