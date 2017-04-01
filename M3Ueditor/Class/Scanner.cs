@@ -25,9 +25,9 @@ namespace M3Ueditor
         public delegate void UpdateButtonsCallback();
         public delegate void ProgressbarCallback(int percent);
         public delegate void RefreshDatatableViewCallback(DataRow Row);
-        
+
         Socket sock;
-        Thread receiver;
+        Thread ThreadReceiver;
         IPEndPoint multiep;
         IPAddress curip;
         IPAddress start;
@@ -36,102 +36,78 @@ namespace M3Ueditor
         int timeout;
         int lastchan;
         int found = 0;
-        int newchan= 0;
+        int newchan = 0;
 
-        string localhost = "172.16.3.35"; // = "192.168.1.102";
-        public string Localhost
-        {
-            get
-            {
-                return localhost;
-            }
-
-            set
-            {
-                localhost = value;
-                //localhost = Globals.interfaceip;
-                //localhost = "172.16.3.35";
-            }
-        }
+        string localhost { get; set; } = "172.16.3.35"; // = "192.168.1.102";
 
         Button start_bt = new Button();
-        Button stop_bt = new Button();
-        ProgressBar pr_bar = new ProgressBar();
+        Button stop_bt { get; set; } = new Button();
+        ProgressBar progress_Bar = new ProgressBar();
         Label ip_label = new Label();
         Label found_label = new Label();
         DataGridView dg = new DataGridView();
 
 
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="a">Settings form start button</param>
-        /// <param name="b">Settings form stop button</param>
-        /// <param name="p">Settings form progress bar</param>
+        /// <summary>Constructor</summary>
         /// <param name="l">Settings form info label1</param>
         /// <param name="l2">Settings form info label2</param>
         /// <param name="d">Settings form datagridview</param>
-        public Scanner(Button a, Button b, ProgressBar p, Label l, Label l2, DataGridView d) {
-            start_bt = a;
-            stop_bt = b;
-            pr_bar = p;
+        public Scanner(Button startButton, Button stopButton, ProgressBar progressBar, Label l, Label l2, DataGridView d)
+        {
+            start_bt = startButton;
+            stop_bt = stopButton;
+            progress_Bar = progressBar;
             ip_label = l;
             found_label = l2;
             dg = d;
         }
 
-        /// <summary>
-        /// Start scanning
-        /// </summary>
+        /// <summary>Start scanning</summary>
         /// <param name="str">Start ip address</param>
         /// <param name="stp">End ip address</param>
         /// <param name="prt">Port</param>
         /// <param name="tmo">Timeout</param>
         public void StartScann(IPAddress str, IPAddress stp, int prt, int tmo)
         {
-            start=str;
-            stop=stp;
+            start = str;
+            stop = stp;
             curip = start;
             port = prt;
             timeout = tmo;
-            pr_bar.Visible = true;
-            // !!! HARDCODED TRANSLATION! Use MLmessages.resx !
-            //if (Properties.Settings.Default.language=="Slovenian")
-            //    ip_label.Text = "Iščem...";
-            //else
-                ip_label.Text = "Scanning...";
-           
-            pr_bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 0);
-            receiver = new Thread(new ThreadStart(packetReceive));
-            receiver.IsBackground = true;
-            receiver.Start();
+            ip_label.Text = "Scanning...";
+
+
+            progress_Bar.Visible = true;
+            progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 0);
+
+            ThreadReceiver = new Thread(new ThreadStart(packetReceive));
+            ThreadReceiver.IsBackground = true;
+            ThreadReceiver.Start();
         }
 
         void packetReceive()
         {
             byte[] data = new byte[65535]; // max udp size datagram
-            //string stringData;
-            int recv=0;
+            int recv = 0;
             bool foundchannel = false;
             bool timedout = false;
             bool searchforward = searchForward(start, stop);
             uint progressfull = calculateNumOfIpAddr(start, stop);
-            
+
             //Sort chan dataview by channels and get last channel number
             DataView chan = new DataView(ChannelTable.menu.Tables["Menu"], "", ChannelTable.menu.Tables["Menu"].Columns[1].ColumnName, DataViewRowState.CurrentRows);
             try
             {
                 lastchan = (int)chan[chan.Count - 1][1] + 1;
             }
-            catch { lastchan=1; }
-           
-            bool stopcondition=false;
+            catch { lastchan = 1; }
+
+            bool stopcondition = false;
             byte[] oct = start.GetAddressBytes();
             multiep = new IPEndPoint(new IPAddress(oct), port);
             EndPoint ep = (EndPoint)multiep;
-            //IPEndPoint iep = new IPEndPoint(IPAddress.Parse(Globals.interfaceip), port);
             IPEndPoint iep = new IPEndPoint(IPAddress.Parse(localhost), port);
+            //IPEndPoint iep = new IPEndPoint(IPAddress.Parse(Globals.interfaceip), port);
 
             int i = 0;
             int dir, tst;
@@ -148,91 +124,92 @@ namespace M3Ueditor
                 tst = -1;
                 str = (byte)255;
             }
+
             while (true)
             {
-                    i++;
-                    Thread.Sleep(300); // 300 ms between requests
-                    foundchannel = false;
-                    sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                    sock.SetSocketOption(SocketOptionLevel.Socket,SocketOptionName.ReuseAddress, true);
-                    
+                i++;
+                Thread.Sleep(300); // 300 ms between requests
+                foundchannel = false;
+                sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+
                 try
+                {
+                    sock.Bind(iep);
+                }
+                catch (SocketException ex)
+                {
+                    if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
                     {
-                        sock.Bind(iep);
+                        break;
                     }
-                    catch (SocketException ex)
-                    {
-                        if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
-                        {
-                            break;
-                        }
-                    }
-                    sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, timeout);
-                    //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(Globals.interfaceip).GetAddressBytes());
+                }
+                sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, timeout);
+                //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(Globals.interfaceip).GetAddressBytes());
                 sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(localhost).GetAddressBytes());
 
                 try
-                    {
-                        // Must be valid multicast address, else exception 10049
-                        //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
+                {
+                    // Must be valid multicast address, else exception 10049
+                    //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
                     sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(localhost)));
                 }
-                    catch(SocketException ex)
-                    {
-                      break;
-                    }
+                catch (SocketException ex)
+                {
+                    break;
+                }
 
+                ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
+                found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
+
+
+                try
+                {
+                    recv = sock.ReceiveFrom(data, ref ep);
+                }
+                catch (SocketException ex1)
+                {
+                    if (ex1.SocketErrorCode == SocketError.TimedOut)
+                    {
+                        timedout = true;
+                        recv = 0;
+                        foundchannel = false;
+                    }
+                }
+
+                if (recv > 0)
+                {
+                    foundchannel = true;
+                    found++;
+                }//We found a channel
+
+                if (!timedout)
+                    Thread.Sleep(300); // we are receiving for 300 ms
+
+                DataRow Row = ChannelTable.menu.Tables["Menu"].NewRow();
+                Row[2] = "Chan " + lastchan;
+                Row[0] = curip.ToString() + ":" + port;
+                Row[3] = "";
+                Row[1] = lastchan;
+                Row[4] = "";
+                Row[6] = false;
+
+                //Check if entry allready exists
+                DataRow foundrow = ChannelTable.menu.Tables["Menu"].Rows.Find(Row[0].ToString());
+
+                if (foundchannel && foundrow == null)
+                {
+                    dg.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
+                    newchan++;
+                    lastchan++;
                     ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
                     found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
-
-                    
-                    try
-                    {
-                        recv = sock.ReceiveFrom(data, ref ep);
-                    }
-                    catch (SocketException ex1)
-                    {
-                        if (ex1.SocketErrorCode == SocketError.TimedOut)
-                        {
-                            timedout = true;
-                            recv = 0;
-                            foundchannel = false;
-                        }
-                    }   
-
-                    if (recv > 0)
-                    {
-                        foundchannel = true;
-                        found++;
-                    }//We found a channel
-
-                    if (!timedout)
-                        Thread.Sleep(300); // we are receiving for 300 ms
-
-                           DataRow Row = ChannelTable.menu.Tables["Menu"].NewRow();
-                    Row[2] = "Chan "+lastchan;
-                    Row[0] = curip.ToString() + ":"+port;
-                    Row[3] = "";
-                    Row[1] = lastchan;
-                    Row[4] = "";
-                    Row[6] = false;
-                    
-                    //Check if entry allready exists
-                    DataRow foundrow = ChannelTable.menu.Tables["Menu"].Rows.Find(Row[0].ToString());
-
-                    if (foundchannel && foundrow == null)
-                    {
-                        dg.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
-                        newchan++;
-                        lastchan++;
-                        ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
-                        found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
-                    }
+                }
 
                 //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.DropMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
                 sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.DropMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(localhost)));
 
-                if (stopcondition) 
+                if (stopcondition)
                     break;
 
                 int test1 = oct[3] + dir;
@@ -263,9 +240,9 @@ namespace M3Ueditor
                     oct[3] = (byte)(oct[3] + dir);
 
                 curip = new IPAddress(oct);
-                pr_bar.Invoke(new ProgressbarCallback(UpdateprogressBar), (int)Math.Round(100*(float)i/(float)progressfull));
+                progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), (int)Math.Round(100 * (float)i / (float)progressfull));
 
-                if (curip.Equals(stop)) 
+                if (curip.Equals(stop))
                     stopcondition = true;
                 sock.Close();
             }
@@ -276,16 +253,17 @@ namespace M3Ueditor
             found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
             start_bt.Invoke(new UpdateButtonsCallback(UpdatestartButton));
             stop_bt.Invoke(new UpdateButtonsCallback(UpdatestopButton));
-            pr_bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 100);
+            progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 100);
 
             //Abort thread
-            receiver.Abort();
-       }
+            ThreadReceiver.Abort();
+        }
 
         /// <summary>
         /// Update ip label during the scann
         /// </summary>
-        private void UpdateipLabel(string text) {
+        private void UpdateipLabel(string text)
+        {
             ip_label.Text = text;
         }
 
@@ -297,7 +275,7 @@ namespace M3Ueditor
             //if (Properties.Settings.Default.language == "Slovenian")
             //    found_label.Text = "Našel: " + found + " (" + newchan + " novih)";
             //else
-                found_label.Text = "Found: " + found + " (" + newchan + " new)";
+            found_label.Text = "Found: " + found + " (" + newchan + " new)";
         }
 
         /// <summary>
@@ -308,47 +286,47 @@ namespace M3Ueditor
             start_bt.Enabled = true;
         }
 
-        /// <summary>
-        /// Disable start button
-        /// </summary>
+        /// <summary>Disable start button</summary>
         private void UpdatestopButton()
         {
             stop_bt.Enabled = false;
         }
 
-        /// <summary>
-        /// Progress bar 100 (before thread exits)
-        /// </summary>
+        /// <summary>Progress bar 100 (before thread exits)</summary>
         private void UpdateprogressBar(int percent)
         {
-            pr_bar.Value = Math.Min(100,percent);
+            progress_Bar.Value = Math.Min(100, percent);
         }
 
-        /// <summary>
-        /// Abort scanning
-        /// </summary>
-        public void stopScann() 
+        /// <summary>Отмена сканирования</summary>
+        public void stopScann()
         {
-            pr_bar.Value = 100;
-            receiver.Abort();
+            progress_Bar.Value = 100;
+            ThreadReceiver.Abort();
             sock.Close();
             dg.Focus();
         }
+
 
         private uint calculateNumOfIpAddr(IPAddress start, IPAddress stop)
         {
             byte[] str = start.GetAddressBytes();
             byte[] stp = stop.GetAddressBytes();
 
-            uint sta = (uint)255 * 255 * 255 * str[0] + (uint)255 * 255 * str[1] + (uint)255 * str[2] + (uint)str[3]; 
+            uint sta = (uint)255 * 255 * 255 * str[0] + (uint)255 * 255 * str[1] + (uint)255 * str[2] + (uint)str[3];
             uint stb = (uint)255 * 255 * 255 * stp[0] + (uint)255 * 255 * stp[1] + (uint)255 * stp[2] + (uint)stp[3];
 
             if (sta > stb)
-                return (sta - stb)+1;
+                return (sta - stb) + 1;
             else
-                return (stb - sta)+1;
+                return (stb - sta) + 1;
         }
 
+
+        /// <summary>Направление поиска (прямое или обратное)</summary>
+        /// <param name="start">Начальный IP-адрес</param>
+        /// <param name="stop">Конечный IP-адрес</param>
+        /// <returns>True или False</returns>
         private bool searchForward(IPAddress start, IPAddress stop)
         {
             byte[] str = start.GetAddressBytes();
@@ -367,5 +345,5 @@ namespace M3Ueditor
         {
             ChannelTable.menu.Tables["Menu"].Rows.Add(Row);
         }
-    }    
+    }
 }
