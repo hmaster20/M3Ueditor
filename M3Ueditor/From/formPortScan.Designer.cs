@@ -36,13 +36,11 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblEndIP = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.ipEnd = new iptb.IPTextBox();
             this.lblStartIP = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.ipStart = new iptb.IPTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.TimeOutNumber = new System.Windows.Forms.NumericUpDown();
+            this.PortNumber = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -62,9 +60,11 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ipEnd = new iptb.IPTextBox();
+            this.ipStart = new iptb.IPTextBox();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeOutNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PortNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -79,8 +79,8 @@
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.ipStart);
             this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.numericUpDown2);
-            this.groupBox4.Controls.Add(this.numericUpDown3);
+            this.groupBox4.Controls.Add(this.TimeOutNumber);
+            this.groupBox4.Controls.Add(this.PortNumber);
             this.groupBox4.Location = new System.Drawing.Point(12, 12);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(284, 133);
@@ -115,14 +115,6 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "timeout (ms):";
             // 
-            // ipEnd
-            // 
-            this.ipEnd.Location = new System.Drawing.Point(147, 58);
-            this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(135, 20);
-            this.ipEnd.TabIndex = 47;
-            this.ipEnd.ToolTipText = "";
-            // 
             // lblStartIP
             // 
             this.lblStartIP.AutoSize = true;
@@ -142,14 +134,6 @@
             this.label11.TabIndex = 22;
             this.label11.Text = "Port:";
             // 
-            // ipStart
-            // 
-            this.ipStart.Location = new System.Drawing.Point(9, 58);
-            this.ipStart.Name = "ipStart";
-            this.ipStart.Size = new System.Drawing.Size(132, 20);
-            this.ipStart.TabIndex = 44;
-            this.ipStart.ToolTipText = "";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -160,50 +144,50 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "IP range:";
             // 
-            // numericUpDown2
+            // TimeOutNumber
             // 
-            this.numericUpDown2.Increment = new decimal(new int[] {
+            this.TimeOutNumber.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(147, 102);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.TimeOutNumber.Location = new System.Drawing.Point(147, 102);
+            this.TimeOutNumber.Maximum = new decimal(new int[] {
             15000,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.TimeOutNumber.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDown2.TabIndex = 16;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.TimeOutNumber.Name = "TimeOutNumber";
+            this.TimeOutNumber.Size = new System.Drawing.Size(63, 20);
+            this.TimeOutNumber.TabIndex = 16;
+            this.TimeOutNumber.Value = new decimal(new int[] {
             600,
             0,
             0,
             0});
             // 
-            // numericUpDown3
+            // PortNumber
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(9, 102);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.PortNumber.Location = new System.Drawing.Point(9, 102);
+            this.PortNumber.Maximum = new decimal(new int[] {
             65535,
             0,
             0,
             0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.PortNumber.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDown3.TabIndex = 21;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.PortNumber.Name = "PortNumber";
+            this.PortNumber.Size = new System.Drawing.Size(63, 20);
+            this.PortNumber.TabIndex = 21;
+            this.PortNumber.Value = new decimal(new int[] {
             6000,
             0,
             0,
@@ -221,6 +205,7 @@
             // 
             // btnStop
             // 
+            this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(91, 19);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
@@ -241,7 +226,7 @@
             // CurrentAddress
             // 
             this.CurrentAddress.AutoSize = true;
-            this.CurrentAddress.Location = new System.Drawing.Point(6, 70);
+            this.CurrentAddress.Location = new System.Drawing.Point(7, 71);
             this.CurrentAddress.Name = "CurrentAddress";
             this.CurrentAddress.Size = new System.Drawing.Size(79, 13);
             this.CurrentAddress.TabIndex = 45;
@@ -392,6 +377,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Scanner control";
             // 
+            // ipEnd
+            // 
+            this.ipEnd.Location = new System.Drawing.Point(147, 58);
+            this.ipEnd.Name = "ipEnd";
+            this.ipEnd.Size = new System.Drawing.Size(135, 20);
+            this.ipEnd.TabIndex = 47;
+            this.ipEnd.ToolTipText = "";
+            // 
+            // ipStart
+            // 
+            this.ipStart.Location = new System.Drawing.Point(9, 58);
+            this.ipStart.Name = "ipStart";
+            this.ipStart.Size = new System.Drawing.Size(132, 20);
+            this.ipStart.TabIndex = 44;
+            this.ipStart.ToolTipText = "";
+            // 
             // formPortScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -407,8 +408,8 @@
             this.Load += new System.EventHandler(this.formPortScan_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeOutNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PortNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -423,8 +424,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown TimeOutNumber;
+        private System.Windows.Forms.NumericUpDown PortNumber;
         private System.Windows.Forms.ToolTip toolTip1;
         internal iptb.IPTextBox ipStart;
         internal System.Windows.Forms.Label lblEndIP;

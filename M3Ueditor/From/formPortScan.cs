@@ -15,26 +15,13 @@ namespace M3Ueditor
         public formPortScan()
         {
             InitializeComponent();
+            SetDefaultValue();
         }
 
-        private void btnScan_Click(object sender, EventArgs e)
+        void SetDefaultValue()
         {
-            IPAddress ipstart = IPAddress.Parse(ipStart.Text);
-            // IPAddress ipstart = new IPAddress(ipStart.Text);
-            // IPAddress ipstop = new IPAddress(ipAddressControl2.GetAddressBytes());
-            IPAddress ipstop = IPAddress.Parse(ipEnd.Text);
-
-            if (ipstart.ToString() == "0.0.0.0" || ipstop.ToString() == "0.0.0.0")
-                return;
-
-            // parent.Invoke(new delegateParentThread(parent.vlcStop));
-
-            btnStart.Enabled = false;
-            btnStop.Enabled = true;
-            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1);
-            int timeout = (int)numericUpDown2.Value;
-            int port = (int)numericUpDown3.Value;
-            scanner.StartScann(ipstart, ipstop, port, timeout);
+            ipStart.Text = "224.1.1.1";
+            ipEnd.Text = "224.1.2.250";
         }
 
         private void formPortScan_Load(object sender, EventArgs e)
@@ -57,5 +44,30 @@ namespace M3Ueditor
             if (bindingSource1.Filter != "")
                 bindingSource1.Filter = "";
         }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            // IPAddress ipstop = new IPAddress(ipAddressControl2.GetAddressBytes());
+
+            IPAddress ipstart = IPAddress.Parse(ipStart.Text);
+            IPAddress ipstop = IPAddress.Parse(ipEnd.Text);
+
+            if (ipstart.ToString() == "0.0.0.0" || ipstop.ToString() == "0.0.0.0")
+                return;
+
+            // parent.Invoke(new delegateParentThread(parent.vlcStop));
+
+            btnStart.Enabled = false;
+            btnStop.Enabled = true;
+
+            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1);
+
+            int timeout = (int)TimeOutNumber.Value;
+            int port = (int)PortNumber.Value;
+
+            scanner.StartScann(ipstart, ipstop, port, timeout);
+        }
+
+
     }
 }
