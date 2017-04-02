@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\ChannelTable.cs" />
     <Compile Include="Class\Scanner.cs" />
     <Compile Include="Class\Sortable.cs" />
     <Compile Include="Class\TVChannel.cs" />
