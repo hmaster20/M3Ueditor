@@ -60,6 +60,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dgvTV = new System.Windows.Forms.DataGridView();
             this.ipEnd = new iptb.IPTextBox();
             this.ipStart = new iptb.IPTextBox();
             this.groupBox4.SuspendLayout();
@@ -68,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox4
@@ -277,7 +279,7 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(738, 305);
+            this.dataGridView1.Size = new System.Drawing.Size(738, 117);
             this.dataGridView1.TabIndex = 46;
             // 
             // Column0
@@ -362,6 +364,7 @@
             this.btnApply.TabIndex = 48;
             this.btnApply.Text = "Применить";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // groupBox1
             // 
@@ -376,6 +379,23 @@
             this.groupBox1.TabIndex = 49;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Scanner control";
+            // 
+            // dgvTV
+            // 
+            this.dgvTV.AllowUserToResizeColumns = false;
+            this.dgvTV.AllowUserToResizeRows = false;
+            this.dgvTV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTV.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvTV.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvTV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTV.Location = new System.Drawing.Point(12, 274);
+            this.dgvTV.MultiSelect = false;
+            this.dgvTV.Name = "dgvTV";
+            this.dgvTV.ReadOnly = true;
+            this.dgvTV.RowHeadersVisible = false;
+            this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTV.Size = new System.Drawing.Size(738, 182);
+            this.dgvTV.TabIndex = 51;
             // 
             // ipEnd
             // 
@@ -398,6 +418,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(762, 468);
+            this.Controls.Add(this.dgvTV);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnApply);
@@ -414,6 +435,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -450,5 +472,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dgvTV;
     }
 }

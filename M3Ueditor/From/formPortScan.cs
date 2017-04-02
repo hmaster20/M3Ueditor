@@ -12,10 +12,13 @@ namespace M3Ueditor
 {
     public partial class formPortScan : Form
     {
+        SortableBindingList<TVChannel> channels { get; set; }
+
         public formPortScan()
         {
             InitializeComponent();
             SetDefaultValue();
+            channels = new SortableBindingList<TVChannel>();
         }
 
         void SetDefaultValue()
@@ -26,23 +29,23 @@ namespace M3Ueditor
 
         private void formPortScan_Load(object sender, EventArgs e)
         {
-            dataGridView1.Columns[0].DataPropertyName = "Ip";
-            dataGridView1.Columns[1].DataPropertyName = "Chanel";
-            dataGridView1.Columns[2].DataPropertyName = "Name";
-            dataGridView1.Columns[3].DataPropertyName = "Group";
-            dataGridView1.Columns[4].DataPropertyName = "Audio";
-            dataGridView1.Columns[5].DataPropertyName = "Fav";
-            dataGridView1.Columns[6].DataPropertyName = "Skip";
-            dataGridView1.Columns[7].DataPropertyName = "Logo";
-            dataGridView1.Columns[7].Visible = false;
-            dataGridView1.Columns[8].DataPropertyName = "Locked";
+            //dataGridView1.Columns[0].DataPropertyName = "Ip";
+            //dataGridView1.Columns[1].DataPropertyName = "Chanel";
+            //dataGridView1.Columns[2].DataPropertyName = "Name";
+            //dataGridView1.Columns[3].DataPropertyName = "Group";
+            //dataGridView1.Columns[4].DataPropertyName = "Audio";
+            //dataGridView1.Columns[5].DataPropertyName = "Fav";
+            //dataGridView1.Columns[6].DataPropertyName = "Skip";
+            //dataGridView1.Columns[7].DataPropertyName = "Logo";
+            //dataGridView1.Columns[7].Visible = false;
+            //dataGridView1.Columns[8].DataPropertyName = "Locked";
 
-            bindingSource1.DataSource = ChannelTable.menu.Tables["Menu"];
-            dataGridView1.DataSource = bindingSource1;
+            //bindingSource1.DataSource = ChannelTable.menu.Tables["Menu"];
+            //dataGridView1.DataSource = bindingSource1;
 
-            // show all channels
-            if (bindingSource1.Filter != "")
-                bindingSource1.Filter = "";
+            //// show all channels
+            //if (bindingSource1.Filter != "")
+            //    bindingSource1.Filter = "";
         }
 
         private void btnScan_Click(object sender, EventArgs e)
@@ -60,7 +63,7 @@ namespace M3Ueditor
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
-            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1);
+            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1, channels);
 
             int timeout = (int)TimeOutNumber.Value;
             int port = (int)PortNumber.Value;
@@ -68,6 +71,9 @@ namespace M3Ueditor
             scanner.StartScann(ipstart, ipstop, port, timeout);
         }
 
+        private void btnApply_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
