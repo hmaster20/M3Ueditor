@@ -10,6 +10,19 @@ using System.Drawing;
 
 namespace M3Ueditor
 {
+    /// <summary>DataTable with channel informations (group, audio language...)</summary>
+    static class ChannelTable
+    {
+        private static DataSet dataset = new DataSet("TransparentMenu");
+        public static DataSet menu
+        {
+            get { return dataset; }
+            set { dataset = value; }
+        }
+    }
+
+
+
     /// <summary>
     /// Simple channel scanner.
     /// It scans provided multicast ip range.
@@ -45,21 +58,20 @@ namespace M3Ueditor
         ProgressBar progress_Bar = new ProgressBar();
         Label ip_label = new Label();
         Label found_label = new Label();
-        DataGridView dg = new DataGridView();
+        DataGridView dgv = new DataGridView();
 
 
         /// <summary>Constructor</summary>
         /// <param name="l">Settings form info label1</param>
         /// <param name="l2">Settings form info label2</param>
-        /// <param name="d">Settings form datagridview</param>
-        public Scanner(Button startButton, Button stopButton, ProgressBar progressBar, Label l, Label l2, DataGridView d)
+        public Scanner(Button startButton, Button stopButton, ProgressBar progressBar, Label l, Label l2, DataGridView datagridview)
         {
             start_bt = startButton;
             stop_bt = stopButton;
             progress_Bar = progressBar;
             ip_label = l;
             found_label = l2;
-            dg = d;
+            dgv = datagridview;
         }
 
         /// <summary>Start scanning</summary>
@@ -145,14 +157,14 @@ namespace M3Ueditor
                     }
                 }
                 sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, timeout);
-                //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(Globals.interfaceip).GetAddressBytes());
                 sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(localhost).GetAddressBytes());
+                //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(Globals.interfaceip).GetAddressBytes());
 
                 try
                 {
-                    // Must be valid multicast address, else exception 10049
-                    //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
+                    // Must be valid multicast address, else exception 10049                    
                     sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(localhost)));
+                    //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
                 }
                 catch (SocketException ex)
                 {
@@ -199,7 +211,7 @@ namespace M3Ueditor
 
                 if (foundchannel && foundrow == null)
                 {
-                    dg.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
+                    dgv.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
                     newchan++;
                     lastchan++;
                     ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
@@ -259,55 +271,6 @@ namespace M3Ueditor
             ThreadReceiver.Abort();
         }
 
-        /// <summary>
-        /// Update ip label during the scann
-        /// </summary>
-        private void UpdateipLabel(string text)
-        {
-            ip_label.Text = text;
-        }
-
-        /// <summary>
-        /// Update found label during the scan
-        /// </summary>
-        private void UpdatefoundLabel(string found)
-        {
-            //if (Properties.Settings.Default.language == "Slovenian")
-            //    found_label.Text = "Našel: " + found + " (" + newchan + " novih)";
-            //else
-            found_label.Text = "Found: " + found + " (" + newchan + " new)";
-        }
-
-        /// <summary>
-        /// Enable start button
-        /// </summary>
-        private void UpdatestartButton()
-        {
-            start_bt.Enabled = true;
-        }
-
-        /// <summary>Disable start button</summary>
-        private void UpdatestopButton()
-        {
-            stop_bt.Enabled = false;
-        }
-
-        /// <summary>Progress bar 100 (before thread exits)</summary>
-        private void UpdateprogressBar(int percent)
-        {
-            progress_Bar.Value = Math.Min(100, percent);
-        }
-
-        /// <summary>Отмена сканирования</summary>
-        public void stopScann()
-        {
-            progress_Bar.Value = 100;
-            ThreadReceiver.Abort();
-            sock.Close();
-            dg.Focus();
-        }
-
-
         private uint calculateNumOfIpAddr(IPAddress start, IPAddress stop)
         {
             byte[] str = start.GetAddressBytes();
@@ -345,5 +308,46 @@ namespace M3Ueditor
         {
             ChannelTable.menu.Tables["Menu"].Rows.Add(Row);
         }
+
+        /// <summary>Отмена сканирования</summary>
+        public void stopScann()
+        {
+            progress_Bar.Value = 100;
+            ThreadReceiver.Abort();
+            sock.Close();
+            dgv.Focus();
+        }
+
+
+        #region Обновление данных в процессе сканирования
+
+        /// <summary>Update ip label during the scann</summary>
+        private void UpdateipLabel(string text)
+        {
+            ip_label.Text = text;
+        }
+
+        /// <summary>Update found label during the scan</summary>
+        private void UpdatefoundLabel(string found)
+        {
+            found_label.Text = "Found: " + found + " (" + newchan + " new)";
+        }
+
+        private void UpdatestartButton() => StartButtonMode(true);
+        private void UpdatestopButton() => StartButtonMode(false);
+
+        void StartButtonMode(bool state)
+        {
+            stop_bt.Enabled = state;
+        }
+
+        /// <summary>Progress bar 100 (before thread exits)</summary>
+        private void UpdateprogressBar(int percent)
+        {
+            progress_Bar.Value = Math.Min(100, percent);
+        }
+
+        #endregion
+
     }
 }
