@@ -10,26 +10,23 @@ using System.Drawing;
 
 namespace M3Ueditor
 {
-    /// <summary>DataTable with channel informations (group, audio language...)</summary>
-    static class ChannelTable
-    {
-        private static DataSet dataset = new DataSet("TransparentMenu");
-        public static DataSet menu
-        {
-            get { return dataset; }
-            set { dataset = value; }
-        }
-    }
-
+    ///// <summary>DataTable with channel informations (group, audio language...)</summary>
+    //static class ChannelTable
+    //{
+    //    private static DataSet dataset = new DataSet("TransparentMenu");
+    //    public static DataSet menu
+    //    {
+    //        get { return dataset; }
+    //        set { dataset = value; }
+    //    }
+    //}
 
 
     /// <summary>
     /// Simple channel scanner.
     /// It scans provided multicast ip range.
-    /// Received data is not inspected and is persumed to be a mpeg-ts.
+    /// Received data is not inspected and is presumed to be a mpeg-ts.
     /// Settings form is updated via delegates.
-    /// TODO: Get rid of hardcoded translations.
-    /// TODO: Variable names.
     /// </summary>
     class Scanner
     {
@@ -39,12 +36,11 @@ namespace M3Ueditor
         public delegate void ProgressbarCallback(int percent);
         public delegate void RefreshDatatableViewCallback(DataRow Row);
 
-        Socket sock;
-        Thread ThreadReceiver;
+        Socket sock { get; set; }
+        Thread ThreadReceiver { get; set; }
+
         IPEndPoint multiep;
-        IPAddress curip;
-        IPAddress start;
-        IPAddress stop;
+        IPAddress curip, IPstart, IPstop;
         int port;
         int timeout;
         int lastchan;
@@ -53,18 +49,27 @@ namespace M3Ueditor
 
         string localhost { get; set; } = "172.16.3.35"; // = "192.168.1.102";
 
-        Button start_bt = new Button();
-        Button stop_bt { get; set; } = new Button();
-        ProgressBar progress_Bar = new ProgressBar();
-        Label ip_label = new Label();
-        Label found_label = new Label();
-        DataGridView dgv = new DataGridView();
+        Button start_bt { get; set; }
+        Button stop_bt { get; set; }
+        ProgressBar progress_Bar { get; set; }
+        Label ip_label { get; set; }
+        Label found_label { get; set; }
+        DataGridView dgv { get; set; }
+
+        SortableBindingList<TVChannel> channels { get; set; }
+
+        //Button start_bt = new Button();
+        //Button stop_bt { get; set; } = new Button();
+        //ProgressBar progress_Bar = new ProgressBar();
+        //Label ip_label = new Label();
+        //Label found_label = new Label();
+        //DataGridView dgv = new DataGridView();
 
 
         /// <summary>Constructor</summary>
         /// <param name="l">Settings form info label1</param>
         /// <param name="l2">Settings form info label2</param>
-        public Scanner(Button startButton, Button stopButton, ProgressBar progressBar, Label l, Label l2, DataGridView datagridview)
+        public Scanner(Button startButton, Button stopButton, ProgressBar progressBar, Label l, Label l2, DataGridView datagridview, SortableBindingList<TVChannel> CurrentChannels)
         {
             start_bt = startButton;
             stop_bt = stopButton;
@@ -72,6 +77,7 @@ namespace M3Ueditor
             ip_label = l;
             found_label = l2;
             dgv = datagridview;
+            channels = CurrentChannels;
         }
 
         /// <summary>Start scanning</summary>
@@ -81,9 +87,9 @@ namespace M3Ueditor
         /// <param name="tmo">Timeout</param>
         public void StartScann(IPAddress str, IPAddress stp, int prt, int tmo)
         {
-            start = str;
-            stop = stp;
-            curip = start;
+            IPstart = str;
+            IPstop = stp;
+            curip = IPstart;
             port = prt;
             timeout = tmo;
             ip_label.Text = "Scanning...";
@@ -103,19 +109,20 @@ namespace M3Ueditor
             int recv = 0;
             bool foundchannel = false;
             bool timedout = false;
-            bool searchforward = searchForward(start, stop);
-            uint progressfull = calculateNumOfIpAddr(start, stop);
+            bool searchforward = searchForward(IPstart, IPstop);
+            uint progressfull = calculateNumOfIpAddr(IPstart, IPstop);
 
             //Sort chan dataview by channels and get last channel number
-            DataView chan = new DataView(ChannelTable.menu.Tables["Menu"], "", ChannelTable.menu.Tables["Menu"].Columns[1].ColumnName, DataViewRowState.CurrentRows);
-            try
-            {
-                lastchan = (int)chan[chan.Count - 1][1] + 1;
-            }
-            catch { lastchan = 1; }
+            //DataView chan = new DataView(ChannelTable.menu.Tables["Menu"], "", ChannelTable.menu.Tables["Menu"].Columns[1].ColumnName, DataViewRowState.CurrentRows);
+
+            //try
+            //{
+            //    lastchan = (int)chan[chan.Count - 1][1] + 1;
+            //}
+            //catch { lastchan = 1; }
 
             bool stopcondition = false;
-            byte[] oct = start.GetAddressBytes();
+            byte[] oct = IPstart.GetAddressBytes();
             multiep = new IPEndPoint(new IPAddress(oct), port);
             EndPoint ep = (EndPoint)multiep;
             IPEndPoint iep = new IPEndPoint(IPAddress.Parse(localhost), port);
@@ -198,20 +205,58 @@ namespace M3Ueditor
                 if (!timedout)
                     Thread.Sleep(300); // we are receiving for 300 ms
 
-                DataRow Row = ChannelTable.menu.Tables["Menu"].NewRow();
-                Row[2] = "Chan " + lastchan;
-                Row[0] = curip.ToString() + ":" + port;
-                Row[3] = "";
-                Row[1] = lastchan;
-                Row[4] = "";
-                Row[6] = false;
+
+
+                string tvgName = "Chan " + lastchan;    //"New Channel";
+                string tvglogo = "New Logo";
+                string groupTitle = "New Group";
+                string Name = lastchan.ToString();      //"New Channel";
+                string udp = "udp://@" + curip.ToString() + ":" + port;     // "udp://@224.1.1.1:6000";
+
+                TVChannel tvc = 
+                new TVChannel(
+                            _tvgName: tvgName.Trim(),
+                            _tvglogo: tvglogo.Trim(),
+                            _groupTitle: groupTitle.Trim(),
+                            _udp: udp.Trim(),
+                            _Name: Name.Trim()
+                            );
+
+                bool isTVC = false;
+
+                for (int count = 0; count < channels.Count; count++)
+                {                    
+                    if (channels[count].Equals(tvc))
+                    {
+                        isTVC = true;
+                        break;
+                    }
+                }
+
+                if (!isTVC)
+                {
+                    channels.Add(tvc);
+                }
+
+
+
+
+
+                //DataRow Row = ChannelTable.menu.Tables["Menu"].NewRow();
+                //Row[0] = curip.ToString() + ":" + port;
+                //Row[1] = lastchan;
+                //Row[2] = "Chan " + lastchan;   
+                //Row[3] = "";        
+                //Row[4] = "";
+                //Row[6] = false;
 
                 //Check if entry allready exists
-                DataRow foundrow = ChannelTable.menu.Tables["Menu"].Rows.Find(Row[0].ToString());
+                //DataRow foundrow = ChannelTable.menu.Tables["Menu"].Rows.Find(Row[0].ToString());
 
-                if (foundchannel && foundrow == null)
+                //if (foundchannel && foundrow == null)
+                if (foundchannel && !isTVC)
                 {
-                    dgv.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
+                    //dgv.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
                     newchan++;
                     lastchan++;
                     ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
@@ -254,7 +299,7 @@ namespace M3Ueditor
                 curip = new IPAddress(oct);
                 progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), (int)Math.Round(100 * (float)i / (float)progressfull));
 
-                if (curip.Equals(stop))
+                if (curip.Equals(IPstop))
                     stopcondition = true;
                 sock.Close();
             }
@@ -271,6 +316,11 @@ namespace M3Ueditor
             ThreadReceiver.Abort();
         }
 
+
+        /// <summary>Возвращает количество адресов для сканирования</summary>
+        /// <param name="start">Начальный IP-адрес</param>
+        /// <param name="stop">Конечный IP-адрес</param>
+        /// <returns>Число в формате uint</returns>
         private uint calculateNumOfIpAddr(IPAddress start, IPAddress stop)
         {
             byte[] str = start.GetAddressBytes();
@@ -304,10 +354,10 @@ namespace M3Ueditor
                 return true;
         }
 
-        public void tableRefresh(DataRow Row)
-        {
-            ChannelTable.menu.Tables["Menu"].Rows.Add(Row);
-        }
+        //public void tableRefresh(DataRow Row)
+        //{
+        //    ChannelTable.menu.Tables["Menu"].Rows.Add(Row);
+        //}
 
         /// <summary>Отмена сканирования</summary>
         public void stopScann()
