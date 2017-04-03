@@ -47,7 +47,16 @@ namespace M3Ueditor
         int found = 0;
         int newchan = 0;
 
-        string localhost { get; set; } = "172.16.3.35"; // = "192.168.1.102";
+        // string localhost { get; set; } = "172.16.3.35"; // = "192.168.1.102";
+
+        string localhost { get; set; } = "";
+
+        /// <summary>Iptv network interface ip</summary>
+        static string interfacename { get; set; } = "";
+
+        /// <summary>Ip of multicast network interface</summary>
+        public static string interfaceip { get; set; } = "";
+
 
         Button start_bt { get; set; }
         Button stop_bt { get; set; }
@@ -78,7 +87,40 @@ namespace M3Ueditor
             found_label = l2;
             dgv = datagridview;
             channels = CurrentChannels;
+
+            init();
         }
+
+        void init()
+        {
+            interfacename = Properties.Settings.Default.InterfaceName;
+            // Get interface name and convert it to ip
+            Interfaces intf = new Interfaces();
+            if (interfacename.Length == 0)
+            {
+                try
+                {
+                    // первый заход если интерфейс не известен
+                    string name = intf.getNames()[0];
+                    string ip = intf.getIpFromName(name);
+                    Properties.Settings.Default.InterfaceName = name;
+                    interfaceip = ip;
+
+                }
+                catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
+            }
+            else
+            {
+                try
+                {
+                    interfaceip = intf.getIpFromName(Properties.Settings.Default.InterfaceName);                    
+                }
+                catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
+            }
+
+            localhost = interfaceip;
+        }
+
 
         /// <summary>Start scanning</summary>
         /// <param name="str">Start ip address</param>
