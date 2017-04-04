@@ -13,12 +13,19 @@ namespace M3Ueditor
     public partial class formPortScan : Form
     {
         SortableBindingList<TVChannel> channels { get; set; }
+        Scanner scanner { get; set; }
 
         public formPortScan()
         {
             InitializeComponent();
+        }
+
+        public formPortScan(SortableBindingList<TVChannel> tvcCurrent)
+        {
+            InitializeComponent();
             SetDefaultValue();
-            channels = new SortableBindingList<TVChannel>();
+            // channels = new SortableBindingList<TVChannel>();
+            channels = tvcCurrent;
         }
 
         void SetDefaultValue()
@@ -29,17 +36,6 @@ namespace M3Ueditor
 
         private void formPortScan_Load(object sender, EventArgs e)
         {
-            //dataGridView1.Columns[0].DataPropertyName = "Ip";
-            //dataGridView1.Columns[1].DataPropertyName = "Chanel";
-            //dataGridView1.Columns[2].DataPropertyName = "Name";
-            //dataGridView1.Columns[3].DataPropertyName = "Group";
-            //dataGridView1.Columns[4].DataPropertyName = "Audio";
-            //dataGridView1.Columns[5].DataPropertyName = "Fav";
-            //dataGridView1.Columns[6].DataPropertyName = "Skip";
-            //dataGridView1.Columns[7].DataPropertyName = "Logo";
-            //dataGridView1.Columns[7].Visible = false;
-            //dataGridView1.Columns[8].DataPropertyName = "Locked";
-
             //bindingSource1.DataSource = ChannelTable.menu.Tables["Menu"];
             //dataGridView1.DataSource = bindingSource1;
 
@@ -63,7 +59,7 @@ namespace M3Ueditor
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
-            Scanner scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1, channels);
+            scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1, channels);
 
             int timeout = (int)TimeOutNumber.Value;
             int port = (int)PortNumber.Value;
@@ -74,6 +70,13 @@ namespace M3Ueditor
         private void btnApply_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+            scanner.stopScann();
         }
     }
 }
