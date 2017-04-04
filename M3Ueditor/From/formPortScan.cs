@@ -12,7 +12,9 @@ namespace M3Ueditor
 {
     public partial class formPortScan : Form
     {
-        SortableBindingList<TVChannel> channels { get; set; }
+        SortableBindingList<TVChannel> CurrentChannels { get; set; }
+        SortableBindingList<TVChannel> ScanFindChannels { get; set; }
+
         Scanner scanner { get; set; }
 
         public formPortScan()
@@ -23,15 +25,18 @@ namespace M3Ueditor
         public formPortScan(SortableBindingList<TVChannel> tvcCurrent)
         {
             InitializeComponent();
+
             SetDefaultValue();
-            // channels = new SortableBindingList<TVChannel>();
-            channels = tvcCurrent;
+            CurrentChannels = tvcCurrent;
+           // dgvTV.DataSource = ScanFindChannels;
         }
 
         void SetDefaultValue()
         {
             ipStart.Text = "224.1.1.1";
             ipEnd.Text = "224.1.2.250";
+
+           // ScanFindChannels = new SortableBindingList<TVChannel>();
         }
 
         private void formPortScan_Load(object sender, EventArgs e)
@@ -59,7 +64,7 @@ namespace M3Ueditor
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
-            scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1, channels);
+            scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1, CurrentChannels, ScanFindChannels);
 
             int timeout = (int)TimeOutNumber.Value;
             int port = (int)PortNumber.Value;

@@ -66,6 +66,7 @@ namespace M3Ueditor
         DataGridView dgv { get; set; }
 
         SortableBindingList<TVChannel> channels { get; set; }
+        SortableBindingList<TVChannel> FindCH { get; set; }
 
         //Button start_bt = new Button();
         //Button stop_bt { get; set; } = new Button();
@@ -78,7 +79,16 @@ namespace M3Ueditor
         /// <summary>Constructor</summary>
         /// <param name="l">Settings form info label1</param>
         /// <param name="l2">Settings form info label2</param>
-        public Scanner(Button startButton, Button stopButton, ProgressBar progressBar, Label l, Label l2, DataGridView datagridview, SortableBindingList<TVChannel> CurrentChannels)
+        public Scanner(
+            Button startButton, 
+            Button stopButton, 
+            ProgressBar progressBar, 
+            Label l, 
+            Label l2, 
+            DataGridView datagridview, 
+            SortableBindingList<TVChannel> CurrentChannels,
+            SortableBindingList<TVChannel> ScanFindChannels
+            )
         {
             start_bt = startButton;
             stop_bt = stopButton;
@@ -87,6 +97,7 @@ namespace M3Ueditor
             found_label = l2;
             dgv = datagridview;
             channels = CurrentChannels;
+            FindCH = ScanFindChannels;
 
             init();
         }
@@ -215,7 +226,8 @@ namespace M3Ueditor
                     sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(localhost)));
                     //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
                 }
-                catch (SocketException ex)
+                //catch (SocketException ex)
+                catch (SocketException)
                 {
                     break;
                 }
@@ -265,7 +277,7 @@ namespace M3Ueditor
                             );
 
                 bool isTVC = false;
-
+                
                 for (int count = 0; count < channels.Count; count++)
                 {                    
                     if (channels[count].Equals(tvc))
@@ -277,6 +289,7 @@ namespace M3Ueditor
 
                 if (!isTVC)
                 {
+                    //FindCH.Add(tvc);
                     channels.Add(tvc);
                 }
 
