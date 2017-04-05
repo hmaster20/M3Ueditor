@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using System.Net.NetworkInformation;
 
 namespace M3Ueditor
 {
@@ -83,5 +84,6 @@ namespace M3Ueditor
             btnStop.Enabled = false;
             scanner.stopScann();
         }
+
     }
 }

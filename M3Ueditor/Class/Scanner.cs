@@ -7,6 +7,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Net.NetworkInformation;
+using System.Linq;
 
 namespace M3Ueditor
 {
@@ -99,7 +101,7 @@ namespace M3Ueditor
             channels = CurrentChannels;
             FindCH = ScanFindChannels;
 
-            init();
+            init_v2();
         }
 
         void init()
@@ -130,6 +132,24 @@ namespace M3Ueditor
             }
 
             localhost = interfaceip;
+
+        }
+
+
+        private void init_v2()
+        {
+            //System.Net.NetworkInformation.NetworkInterface.GetIsNetworkA‌​vailable();
+            if (NetworkInterface.GetIsNetworkA‌​vailable())
+            {
+                NetworkInterface[] alladapter =
+                    NetworkInterface.GetAllNetworkInterfaces().Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Ethernet).ToArray();
+
+                NetworkInterface ActiveAdapter = alladapter.First(x => x.OperationalStatus == OperationalStatus.Up);
+                PhysicalAddress address = ActiveAdapter.GetPhysicalAddress();
+                UnicastIPAddressInformationCollection ip = ActiveAdapter.GetIPProperties().UnicastAddresses;
+                string ipstring = ip[0].Address.ToString();
+                localhost = ipstring;
+            }
         }
 
 
