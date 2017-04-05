@@ -14,7 +14,7 @@ namespace M3Ueditor
     public partial class formPortScan : Form
     {
         SortableBindingList<TVChannel> CurrentChannels { get; set; }
-       public SortableBindingList<TVChannel> ScanFindChannels { get; set; }
+        public SortableBindingList<TVChannel> ScanFindChannels { get; set; } = new SortableBindingList<TVChannel>();
 
         Scanner scanner { get; set; }
 
@@ -29,7 +29,7 @@ namespace M3Ueditor
 
             SetDefaultValue();
             CurrentChannels = tvcCurrent;
-            // dgvTV.DataSource = ScanFindChannels;
+            dgvTV.DataSource = ScanFindChannels;
         }
 
         void SetDefaultValue()
@@ -65,12 +65,12 @@ namespace M3Ueditor
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
-            scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, dataGridView1, CurrentChannels, ScanFindChannels);
+           scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentAddress, FoundAddress, CurrentChannels, ScanFindChannels);
 
             int timeout = (int)TimeOutNumber.Value;
             int port = (int)PortNumber.Value;
 
-            scanner.StartScann(ipstart, ipstop, port, timeout);
+           scanner.StartScann(ipstart, ipstop, port, timeout);
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -85,5 +85,25 @@ namespace M3Ueditor
             scanner.stopScann();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string tvgName = "New Channel";
+            string tvglogo = "New Logo";
+            string groupTitle = "New Group";
+            string Name = "New Channel";
+            string udp =  "udp://@224.1.1.1:6000";
+
+            TVChannel tvc =
+            new TVChannel(
+                        _tvgName: tvgName.Trim(),
+                        _tvglogo: tvglogo.Trim(),
+                        _groupTitle: groupTitle.Trim(),
+                        _udp: udp.Trim(),
+                        _Name: Name.Trim()
+                        );
+
+
+            ScanFindChannels.Add(tvc);        
+        }
     }
 }

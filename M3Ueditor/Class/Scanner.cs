@@ -24,7 +24,9 @@ namespace M3Ueditor
         public delegate void UpdateTextCallback(string text);
         public delegate void UpdateButtonsCallback();
         public delegate void ProgressbarCallback(int percent);
-        public delegate void RefreshDatatableViewCallback(DataRow Row);
+        // public delegate void RefreshDatatableViewCallback(DataRow Row);
+        public delegate void RefreshDatatableViewCallback(TVChannel tvc);
+
 
         Socket sock { get; set; }
         Thread ThreadReceiver { get; set; }
@@ -53,7 +55,8 @@ namespace M3Ueditor
         ProgressBar progress_Bar { get; set; }
         Label ip_label { get; set; }
         Label found_label { get; set; }
-        DataGridView dgv { get; set; }
+
+       // DataGridView dgv { get; set; }
 
         SortableBindingList<TVChannel> channels { get; set; }
         SortableBindingList<TVChannel> FindCH { get; set; }
@@ -75,7 +78,7 @@ namespace M3Ueditor
             ProgressBar progressBar, 
             Label l, 
             Label l2, 
-            DataGridView datagridview, 
+           // DataGridView datagridview, 
             SortableBindingList<TVChannel> CurrentChannels,
             SortableBindingList<TVChannel> ScanFindChannels
             )
@@ -85,7 +88,7 @@ namespace M3Ueditor
             progress_Bar = progressBar;
             ip_label = l;
             found_label = l2;
-            dgv = datagridview;
+           // dgv = datagridview;
             channels = CurrentChannels;
             FindCH = ScanFindChannels;
 
@@ -293,11 +296,11 @@ namespace M3Ueditor
                     }
                 }
 
-                if (!isTVC)
-                {
-                    //FindCH.Add(tvc);
-                    channels.Add(tvc);
-                }
+                //if (!isTVC)
+                //{
+                //    FindCH.Add(tvc);
+                //    //channels.Add(tvc);
+                //}
                 
 
                 //Check if entry allready exists
@@ -306,6 +309,7 @@ namespace M3Ueditor
                 if (foundchannel && !isTVC)
                 {
                     //dgv.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
+                    ip_label.Invoke(new RefreshDatatableViewCallback(tableRefresh), tvc);
                     newchan++;
                     lastchan++;
                     ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
@@ -403,6 +407,12 @@ namespace M3Ueditor
                 return true;
         }
 
+
+        public void tableRefresh(TVChannel tvc)
+        {
+            FindCH.Add(tvc);
+        }
+
         //public void tableRefresh(DataRow Row)
         //{
         //    ChannelTable.menu.Tables["Menu"].Rows.Add(Row);
@@ -414,7 +424,7 @@ namespace M3Ueditor
             progress_Bar.Value = 100;
             ThreadReceiver.Abort();
             sock.Close();
-            dgv.Focus();
+            //dgv.Focus();
         }
 
 
