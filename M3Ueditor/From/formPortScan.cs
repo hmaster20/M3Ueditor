@@ -29,7 +29,7 @@ namespace M3Ueditor
 
             SetDefaultValue();
             CurrentChannels = tvcCurrent;
-           // dgvTV.DataSource = ScanFindChannels;
+            // dgvTV.DataSource = ScanFindChannels;
         }
 
         void SetDefaultValue()
@@ -37,7 +37,7 @@ namespace M3Ueditor
             ipStart.Text = "224.1.1.1";
             ipEnd.Text = "224.1.2.250";
 
-           // ScanFindChannels = new SortableBindingList<TVChannel>();
+            // ScanFindChannels = new SortableBindingList<TVChannel>();
         }
 
         private void formPortScan_Load(object sender, EventArgs e)

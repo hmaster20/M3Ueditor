@@ -458,12 +458,20 @@ namespace M3Ueditor
             found_label.Text = "Found: " + found + " (" + newchan + " new)";
         }
 
-        private void UpdatestartButton() => StartButtonMode(true);
-        private void UpdatestopButton() => StartButtonMode(false);
-
-        void StartButtonMode(bool state)
+        /// <summary>
+        /// Enable start button
+        /// </summary>
+        private void UpdatestartButton()
         {
-            stop_bt.Enabled = state;
+            start_bt.Enabled = true;
+        }
+
+        /// <summary>
+        /// Disable start button
+        /// </summary>
+        private void UpdatestopButton()
+        {
+            stop_bt.Enabled = false;
         }
 
         /// <summary>Progress bar 100 (before thread exits)</summary>

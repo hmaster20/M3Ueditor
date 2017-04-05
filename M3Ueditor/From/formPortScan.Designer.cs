@@ -424,7 +424,6 @@
             this.Controls.Add(this.groupBox4);
             this.Name = "formPortScan";
             this.Text = "formPortScan";
-            this.Load += new System.EventHandler(this.formPortScan_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TimeOutNumber)).EndInit();
