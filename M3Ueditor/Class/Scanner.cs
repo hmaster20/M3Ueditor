@@ -12,18 +12,6 @@ using System.Linq;
 
 namespace M3Ueditor
 {
-    ///// <summary>DataTable with channel informations (group, audio language...)</summary>
-    //static class ChannelTable
-    //{
-    //    private static DataSet dataset = new DataSet("TransparentMenu");
-    //    public static DataSet menu
-    //    {
-    //        get { return dataset; }
-    //        set { dataset = value; }
-    //    }
-    //}
-
-
     /// <summary>
     /// Simple channel scanner.
     /// It scans provided multicast ip range.
@@ -104,36 +92,35 @@ namespace M3Ueditor
             init_v2();
         }
 
-        void init()
-        {
-            interfacename = Properties.Settings.Default.InterfaceName;
-            // Get interface name and convert it to ip
-            Interfaces intf = new Interfaces();
-            if (interfacename.Length == 0)
-            {
-                try
-                {
-                    // первый заход если интерфейс не известен
-                    string name = intf.getNames()[0];
-                    string ip = intf.getIpFromName(name);
-                    Properties.Settings.Default.InterfaceName = name;
-                    interfaceip = ip;
+        //void init()
+        //{
+        //    interfacename = Properties.Settings.Default.InterfaceName;
+        //    // Get interface name and convert it to ip
+        //    Interfaces intf = new Interfaces();
+        //    if (interfacename.Length == 0)
+        //    {
+        //        try
+        //        {
+        //            // первый заход если интерфейс не известен
+        //            string name = intf.getNames()[0];
+        //            string ip = intf.getIpFromName(name);
+        //            Properties.Settings.Default.InterfaceName = name;
+        //            interfaceip = ip;
 
-                }
-                catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
-            }
-            else
-            {
-                try
-                {
-                    interfaceip = intf.getIpFromName(Properties.Settings.Default.InterfaceName);                    
-                }
-                catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
-            }
+        //        }
+        //        catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            interfaceip = intf.getIpFromName(Properties.Settings.Default.InterfaceName);                    
+        //        }
+        //        catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
+        //    }
 
-            localhost = interfaceip;
-
-        }
+        //    localhost = interfaceip;
+        //}
 
 
         private void init_v2()
@@ -166,7 +153,6 @@ namespace M3Ueditor
             port = prt;
             timeout = tmo;
             ip_label.Text = "Scanning...";
-
 
             progress_Bar.Visible = true;
             progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 0);
@@ -312,21 +298,9 @@ namespace M3Ueditor
                     //FindCH.Add(tvc);
                     channels.Add(tvc);
                 }
-
-
-
-
-
-                //DataRow Row = ChannelTable.menu.Tables["Menu"].NewRow();
-                //Row[0] = curip.ToString() + ":" + port;
-                //Row[1] = lastchan;
-                //Row[2] = "Chan " + lastchan;   
-                //Row[3] = "";        
-                //Row[4] = "";
-                //Row[6] = false;
+                
 
                 //Check if entry allready exists
-                //DataRow foundrow = ChannelTable.menu.Tables["Menu"].Rows.Find(Row[0].ToString());
 
                 //if (foundchannel && foundrow == null)
                 if (foundchannel && !isTVC)

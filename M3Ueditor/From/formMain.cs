@@ -1000,19 +1000,6 @@ namespace M3Ueditor
 
         private void tsScan_Click(object sender, EventArgs e)
         {
-            //FormMerge form = new FormMerge(channels, channelsForMerge);
-            //if (form.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (channels != null)
-            //    {
-            //        channels.Clear();
-            //        channels = form.ModChannels;
-            //    }
-            //}
-
-            //formPortScan about = new formPortScan();
-            //about.ShowDialog();
-
             formPortScan form = new formPortScan(channels);
             if (form.ShowDialog() == DialogResult.OK)
             {

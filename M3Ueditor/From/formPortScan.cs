@@ -14,7 +14,7 @@ namespace M3Ueditor
     public partial class formPortScan : Form
     {
         SortableBindingList<TVChannel> CurrentChannels { get; set; }
-        SortableBindingList<TVChannel> ScanFindChannels { get; set; }
+       public SortableBindingList<TVChannel> ScanFindChannels { get; set; }
 
         Scanner scanner { get; set; }
 
