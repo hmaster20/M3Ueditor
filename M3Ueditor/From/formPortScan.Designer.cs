@@ -32,8 +32,10 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblEndIP = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.ipEnd = new iptb.IPTextBox();
             this.lblStartIP = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.ipStart = new iptb.IPTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TimeOutNumber = new System.Windows.Forms.NumericUpDown();
             this.PortNumber = new System.Windows.Forms.NumericUpDown();
@@ -41,15 +43,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.FoundAddress = new System.Windows.Forms.Label();
-            this.CurrentAddress = new System.Windows.Forms.Label();
+            this.FoundIP = new System.Windows.Forms.Label();
+            this.CurrentIP = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvTV = new System.Windows.Forms.DataGridView();
-            this.ipEnd = new iptb.IPTextBox();
-            this.ipStart = new iptb.IPTextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TimeOutNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortNumber)).BeginInit();
@@ -94,6 +93,14 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "timeout (ms):";
             // 
+            // ipEnd
+            // 
+            this.ipEnd.Location = new System.Drawing.Point(147, 58);
+            this.ipEnd.Name = "ipEnd";
+            this.ipEnd.Size = new System.Drawing.Size(135, 20);
+            this.ipEnd.TabIndex = 47;
+            this.ipEnd.ToolTipText = "";
+            // 
             // lblStartIP
             // 
             this.lblStartIP.AutoSize = true;
@@ -112,6 +119,14 @@
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 22;
             this.label11.Text = "Port:";
+            // 
+            // ipStart
+            // 
+            this.ipStart.Location = new System.Drawing.Point(9, 58);
+            this.ipStart.Name = "ipStart";
+            this.ipStart.Size = new System.Drawing.Size(132, 20);
+            this.ipStart.TabIndex = 44;
+            this.ipStart.ToolTipText = "";
             // 
             // label5
             // 
@@ -203,21 +218,21 @@
             // 
             // FoundAddress
             // 
-            this.FoundAddress.AutoSize = true;
-            this.FoundAddress.Location = new System.Drawing.Point(192, 70);
-            this.FoundAddress.Name = "FoundAddress";
-            this.FoundAddress.Size = new System.Drawing.Size(75, 13);
-            this.FoundAddress.TabIndex = 45;
-            this.FoundAddress.Text = "FoundAddress";
+            this.FoundIP.AutoSize = true;
+            this.FoundIP.Location = new System.Drawing.Point(185, 70);
+            this.FoundIP.Name = "FoundAddress";
+            this.FoundIP.Size = new System.Drawing.Size(75, 13);
+            this.FoundIP.TabIndex = 45;
+            this.FoundIP.Text = "FoundAddress";
             // 
             // CurrentAddress
             // 
-            this.CurrentAddress.AutoSize = true;
-            this.CurrentAddress.Location = new System.Drawing.Point(8, 71);
-            this.CurrentAddress.Name = "CurrentAddress";
-            this.CurrentAddress.Size = new System.Drawing.Size(79, 13);
-            this.CurrentAddress.TabIndex = 45;
-            this.CurrentAddress.Text = "CurrentAddress";
+            this.CurrentIP.AutoSize = true;
+            this.CurrentIP.Location = new System.Drawing.Point(8, 71);
+            this.CurrentIP.Name = "CurrentAddress";
+            this.CurrentIP.Size = new System.Drawing.Size(79, 13);
+            this.CurrentIP.TabIndex = 45;
+            this.CurrentIP.Text = "CurrentAddress";
             // 
             // btnCancel
             // 
@@ -244,9 +259,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.CurrentAddress);
+            this.groupBox1.Controls.Add(this.CurrentIP);
             this.groupBox1.Controls.Add(this.progressBar1);
-            this.groupBox1.Controls.Add(this.FoundAddress);
+            this.groupBox1.Controls.Add(this.FoundIP);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Location = new System.Drawing.Point(312, 12);
@@ -273,38 +288,11 @@
             this.dgvTV.Size = new System.Drawing.Size(738, 305);
             this.dgvTV.TabIndex = 51;
             // 
-            // ipEnd
-            // 
-            this.ipEnd.Location = new System.Drawing.Point(147, 58);
-            this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(135, 20);
-            this.ipEnd.TabIndex = 47;
-            this.ipEnd.ToolTipText = "";
-            // 
-            // ipStart
-            // 
-            this.ipStart.Location = new System.Drawing.Point(9, 58);
-            this.ipStart.Name = "ipStart";
-            this.ipStart.Size = new System.Drawing.Size(132, 20);
-            this.ipStart.TabIndex = 44;
-            this.ipStart.ToolTipText = "";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(607, 119);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 52;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // formPortScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(762, 468);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dgvTV);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -339,12 +327,11 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label FoundAddress;
-        private System.Windows.Forms.Label CurrentAddress;
+        private System.Windows.Forms.Label FoundIP;
+        private System.Windows.Forms.Label CurrentIP;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvTV;
-        private System.Windows.Forms.Button button1;
     }
 }
