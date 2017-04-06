@@ -15,12 +15,11 @@ namespace M3Ueditor
     /// <summary>
     /// Simple channel scanner.
     /// It scans provided multicast ip range.
-    /// Received data is not inspected and is presumed to be a mpeg-ts.
     /// Settings form is updated via delegates.
     /// </summary>
     class Scanner
     {
-        // lets create delegates for GUI updates
+        // delegates for GUI updates
         public delegate void UpdateTextCallback(string text);
         public delegate void UpdateButtonsCallback();
         public delegate void ProgressbarCallback(int percent);
@@ -38,17 +37,15 @@ namespace M3Ueditor
         int newchan = 0;
 
         string localhost { get; set; } = "";
-        static string interfacename { get; set; } = "";//Iptv network interface ip
-        public static string interfaceip { get; set; } = "";    //Ip of multicast network interface
+        static string interfacename { get; set; } = ""; //network interface IP
+        public static string interfaceip { get; set; } = "";    //IP of multicast network interface
 
         Button start_bt { get; set; }
         Button stop_bt { get; set; }
         ProgressBar progress_Bar { get; set; }
         Label CurrentIP_label { get; set; }
         Label FoundIP_label { get; set; }
-
         SortableBindingList<TVChannel> FindCH { get; set; }
-
 
         public Scanner(Button startBtn, Button stopBtn, ProgressBar prBar, Label CurrentIP, Label FoundIP, SortableBindingList<TVChannel> FindChannels)
         {
@@ -58,7 +55,6 @@ namespace M3Ueditor
             CurrentIP_label = CurrentIP;
             FoundIP_label = FoundIP;
             FindCH = FindChannels;
-
             init_v2();
         }
 
@@ -76,7 +72,6 @@ namespace M3Ueditor
                 localhost = ipstring;
             }
         }
-
 
         /// <summary>Start scanning</summary>
         public void StartScann(IPAddress startIP, IPAddress endIP, int prt, int tmo)
@@ -147,19 +142,13 @@ namespace M3Ueditor
                 }
                 sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
                 sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(localhost).GetAddressBytes());
-                //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(Globals.interfaceip).GetAddressBytes());
 
                 try
                 {
                     // Must be valid multicast address, else exception 10049                    
                     sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(localhost)));
-                    //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
                 }
-                //catch (SocketException ex)
-                catch (SocketException)
-                {
-                    break;
-                }
+                catch (SocketException) { break; }
 
                 CurrentIP_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
                 FoundIP_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
@@ -188,8 +177,6 @@ namespace M3Ueditor
                 if (!timedout)
                     Thread.Sleep(300); // we are receiving for 300 ms
 
-
-
                 string tvgName = "Chan " + lastchan;    //"New Channel";
                 string tvglogo = "New Logo";
                 string groupTitle = "New Group";
@@ -217,34 +204,16 @@ namespace M3Ueditor
                     }
                 }
 
-                //for (int count = 0; count < channels.Count; count++)
-                //{
-                //    if (channels[count].Equals(tvc))
-                //    {
-                //        isTVC = true;
-                //        break;
-                //    }
-                //}
-
-                //if (!isTVC)
-                //{
-                //    FindCH.Add(tvc);
-                //    //channels.Add(tvc);
-                //}
-
-
                 //Check if entry allready exists
                 if (foundchannel && !isTVC)
                 {
-                    //dgv.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
-                    CurrentIP_label.Invoke(new RefreshDatatableViewCallback(tableRefresh), tvc);
+                    CurrentIP_label.Invoke(new RefreshDatatableViewCallback(TableAdd), tvc);
                     newchan++;
                     lastchan++;
                     CurrentIP_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
                     FoundIP_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
                 }
 
-                //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.DropMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
                 sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.DropMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(localhost)));
 
                 if (stopcondition)
@@ -336,7 +305,7 @@ namespace M3Ueditor
         }
 
 
-        public void tableRefresh(TVChannel tvc)
+        public void TableAdd(TVChannel tvc)
         {
             FindCH.Add(tvc);
         }
