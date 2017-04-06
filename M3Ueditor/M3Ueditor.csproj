@@ -126,7 +126,7 @@
     </Content>
     <Content Include="Resources\Merge.png" />
     <Content Include="Resources\Scan.png" />
-    <Content Include="Resources\Add.png" />
+    <Content Include="Resources\add.png" />
     <Content Include="Resources\arrow_Down.png" />
     <Content Include="Resources\arrow_Up.png" />
     <Content Include="Resources\FileNew.png" />

@@ -299,7 +299,7 @@
             // tsAdd
             // 
             this.tsAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsAdd.Image = global::M3Ueditor.Properties.Resources.Add;
+            this.tsAdd.Image = global::M3Ueditor.Properties.Resources.add;
             this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsAdd.Name = "tsAdd";
             this.tsAdd.Size = new System.Drawing.Size(23, 22);
