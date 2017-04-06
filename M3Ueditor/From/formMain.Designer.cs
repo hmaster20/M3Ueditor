@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.status = new System.Windows.Forms.StatusStrip();
             this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -59,6 +58,7 @@
             this.ts3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsUp = new System.Windows.Forms.ToolStripButton();
             this.tsDown = new System.Windows.Forms.ToolStripButton();
+            this.ts4 = new System.Windows.Forms.ToolStripSeparator();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tree = new System.Windows.Forms.TreeView();
@@ -77,8 +77,8 @@
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tsScan = new System.Windows.Forms.ToolStripButton();
-            this.ts4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmScan = new System.Windows.Forms.ToolStripMenuItem();
             this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
@@ -134,6 +134,8 @@
             this.tss1,
             this.tsmOpen,
             this.tsmMerge,
+            this.toolStripSeparator1,
+            this.tsmScan,
             this.tss2,
             this.tsmSave,
             this.tsmSaveAs,
@@ -157,6 +159,7 @@
             // 
             // tsmOpen
             // 
+            this.tsmOpen.Image = global::M3Ueditor.Properties.Resources.FileOpen;
             this.tsmOpen.Name = "tsmOpen";
             this.tsmOpen.Size = new System.Drawing.Size(162, 22);
             this.tsmOpen.Text = "Открыть";
@@ -165,6 +168,7 @@
             // tsmMerge
             // 
             this.tsmMerge.Enabled = false;
+            this.tsmMerge.Image = global::M3Ueditor.Properties.Resources.Merge;
             this.tsmMerge.Name = "tsmMerge";
             this.tsmMerge.Size = new System.Drawing.Size(162, 22);
             this.tsmMerge.Text = "Объединить...";
@@ -245,8 +249,7 @@
             this.ts3,
             this.tsUp,
             this.tsDown,
-            this.ts4,
-            this.tsScan});
+            this.ts4});
             this.toolS.Location = new System.Drawing.Point(0, 24);
             this.toolS.Name = "toolS";
             this.toolS.Size = new System.Drawing.Size(1025, 25);
@@ -337,6 +340,11 @@
             this.tsDown.Size = new System.Drawing.Size(23, 22);
             this.tsDown.Text = "Сдвинуть строку ниже";
             this.tsDown.Click += new System.EventHandler(this.tsDown_Click);
+            // 
+            // ts4
+            // 
+            this.ts4.Name = "ts4";
+            this.ts4.Size = new System.Drawing.Size(6, 25);
             // 
             // splitContainer
             // 
@@ -559,20 +567,18 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // tsScan
+            // toolStripSeparator1
             // 
-            this.tsScan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsScan.Image = ((System.Drawing.Image)(resources.GetObject("tsScan.Image")));
-            this.tsScan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsScan.Name = "tsScan";
-            this.tsScan.Size = new System.Drawing.Size(23, 22);
-            this.tsScan.Text = "toolStripButton1";
-            this.tsScan.Click += new System.EventHandler(this.tsScan_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
             // 
-            // ts4
+            // tsmScan
             // 
-            this.ts4.Name = "ts4";
-            this.ts4.Size = new System.Drawing.Size(6, 25);
+            this.tsmScan.Image = global::M3Ueditor.Properties.Resources.Scan;
+            this.tsmScan.Name = "tsmScan";
+            this.tsmScan.Size = new System.Drawing.Size(162, 22);
+            this.tsmScan.Text = "Сканер IPTV";
+            this.tsmScan.Click += new System.EventHandler(this.tsmScan_Click);
             // 
             // Main
             // 
@@ -662,7 +668,8 @@
         private System.Windows.Forms.ToolStripStatusLabel tssLabel2;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.ToolStripSeparator ts4;
-        private System.Windows.Forms.ToolStripButton tsScan;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmScan;
     }
 }
 
