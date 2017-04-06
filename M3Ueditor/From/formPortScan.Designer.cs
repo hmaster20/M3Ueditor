@@ -216,20 +216,20 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // FoundAddress
+            // FoundIP
             // 
             this.FoundIP.AutoSize = true;
             this.FoundIP.Location = new System.Drawing.Point(185, 70);
-            this.FoundIP.Name = "FoundAddress";
+            this.FoundIP.Name = "FoundIP";
             this.FoundIP.Size = new System.Drawing.Size(75, 13);
             this.FoundIP.TabIndex = 45;
             this.FoundIP.Text = "FoundAddress";
             // 
-            // CurrentAddress
+            // CurrentIP
             // 
             this.CurrentIP.AutoSize = true;
             this.CurrentIP.Location = new System.Drawing.Point(8, 71);
-            this.CurrentIP.Name = "CurrentAddress";
+            this.CurrentIP.Name = "CurrentIP";
             this.CurrentIP.Size = new System.Drawing.Size(79, 13);
             this.CurrentIP.TabIndex = 45;
             this.CurrentIP.Text = "CurrentAddress";
@@ -255,7 +255,6 @@
             this.btnApply.TabIndex = 48;
             this.btnApply.Text = "Применить";
             this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // groupBox1
             // 

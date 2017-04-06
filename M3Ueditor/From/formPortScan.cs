@@ -13,7 +13,7 @@ namespace M3Ueditor
 {
     public partial class formPortScan : Form
     {
-        public SortableBindingList<TVChannel> ScanFindChannels { get; set; } = new SortableBindingList<TVChannel>();
+        public SortableBindingList<TVChannel> FindChannels { get; set; } = new SortableBindingList<TVChannel>();
         private Scanner scanner { get; set; }
 
         public formPortScan()
@@ -26,7 +26,7 @@ namespace M3Ueditor
         {
             ipStart.Text = "224.1.1.1";
             ipEnd.Text = "224.1.2.250";
-            dgvTV.DataSource = ScanFindChannels;
+            dgvTV.DataSource = FindChannels;
         }
 
         private void btnScan_Click(object sender, EventArgs e)
@@ -44,17 +44,12 @@ namespace M3Ueditor
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
-            scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentIP, FoundIP, ScanFindChannels);
+            scanner = new Scanner(btnStart, btnStop, progressBar1, CurrentIP, FoundIP, FindChannels);
 
             int timeout = (int)TimeOutNumber.Value;
             int port = (int)PortNumber.Value;
 
             scanner.StartScann(ipstart, ipstop, port, timeout);
-        }
-
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnStop_Click(object sender, EventArgs e)
