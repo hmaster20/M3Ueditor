@@ -19,6 +19,9 @@ namespace M3Ueditor
         public formPortScan()
         {
             InitializeComponent();
+
+            this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
+
             SetDefaultValue();
         }
 

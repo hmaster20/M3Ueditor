@@ -23,6 +23,7 @@ namespace M3Ueditor
         public FormMerge(SortableBindingList<TVChannel> tvcCurrent, SortableBindingList<TVChannel> tvcMerge)
         {
             InitializeComponent();
+
             this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
 
             NewChannels = new SortableBindingList<TVChannelMerge>();

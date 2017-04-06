@@ -170,7 +170,7 @@
             // 
             // btnSelectAll
             // 
-            this.btnSelectAll.Image = global::M3Ueditor.Properties.Resources.SelectAll;
+            this.btnSelectAll.Image = global::M3Ueditor.Properties.Resources.select_all;
             this.btnSelectAll.Location = new System.Drawing.Point(12, 2);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(23, 23);
@@ -181,7 +181,7 @@
             // btnUnSelectAll
             // 
             this.btnUnSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnUnSelectAll.Image = global::M3Ueditor.Properties.Resources.unSelectAll;
+            this.btnUnSelectAll.Image = global::M3Ueditor.Properties.Resources.unselect_all;
             this.btnUnSelectAll.Location = new System.Drawing.Point(41, 2);
             this.btnUnSelectAll.Name = "btnUnSelectAll";
             this.btnUnSelectAll.Size = new System.Drawing.Size(23, 23);
@@ -203,6 +203,7 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.cBoxSelectDubl);
             this.Name = "FormMerge";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Слияние плейлистов";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvMerge)).EndInit();

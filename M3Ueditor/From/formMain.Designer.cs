@@ -159,7 +159,7 @@
             // 
             // tsmOpen
             // 
-            this.tsmOpen.Image = global::M3Ueditor.Properties.Resources.FileOpen;
+            this.tsmOpen.Image = global::M3Ueditor.Properties.Resources.file_open;
             this.tsmOpen.Name = "tsmOpen";
             this.tsmOpen.Size = new System.Drawing.Size(162, 22);
             this.tsmOpen.Text = "Открыть";
@@ -168,7 +168,7 @@
             // tsmMerge
             // 
             this.tsmMerge.Enabled = false;
-            this.tsmMerge.Image = global::M3Ueditor.Properties.Resources.Merge;
+            this.tsmMerge.Image = global::M3Ueditor.Properties.Resources.merge;
             this.tsmMerge.Name = "tsmMerge";
             this.tsmMerge.Size = new System.Drawing.Size(162, 22);
             this.tsmMerge.Text = "Объединить...";
@@ -259,7 +259,7 @@
             // tsNew
             // 
             this.tsNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsNew.Image = global::M3Ueditor.Properties.Resources.FileNew;
+            this.tsNew.Image = global::M3Ueditor.Properties.Resources.file_new;
             this.tsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsNew.Name = "tsNew";
             this.tsNew.Size = new System.Drawing.Size(23, 22);
@@ -274,7 +274,7 @@
             // tsOpen
             // 
             this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsOpen.Image = global::M3Ueditor.Properties.Resources.FileOpen;
+            this.tsOpen.Image = global::M3Ueditor.Properties.Resources.file_open;
             this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsOpen.Name = "tsOpen";
             this.tsOpen.Size = new System.Drawing.Size(23, 22);
@@ -284,7 +284,7 @@
             // tsSave
             // 
             this.tsSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsSave.Image = global::M3Ueditor.Properties.Resources.FileSave;
+            this.tsSave.Image = global::M3Ueditor.Properties.Resources.file_save;
             this.tsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsSave.Name = "tsSave";
             this.tsSave.Size = new System.Drawing.Size(23, 22);
@@ -309,7 +309,7 @@
             // tsRemove
             // 
             this.tsRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsRemove.Image = global::M3Ueditor.Properties.Resources.Remove;
+            this.tsRemove.Image = global::M3Ueditor.Properties.Resources.remove;
             this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsRemove.Name = "tsRemove";
             this.tsRemove.Size = new System.Drawing.Size(23, 22);
@@ -324,7 +324,7 @@
             // tsUp
             // 
             this.tsUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsUp.Image = global::M3Ueditor.Properties.Resources.arrow_Up;
+            this.tsUp.Image = global::M3Ueditor.Properties.Resources.arrow_up;
             this.tsUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsUp.Name = "tsUp";
             this.tsUp.Size = new System.Drawing.Size(23, 22);
@@ -334,7 +334,7 @@
             // tsDown
             // 
             this.tsDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsDown.Image = global::M3Ueditor.Properties.Resources.arrow_Down;
+            this.tsDown.Image = global::M3Ueditor.Properties.Resources.arrow_down;
             this.tsDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsDown.Name = "tsDown";
             this.tsDown.Size = new System.Drawing.Size(23, 22);
@@ -574,7 +574,7 @@
             // 
             // tsmScan
             // 
-            this.tsmScan.Image = global::M3Ueditor.Properties.Resources.Scan;
+            this.tsmScan.Image = global::M3Ueditor.Properties.Resources.scan;
             this.tsmScan.Name = "tsmScan";
             this.tsmScan.Size = new System.Drawing.Size(162, 22);
             this.tsmScan.Text = "Сканер IPTV";

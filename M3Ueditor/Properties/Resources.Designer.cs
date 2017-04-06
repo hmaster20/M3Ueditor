@@ -73,9 +73,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_Down {
+        internal static System.Drawing.Bitmap arrow_down {
             get {
-                object obj = ResourceManager.GetObject("arrow_Down", resourceCulture);
+                object obj = ResourceManager.GetObject("arrow_down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_Up {
+        internal static System.Drawing.Bitmap arrow_up {
             get {
-                object obj = ResourceManager.GetObject("arrow_Up", resourceCulture);
+                object obj = ResourceManager.GetObject("arrow_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FileNew {
+        internal static System.Drawing.Bitmap file_new {
             get {
-                object obj = ResourceManager.GetObject("FileNew", resourceCulture);
+                object obj = ResourceManager.GetObject("file_new", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FileOpen {
+        internal static System.Drawing.Bitmap file_open {
             get {
-                object obj = ResourceManager.GetObject("FileOpen", resourceCulture);
+                object obj = ResourceManager.GetObject("file_open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FileSave {
+        internal static System.Drawing.Bitmap file_save {
             get {
-                object obj = ResourceManager.GetObject("FileSave", resourceCulture);
+                object obj = ResourceManager.GetObject("file_save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Merge {
+        internal static System.Drawing.Bitmap merge {
             get {
-                object obj = ResourceManager.GetObject("Merge", resourceCulture);
+                object obj = ResourceManager.GetObject("merge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Remove {
+        internal static System.Drawing.Bitmap remove {
             get {
-                object obj = ResourceManager.GetObject("Remove", resourceCulture);
+                object obj = ResourceManager.GetObject("remove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +163,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Scan {
+        internal static System.Drawing.Bitmap scan {
             get {
-                object obj = ResourceManager.GetObject("Scan", resourceCulture);
+                object obj = ResourceManager.GetObject("scan", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SelectAll {
+        internal static System.Drawing.Bitmap select_all {
             get {
-                object obj = ResourceManager.GetObject("SelectAll", resourceCulture);
+                object obj = ResourceManager.GetObject("select_all", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +183,9 @@ namespace M3Ueditor.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap unSelectAll {
+        internal static System.Drawing.Bitmap unselect_all {
             get {
-                object obj = ResourceManager.GetObject("unSelectAll", resourceCulture);
+                object obj = ResourceManager.GetObject("unselect_all", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

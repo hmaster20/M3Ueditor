@@ -124,19 +124,19 @@
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Merge.png" />
-    <Content Include="Resources\Scan.png" />
+    <Content Include="Resources\merge.png" />
+    <Content Include="Resources\scan.png" />
     <Content Include="Resources\add.png" />
-    <Content Include="Resources\arrow_Down.png" />
-    <Content Include="Resources\arrow_Up.png" />
-    <Content Include="Resources\FileNew.png" />
-    <Content Include="Resources\FileOpen.png" />
-    <Content Include="Resources\FileSave.png" />
+    <Content Include="Resources\arrow_down.png" />
+    <Content Include="Resources\arrow_up.png" />
+    <Content Include="Resources\file_new.png" />
+    <Content Include="Resources\file_open.png" />
+    <Content Include="Resources\file_save.png" />
     <Content Include="Resources\m3u_icon.ico" />
     <Content Include="Resources\m3u.png" />
-    <Content Include="Resources\Remove.png" />
-    <Content Include="Resources\SelectAll.png" />
-    <Content Include="Resources\unSelectAll.png" />
+    <Content Include="Resources\remove.png" />
+    <Content Include="Resources\select_all.png" />
+    <Content Include="Resources\unselect_all.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
