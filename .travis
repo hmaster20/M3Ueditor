@@ -1,3 +1,4 @@
+MONO_IOMAP=all
 language: csharp
 solution: M3Ueditor.sln
 install:
