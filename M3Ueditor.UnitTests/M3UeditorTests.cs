@@ -8,10 +8,10 @@ namespace M3Ueditor.UnitTests
     {
         [TestCase("-")]
         [TestCase("-g")]
-        [TestCase("+dsgf")]
-        [TestCase("=dsgf")]
-        [TestCase("()fghfg")]
-        [TestCase("_fghfg")]
+        //[TestCase("+dsgf")]
+       // [TestCase("=dsgf")]
+       // [TestCase("()fghfg")]
+       // [TestCase("_fghfg")]
         public void TestValidatorTextfalse(string txt)
         {
             bool result = Main.ValidatorText(txt);
