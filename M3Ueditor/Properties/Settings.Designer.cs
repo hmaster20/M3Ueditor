@@ -46,17 +46,5 @@ namespace M3Ueditor.Properties {
                 this["Top"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string InterfaceName {
-            get {
-                return ((string)(this["InterfaceName"]));
-            }
-            set {
-                this["InterfaceName"] = value;
-            }
-        }
     }
 }
