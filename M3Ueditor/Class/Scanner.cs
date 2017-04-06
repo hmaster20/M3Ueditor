@@ -24,111 +24,46 @@ namespace M3Ueditor
         public delegate void UpdateTextCallback(string text);
         public delegate void UpdateButtonsCallback();
         public delegate void ProgressbarCallback(int percent);
-        // public delegate void RefreshDatatableViewCallback(DataRow Row);
         public delegate void RefreshDatatableViewCallback(TVChannel tvc);
-
 
         Socket sock { get; set; }
         Thread ThreadReceiver { get; set; }
 
         IPEndPoint multiep;
         IPAddress curip, IPstart, IPstop;
-        int port;
-        int timeout;
+        int Port;
+        int Timeout;
         int lastchan;
         int found = 0;
         int newchan = 0;
 
-        // string localhost { get; set; } = "172.16.3.35"; // = "192.168.1.102";
-
         string localhost { get; set; } = "";
-
-        /// <summary>Iptv network interface ip</summary>
-        static string interfacename { get; set; } = "";
-
-        /// <summary>Ip of multicast network interface</summary>
-        public static string interfaceip { get; set; } = "";
-
+        static string interfacename { get; set; } = "";//Iptv network interface ip
+        public static string interfaceip { get; set; } = "";    //Ip of multicast network interface
 
         Button start_bt { get; set; }
         Button stop_bt { get; set; }
         ProgressBar progress_Bar { get; set; }
-        Label ip_label { get; set; }
-        Label found_label { get; set; }
+        Label CurrentIP_label { get; set; }
+        Label FoundIP_label { get; set; }
 
-       // DataGridView dgv { get; set; }
-
-        SortableBindingList<TVChannel> channels { get; set; }
         SortableBindingList<TVChannel> FindCH { get; set; }
 
-        //Button start_bt = new Button();
-        //Button stop_bt { get; set; } = new Button();
-        //ProgressBar progress_Bar = new ProgressBar();
-        //Label ip_label = new Label();
-        //Label found_label = new Label();
-        //DataGridView dgv = new DataGridView();
 
-
-        /// <summary>Constructor</summary>
-        /// <param name="l">Settings form info label1</param>
-        /// <param name="l2">Settings form info label2</param>
-        public Scanner(
-            Button startButton, 
-            Button stopButton, 
-            ProgressBar progressBar, 
-            Label l, 
-            Label l2, 
-           // DataGridView datagridview, 
-            SortableBindingList<TVChannel> CurrentChannels,
-            SortableBindingList<TVChannel> ScanFindChannels
-            )
+        public Scanner(Button startBtn, Button stopBtn, ProgressBar prBar, Label CurrentIP, Label FoundIP, SortableBindingList<TVChannel> FindChannels)
         {
-            start_bt = startButton;
-            stop_bt = stopButton;
-            progress_Bar = progressBar;
-            ip_label = l;
-            found_label = l2;
-           // dgv = datagridview;
-            channels = CurrentChannels;
-            FindCH = ScanFindChannels;
+            start_bt = startBtn;
+            stop_bt = stopBtn;
+            progress_Bar = prBar;
+            CurrentIP_label = CurrentIP;
+            FoundIP_label = FoundIP;
+            FindCH = FindChannels;
 
             init_v2();
         }
 
-        //void init()
-        //{
-        //    interfacename = Properties.Settings.Default.InterfaceName;
-        //    // Get interface name and convert it to ip
-        //    Interfaces intf = new Interfaces();
-        //    if (interfacename.Length == 0)
-        //    {
-        //        try
-        //        {
-        //            // первый заход если интерфейс не известен
-        //            string name = intf.getNames()[0];
-        //            string ip = intf.getIpFromName(name);
-        //            Properties.Settings.Default.InterfaceName = name;
-        //            interfaceip = ip;
-
-        //        }
-        //        catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
-        //    }
-        //    else
-        //    {
-        //        try
-        //        {
-        //            interfaceip = intf.getIpFromName(Properties.Settings.Default.InterfaceName);                    
-        //        }
-        //        catch { MessageBox.Show("Can't get local ip. "); interfaceip = ""; }
-        //    }
-
-        //    localhost = interfaceip;
-        //}
-
-
         private void init_v2()
         {
-            //System.Net.NetworkInformation.NetworkInterface.GetIsNetworkA‌​vailable();
             if (NetworkInterface.GetIsNetworkA‌​vailable())
             {
                 NetworkInterface[] alladapter =
@@ -144,18 +79,14 @@ namespace M3Ueditor
 
 
         /// <summary>Start scanning</summary>
-        /// <param name="str">Start ip address</param>
-        /// <param name="stp">End ip address</param>
-        /// <param name="prt">Port</param>
-        /// <param name="tmo">Timeout</param>
-        public void StartScann(IPAddress str, IPAddress stp, int prt, int tmo)
+        public void StartScann(IPAddress startIP, IPAddress endIP, int prt, int tmo)
         {
-            IPstart = str;
-            IPstop = stp;
+            IPstart = startIP;
+            IPstop = endIP;
             curip = IPstart;
-            port = prt;
-            timeout = tmo;
-            ip_label.Text = "Scanning...";
+            Port = prt;
+            Timeout = tmo;
+            CurrentIP_label.Text = "Scanning...";
 
             progress_Bar.Visible = true;
             progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 0);
@@ -173,22 +104,11 @@ namespace M3Ueditor
             bool timedout = false;
             bool searchforward = searchForward(IPstart, IPstop);
             uint progressfull = calculateNumOfIpAddr(IPstart, IPstop);
-
-            //Sort chan dataview by channels and get last channel number
-            //DataView chan = new DataView(ChannelTable.menu.Tables["Menu"], "", ChannelTable.menu.Tables["Menu"].Columns[1].ColumnName, DataViewRowState.CurrentRows);
-
-            //try
-            //{
-            //    lastchan = (int)chan[chan.Count - 1][1] + 1;
-            //}
-            //catch { lastchan = 1; }
-
             bool stopcondition = false;
             byte[] oct = IPstart.GetAddressBytes();
-            multiep = new IPEndPoint(new IPAddress(oct), port);
+            multiep = new IPEndPoint(new IPAddress(oct), Port);
             EndPoint ep = (EndPoint)multiep;
-            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(localhost), port);
-            //IPEndPoint iep = new IPEndPoint(IPAddress.Parse(Globals.interfaceip), port);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(localhost), Port);
 
             int i = 0;
             int dir, tst;
@@ -225,7 +145,7 @@ namespace M3Ueditor
                         break;
                     }
                 }
-                sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, timeout);
+                sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, Timeout);
                 sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(localhost).GetAddressBytes());
                 //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, IPAddress.Parse(Globals.interfaceip).GetAddressBytes());
 
@@ -241,8 +161,8 @@ namespace M3Ueditor
                     break;
                 }
 
-                ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
-                found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
+                CurrentIP_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
+                FoundIP_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
 
 
                 try
@@ -274,9 +194,9 @@ namespace M3Ueditor
                 string tvglogo = "New Logo";
                 string groupTitle = "New Group";
                 string Name = lastchan.ToString();      //"New Channel";
-                string udp = "udp://@" + curip.ToString() + ":" + port;     // "udp://@224.1.1.1:6000";
+                string udp = "udp://@" + curip.ToString() + ":" + Port;     // "udp://@224.1.1.1:6000";
 
-                TVChannel tvc = 
+                TVChannel tvc =
                 new TVChannel(
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
@@ -286,34 +206,42 @@ namespace M3Ueditor
                             );
 
                 bool isTVC = false;
-                
-                for (int count = 0; count < channels.Count; count++)
-                {                    
-                    if (channels[count].Equals(tvc))
+
+
+                for (int count = 0; count < FindCH.Count; count++)
+                {
+                    if (FindCH[count].Equals(tvc))
                     {
                         isTVC = true;
                         break;
                     }
                 }
 
+                //for (int count = 0; count < channels.Count; count++)
+                //{
+                //    if (channels[count].Equals(tvc))
+                //    {
+                //        isTVC = true;
+                //        break;
+                //    }
+                //}
+
                 //if (!isTVC)
                 //{
                 //    FindCH.Add(tvc);
                 //    //channels.Add(tvc);
                 //}
-                
+
 
                 //Check if entry allready exists
-
-                //if (foundchannel && foundrow == null)
                 if (foundchannel && !isTVC)
                 {
                     //dgv.Invoke(new RefreshDatatableViewCallback(tableRefresh), Row);
-                    ip_label.Invoke(new RefreshDatatableViewCallback(tableRefresh), tvc);
+                    CurrentIP_label.Invoke(new RefreshDatatableViewCallback(tableRefresh), tvc);
                     newchan++;
                     lastchan++;
-                    ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
-                    found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
+                    CurrentIP_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
+                    FoundIP_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
                 }
 
                 //sock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.DropMembership, new MulticastOption(new IPAddress(oct), IPAddress.Parse(Globals.interfaceip)));
@@ -359,8 +287,8 @@ namespace M3Ueditor
 
             sock.Close();
 
-            ip_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
-            found_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
+            CurrentIP_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
+            FoundIP_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
             start_bt.Invoke(new UpdateButtonsCallback(UpdatestartButton));
             stop_bt.Invoke(new UpdateButtonsCallback(UpdatestopButton));
             progress_Bar.Invoke(new ProgressbarCallback(UpdateprogressBar), 100);
@@ -413,18 +341,12 @@ namespace M3Ueditor
             FindCH.Add(tvc);
         }
 
-        //public void tableRefresh(DataRow Row)
-        //{
-        //    ChannelTable.menu.Tables["Menu"].Rows.Add(Row);
-        //}
-
         /// <summary>Отмена сканирования</summary>
         public void stopScann()
         {
             progress_Bar.Value = 100;
             ThreadReceiver.Abort();
             sock.Close();
-            //dgv.Focus();
         }
 
 
@@ -433,13 +355,13 @@ namespace M3Ueditor
         /// <summary>Update ip label during the scann</summary>
         private void UpdateipLabel(string text)
         {
-            ip_label.Text = text;
+            CurrentIP_label.Text = text;
         }
 
         /// <summary>Update found label during the scan</summary>
         private void UpdatefoundLabel(string found)
         {
-            found_label.Text = "Found: " + found + " (" + newchan + " new)";
+            FoundIP_label.Text = "Found: " + found + " (" + newchan + " new)";
         }
 
         /// <summary>
