@@ -75,6 +75,7 @@ namespace M3Ueditor
         private void tsmNew_Click(object sender, EventArgs e) => newListTV();
         private void tsmOpen_Click(object sender, EventArgs e) => OpenListTV();
         private void tsmMerge_Click(object sender, EventArgs e) => MergeListTV();
+        private void tsmScan_Click(object sender, EventArgs e) => ScanImport();  
         private void tsmSave_Click(object sender, EventArgs e) => SaveListTv();
         private void tsmSaveAs_Click(object sender, EventArgs e) => SaveListTvAs();
         private void tsmExit_Click(object sender, EventArgs e) => Close();
@@ -210,6 +211,22 @@ namespace M3Ueditor
             }
             return false;
         }
+
+
+        private void ScanImport()
+        {
+            // formPortScan form = new formPortScan(channels);
+            formPortScan form = new formPortScan();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                if (channels != null)
+                {
+                    channels.Clear();
+                    // channels = form.ModChannels;
+                }
+            }
+        }
+
 
         private void SaveListTv()
         {
@@ -997,18 +1014,6 @@ namespace M3Ueditor
         }
 
         #endregion
-
-        private void tsScan_Click(object sender, EventArgs e)
-        {
-            formPortScan form = new formPortScan(channels);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                if (channels != null)
-                {
-                    channels.Clear();
-                   // channels = form.ModChannels;
-                }
-            }
-        }
+        
     }
 }
