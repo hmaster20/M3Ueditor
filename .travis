@@ -1,6 +1,6 @@
-MONO_IOMAP=all
 language: csharp
+mono: none
+dotnet: 1.0.1
 solution: M3Ueditor.sln
 install:
-  - sudo apt-get install -y gtk-sharp2
   - nuget restore M3Ueditor.sln
