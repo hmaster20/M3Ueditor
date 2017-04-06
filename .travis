@@ -6,4 +6,4 @@ install:
   - nuget restore M3Ueditor.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - xbuild MONO_IOMAP=all /p:Configuration=Release M3Ueditor.sln
+  - MONO_IOMAP=all xbuild /p:Configuration=Release M3Ueditor.sln
