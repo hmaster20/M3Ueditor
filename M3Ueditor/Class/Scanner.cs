@@ -36,10 +36,7 @@ namespace M3Ueditor
         int found = 0;
         int newchan = 0;
 
-        string localhost { get; set; } = "";
-        static string interfacename { get; set; } = ""; //network interface IP
-        public static string interfaceip { get; set; } = "";    //IP of multicast network interface
-
+        string localhost { get; set; }
         Button start_bt { get; set; }
         Button stop_bt { get; set; }
         ProgressBar progress_Bar { get; set; }
@@ -55,11 +52,12 @@ namespace M3Ueditor
             CurrentIP_label = CurrentIP;
             FoundIP_label = FoundIP;
             FindCH = FindChannels;
-            init_v2();
+            localhost = getLocalIP();
         }
 
-        private void init_v2()
+        private string getLocalIP()
         {
+            string ipstring = "";
             if (NetworkInterface.GetIsNetworkA‌​vailable())
             {
                 NetworkInterface[] alladapter =
@@ -68,9 +66,9 @@ namespace M3Ueditor
                 NetworkInterface ActiveAdapter = alladapter.First(x => x.OperationalStatus == OperationalStatus.Up);
                 PhysicalAddress address = ActiveAdapter.GetPhysicalAddress();
                 UnicastIPAddressInformationCollection ip = ActiveAdapter.GetIPProperties().UnicastAddresses;
-                string ipstring = ip[0].Address.ToString();
-                localhost = ipstring;
+                ipstring = ip[0].Address.ToString();
             }
+            return ipstring;
         }
 
         /// <summary>Start scanning</summary>
@@ -153,7 +151,6 @@ namespace M3Ueditor
                 CurrentIP_label.Invoke(new UpdateTextCallback(UpdateipLabel), curip.ToString());
                 FoundIP_label.Invoke(new UpdateTextCallback(UpdatefoundLabel), found.ToString());
 
-
                 try
                 {
                     recv = sock.ReceiveFrom(data, ref ep);
@@ -177,11 +174,11 @@ namespace M3Ueditor
                 if (!timedout)
                     Thread.Sleep(300); // we are receiving for 300 ms
 
-                string tvgName = "Chan " + lastchan;    //"New Channel";
+                string tvgName = "Chan " + lastchan;
                 string tvglogo = "New Logo";
                 string groupTitle = "New Group";
-                string Name = lastchan.ToString();      //"New Channel";
-                string udp = "udp://@" + curip.ToString() + ":" + Port;     // "udp://@224.1.1.1:6000";
+                string Name = lastchan.ToString();
+                string udp = "udp://@" + curip.ToString() + ":" + Port;
 
                 TVChannel tvc =
                 new TVChannel(
@@ -193,7 +190,6 @@ namespace M3Ueditor
                             );
 
                 bool isTVC = false;
-
 
                 for (int count = 0; count < FindCH.Count; count++)
                 {
