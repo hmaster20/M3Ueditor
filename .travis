@@ -1,8 +1,0 @@
-language: csharp
-dotnet: 1.0.0-preview2-003121
-os: Visual Studio 2015
-solution: M3Ueditor.sln
-install:
-  - nuget restore M3Ueditor.sln
-
-  
