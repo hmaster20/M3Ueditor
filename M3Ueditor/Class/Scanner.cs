@@ -326,7 +326,7 @@ namespace M3Ueditor
         /// <summary>Update found label during the scan</summary>
         private void UpdatefoundLabel(string found)
         {
-            FoundIP_label.Text = "Found: " + found + " (" + newchan + " new)";
+            FoundIP_label.Text = "Найдено: " + found + " (" + newchan + " новых)";
         }
 
         /// <summary>
