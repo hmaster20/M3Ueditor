@@ -114,17 +114,12 @@ namespace M3Ueditor
                 for (int NextRow = ThisRow + 1; NextRow < dgvMerge.Rows.Count; NextRow++)
                 {
                     DataGridViewRow currentRow = dgvMerge.Rows[NextRow];
-                    bool DuplicateRow = true;
 
                     if ((CompareRow.Cells[3].Value.ToString()) == (currentRow.Cells[3].Value.ToString()))
                     {
                         RowChangeStyleForCompare(CompareRow);
                         RowChangeStyleForDublicate(currentRow);
                         count++;
-                    }
-                    else if (DuplicateRow)
-                    {
-                        DuplicateRow = false;
                     }
                 }
             }
