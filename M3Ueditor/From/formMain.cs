@@ -639,9 +639,12 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (refresh)
             {
-                SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.GroupTitle == node).ToList());
-                dgvTV.DataSource = filteredList;
-                tssLabel2.Text = "В составе группы: " + filteredList.Count;
+                // SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.GroupTitle == node).ToList());
+                //  dgvTV.DataSource = filteredList;
+                //tssLabel2.Text = "В составе группы: " + filteredList.Count;
+
+                dgvTV.DataSource = channels.Where(m => m.GroupTitle == node).ToList();
+                tssLabel2.Text = "В составе группы: " + channels.Where(m => m.GroupTitle == node).ToList().Count;
             }
             else
             {
@@ -656,13 +659,28 @@ namespace M3Ueditor
             if (dgvTV.SelectedRows.Count == 0)
                 return;
 
-            int selectedRow = dgvTV.SelectedRows[0].Index;
+            TVChannel tvc = GetSelectedRow();
+            if (tvc != null)
+            {
+                tvgNameBox.Text = tvc.TvgName;
+                tvglogoBox.Text = tvc.Tvglogo;
+                groupTitleComboBox.Text = tvc.GroupTitle;
+                UDPbox.Text = tvc.UDP;
+                NameBox.Text = tvc.Name;
+            }
+        }
 
-            tvgNameBox.Text = channels[selectedRow].TvgName;
-            tvglogoBox.Text = channels[selectedRow].Tvglogo;
-            groupTitleComboBox.Text = channels[selectedRow].GroupTitle;
-            UDPbox.Text = channels[selectedRow].UDP;
-            NameBox.Text = channels[selectedRow].Name;
+        /// <summary>Получение выбранной записи</summary>
+        private TVChannel GetSelectedRow()
+        {
+            DataGridView dgv = dgvTV;
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                TVChannel tvc = null;
+                if (dgv.SelectedRows[0].DataBoundItem is TVChannel) tvc = dgv.SelectedRows[0].DataBoundItem as TVChannel;
+                if (tvc != null) return tvc;
+            }
+            return null;
         }
 
         private void dgvTV_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
