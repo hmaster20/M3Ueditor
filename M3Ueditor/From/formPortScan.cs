@@ -21,28 +21,25 @@ namespace M3Ueditor
             InitializeComponent();
 
             this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
-
-            SetDefaultValue();
-        }
-
-        void SetDefaultValue()
-        {
             ipStart.Text = "224.1.1.1";
             ipEnd.Text = "224.1.2.250";
             dgvTV.DataSource = FindChannels;
+            CurrentIP.Text = "";
+            FoundIP.Text = "";
         }
 
-        private void btnScan_Click(object sender, EventArgs e)
-        {
-            // IPAddress ipstop = new IPAddress(ipAddressControl2.GetAddressBytes());
+        private void btnScan_Click(object sender, EventArgs e) => ScanStart();
+        private void btnStop_Click(object sender, EventArgs e) => ScanStop();
+        private void formPortScan_FormClosing(object sender, FormClosingEventArgs e) => CheckScanRunning();
 
+
+        private void ScanStart()
+        {
             IPAddress ipstart = IPAddress.Parse(ipStart.Text);
             IPAddress ipstop = IPAddress.Parse(ipEnd.Text);
 
             if (ipstart.ToString() == "0.0.0.0" || ipstop.ToString() == "0.0.0.0")
                 return;
-
-            // parent.Invoke(new delegateParentThread(parent.vlcStop));
 
             btnStart.Enabled = false;
             btnStop.Enabled = true;
@@ -55,11 +52,19 @@ namespace M3Ueditor
             scanner.StartScann(ipstart, ipstop, port, timeout);
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void ScanStop()
         {
             btnStart.Enabled = true;
             btnStop.Enabled = false;
             scanner.stopScann();
+        }
+
+        private void CheckScanRunning()
+        {
+            if (btnStop.Enabled)
+            {
+                ScanStop();
+            }
         }
     }
 }
