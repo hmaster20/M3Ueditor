@@ -17,10 +17,12 @@ namespace M3Ueditor
 {
     public partial class Main : Form
     {
+        #region Переменные
         SortableBindingList<TVChannel> channels { get; set; } // Список каналов
         List<string> groupList { get; set; }    // Список групп
         bool isChange { get; set; } = false;
         FileInfo fileName { get; set; } // название открытого файла
+        #endregion
 
         #region Main методы
 
@@ -29,12 +31,9 @@ namespace M3Ueditor
             InitializeComponent();
 
             this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
-
             dgvTV.DefaultCellStyle.SelectionBackColor = Color.Silver;
-
             groupList = new List<string>();
             channels = new SortableBindingList<TVChannel>();
-
             ButtonMenuEnable();
         }
 
@@ -222,18 +221,22 @@ namespace M3Ueditor
                 {
                     bool isTVC = false;
                     for (int count = 0; count < channels.Count; count++)
-                    {                       
-                            if (channels[count].Equals(form.FindChannels[x]))
-                            {
-                                isTVC = true;
-                                break;
-                            }
+                    {
+                        if (channels[count].Equals(form.FindChannels[x]))
+                        {
+                            isTVC = true;
+                            break;
+                        }
                     }
                     if (!isTVC)
                     {
                         channels.Add(form.FindChannels[x]);
                     }
                 }
+
+                dgvTV.DataSource = channels;
+                UpdategroupListAndTree();
+                Changed();
             }
         }
 
@@ -508,7 +511,7 @@ namespace M3Ueditor
 
         private void Remove()
         {
-            if((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
+            if ((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
             {
                 return;
             }
