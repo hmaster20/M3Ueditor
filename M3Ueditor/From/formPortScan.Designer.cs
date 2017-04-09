@@ -32,10 +32,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblEndIP = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.ipEnd = new iptb.IPTextBox();
             this.lblStartIP = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.ipStart = new iptb.IPTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TimeOutNumber = new System.Windows.Forms.NumericUpDown();
             this.PortNumber = new System.Windows.Forms.NumericUpDown();
@@ -49,6 +47,8 @@
             this.btnApply = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvTV = new System.Windows.Forms.DataGridView();
+            this.ipEnd = new iptb.IPTextBox();
+            this.ipStart = new iptb.IPTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TimeOutNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortNumber)).BeginInit();
@@ -72,16 +72,16 @@
             this.groupBox4.Size = new System.Drawing.Size(284, 133);
             this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Scanner settings";
+            this.groupBox4.Text = "Настройки сканера";
             // 
             // lblEndIP
             // 
             this.lblEndIP.AutoSize = true;
             this.lblEndIP.Location = new System.Drawing.Point(144, 42);
             this.lblEndIP.Name = "lblEndIP";
-            this.lblEndIP.Size = new System.Drawing.Size(42, 13);
+            this.lblEndIP.Size = new System.Drawing.Size(106, 13);
             this.lblEndIP.TabIndex = 46;
-            this.lblEndIP.Text = "End IP:";
+            this.lblEndIP.Text = "Конечный IP адрес:";
             // 
             // label8
             // 
@@ -89,26 +89,18 @@
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label8.Location = new System.Drawing.Point(144, 86);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(66, 13);
+            this.label8.Size = new System.Drawing.Size(122, 13);
             this.label8.TabIndex = 17;
-            this.label8.Text = "timeout (ms):";
-            // 
-            // ipEnd
-            // 
-            this.ipEnd.Location = new System.Drawing.Point(147, 58);
-            this.ipEnd.Name = "ipEnd";
-            this.ipEnd.Size = new System.Drawing.Size(135, 20);
-            this.ipEnd.TabIndex = 47;
-            this.ipEnd.ToolTipText = "";
+            this.label8.Text = "Ожидание ответа (мс):";
             // 
             // lblStartIP
             // 
             this.lblStartIP.AutoSize = true;
             this.lblStartIP.Location = new System.Drawing.Point(6, 42);
             this.lblStartIP.Name = "lblStartIP";
-            this.lblStartIP.Size = new System.Drawing.Size(45, 13);
+            this.lblStartIP.Size = new System.Drawing.Size(113, 13);
             this.lblStartIP.TabIndex = 45;
-            this.lblStartIP.Text = "Start IP:";
+            this.lblStartIP.Text = "Начальный IP адрес:";
             // 
             // label11
             // 
@@ -116,17 +108,9 @@
             this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label11.Location = new System.Drawing.Point(7, 86);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(29, 13);
+            this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 22;
-            this.label11.Text = "Port:";
-            // 
-            // ipStart
-            // 
-            this.ipStart.Location = new System.Drawing.Point(9, 58);
-            this.ipStart.Name = "ipStart";
-            this.ipStart.Size = new System.Drawing.Size(132, 20);
-            this.ipStart.TabIndex = 44;
-            this.ipStart.ToolTipText = "";
+            this.label11.Text = "Порт:";
             // 
             // label5
             // 
@@ -134,9 +118,9 @@
             this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label5.Location = new System.Drawing.Point(7, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 13);
+            this.label5.Size = new System.Drawing.Size(106, 13);
             this.label5.TabIndex = 13;
-            this.label5.Text = "IP range:";
+            this.label5.Text = "Диапазон адресов:";
             // 
             // TimeOutNumber
             // 
@@ -201,7 +185,7 @@
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 44;
-            this.btnStart.Text = "Scan";
+            this.btnStart.Text = "Запустить";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnScan_Click);
             // 
@@ -212,27 +196,27 @@
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 44;
-            this.btnStop.Text = "Stop";
+            this.btnStop.Text = "Остановить";
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // FoundIP
             // 
             this.FoundIP.AutoSize = true;
-            this.FoundIP.Location = new System.Drawing.Point(185, 70);
+            this.FoundIP.Location = new System.Drawing.Point(162, 71);
             this.FoundIP.Name = "FoundIP";
-            this.FoundIP.Size = new System.Drawing.Size(75, 13);
+            this.FoundIP.Size = new System.Drawing.Size(98, 13);
             this.FoundIP.TabIndex = 45;
-            this.FoundIP.Text = "FoundAddress";
+            this.FoundIP.Text = "Найденный адрес";
             // 
             // CurrentIP
             // 
             this.CurrentIP.AutoSize = true;
             this.CurrentIP.Location = new System.Drawing.Point(8, 71);
             this.CurrentIP.Name = "CurrentIP";
-            this.CurrentIP.Size = new System.Drawing.Size(79, 13);
+            this.CurrentIP.Size = new System.Drawing.Size(85, 13);
             this.CurrentIP.TabIndex = 45;
-            this.CurrentIP.Text = "CurrentAddress";
+            this.CurrentIP.Text = "Текущий адрес";
             // 
             // btnCancel
             // 
@@ -268,7 +252,7 @@
             this.groupBox1.Size = new System.Drawing.Size(281, 133);
             this.groupBox1.TabIndex = 49;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Scanner control";
+            this.groupBox1.Text = "Управление сканером";
             // 
             // dgvTV
             // 
@@ -287,6 +271,22 @@
             this.dgvTV.Size = new System.Drawing.Size(738, 305);
             this.dgvTV.TabIndex = 51;
             // 
+            // ipEnd
+            // 
+            this.ipEnd.Location = new System.Drawing.Point(147, 58);
+            this.ipEnd.Name = "ipEnd";
+            this.ipEnd.Size = new System.Drawing.Size(135, 20);
+            this.ipEnd.TabIndex = 47;
+            this.ipEnd.ToolTipText = "";
+            // 
+            // ipStart
+            // 
+            this.ipStart.Location = new System.Drawing.Point(9, 58);
+            this.ipStart.Name = "ipStart";
+            this.ipStart.Size = new System.Drawing.Size(132, 20);
+            this.ipStart.TabIndex = 44;
+            this.ipStart.ToolTipText = "";
+            // 
             // formPortScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,7 +298,8 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.groupBox4);
             this.Name = "formPortScan";
-            this.Text = "formPortScan";
+            this.Text = "Сканер IPTV";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formPortScan_FormClosing);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TimeOutNumber)).EndInit();
