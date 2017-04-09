@@ -432,7 +432,6 @@ namespace M3Ueditor
                 if (line.StartsWith("#EXTINF"))
                 {
                     tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
-                    tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
                     tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
                     groupTitle = stringOperations.Between(line, "group-title=\"", "\"");
                     Name = line.Split(',').Last();
@@ -509,7 +508,7 @@ namespace M3Ueditor
 
         private void Remove()
         {
-            if ((dgvTV.Rows.Count < 0) && (dgvTV.SelectedRows.Count == 0))
+            if((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
             {
                 return;
             }

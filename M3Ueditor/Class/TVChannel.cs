@@ -59,7 +59,7 @@ namespace M3Ueditor
 
         public bool Equals(TVChannel tvc)
         {
-            if (tvc is TVChannel && tvc != null)
+            if (tvc != null)
             {
                 if (tvc.UDP == this.UDP)
                 {
