@@ -131,9 +131,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ChangeLog.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Content Include="ChangeLog.txt" />
     <Content Include="Resources\merge.png" />
     <Content Include="Resources\scan.png" />
     <Content Include="Resources\add.png" />
