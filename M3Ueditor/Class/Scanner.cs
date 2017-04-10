@@ -52,24 +52,9 @@ namespace M3Ueditor
             CurrentIP_label = CurrentIP;
             FoundIP_label = FoundIP;
             FindCH = FindChannels;
-            localhost = getLocalIP();
+            localhost = Ethernet.getLocalIP();
         }
 
-        private string getLocalIP()
-        {
-            string ipstring = "";
-            if (NetworkInterface.GetIsNetworkA‌​vailable())
-            {
-                NetworkInterface[] alladapter =
-                    NetworkInterface.GetAllNetworkInterfaces().Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Ethernet).ToArray();
-
-                NetworkInterface ActiveAdapter = alladapter.First(x => x.OperationalStatus == OperationalStatus.Up);
-                PhysicalAddress address = ActiveAdapter.GetPhysicalAddress();
-                UnicastIPAddressInformationCollection ip = ActiveAdapter.GetIPProperties().UnicastAddresses;
-                ipstring = ip[0].Address.ToString();
-            }
-            return ipstring;
-        }
 
         /// <summary>Start scanning</summary>
         public void StartScann(IPAddress startIP, IPAddress endIP, int prt, int tmo)
@@ -95,8 +80,8 @@ namespace M3Ueditor
             int recv = 0;
             bool foundchannel = false;
             bool timedout = false;
-            bool searchforward = searchForward(IPstart, IPstop);
-            uint progressfull = calculateNumOfIpAddr(IPstart, IPstop);
+            bool searchforward = Ethernet.searchForward(IPstart, IPstop);
+            uint progressfull = Ethernet.calculateNumOfIpAddr(IPstart, IPstop);
             bool stopcondition = false;
             byte[] oct = IPstart.GetAddressBytes();
             multiep = new IPEndPoint(new IPAddress(oct), Port);
@@ -261,46 +246,7 @@ namespace M3Ueditor
             //Abort thread
             ThreadReceiver.Abort();
         }
-
-
-        /// <summary>Возвращает количество адресов для сканирования</summary>
-        /// <param name="start">Начальный IP-адрес</param>
-        /// <param name="stop">Конечный IP-адрес</param>
-        /// <returns>Число в формате uint</returns>
-        private uint calculateNumOfIpAddr(IPAddress start, IPAddress stop)
-        {
-            byte[] str = start.GetAddressBytes();
-            byte[] stp = stop.GetAddressBytes();
-
-            uint sta = (uint)255 * 255 * 255 * str[0] + (uint)255 * 255 * str[1] + (uint)255 * str[2] + (uint)str[3];
-            uint stb = (uint)255 * 255 * 255 * stp[0] + (uint)255 * 255 * stp[1] + (uint)255 * stp[2] + (uint)stp[3];
-
-            if (sta > stb)
-                return (sta - stb) + 1;
-            else
-                return (stb - sta) + 1;
-        }
-
-
-        /// <summary>Направление поиска (прямое или обратное)</summary>
-        /// <param name="start">Начальный IP-адрес</param>
-        /// <param name="stop">Конечный IP-адрес</param>
-        /// <returns>True или False</returns>
-        private bool searchForward(IPAddress start, IPAddress stop)
-        {
-            byte[] str = start.GetAddressBytes();
-            byte[] stp = stop.GetAddressBytes();
-
-            uint sta = (uint)255 * 255 * 255 * str[0] + (uint)255 * 255 * str[1] + (uint)255 * str[2] + (uint)str[3];
-            uint stb = (uint)255 * 255 * 255 * stp[0] + (uint)255 * 255 * stp[1] + (uint)255 * stp[2] + (uint)stp[3];
-
-            if (sta > stb)
-                return false;
-            else
-                return true;
-        }
-
-
+        
         public void TableAdd(TVChannel tvc)
         {
             FindCH.Add(tvc);
