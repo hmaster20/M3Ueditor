@@ -101,6 +101,9 @@
     <EmbeddedResource Include="From\formPortScan.resx">
       <DependentUpon>formPortScan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="From\fromChangeLog.resx">
+      <DependentUpon>fromChangeLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="From\IPTextBox.resx">
       <DependentUpon>IPTextBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,9 +131,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChangeLog.txt">
+    <EmbeddedResource Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="Resources\merge.png" />
     <Content Include="Resources\scan.png" />
     <Content Include="Resources\add.png" />
