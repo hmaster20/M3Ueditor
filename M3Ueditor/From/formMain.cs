@@ -114,7 +114,6 @@ namespace M3Ueditor
 
         private void OpenListTV()
         {
-            // CheckChanged();
             if (CheckChanged())
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
@@ -158,7 +157,6 @@ namespace M3Ueditor
                 {
                     currentfileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
                 }
-
 
                 CheckChanged();
                 OpenFileDialog fileDialog = new OpenFileDialog();
@@ -337,7 +335,6 @@ namespace M3Ueditor
             }
             else
             {
-                //channels.Clear();
                 tree.Nodes.Clear();
                 dgvTV.DataSource = null;
                 ButtonMenuEnable(false);

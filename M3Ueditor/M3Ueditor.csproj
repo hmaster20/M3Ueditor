@@ -65,11 +65,11 @@
     <Compile Include="From\formMain.Designer.cs">
       <DependentUpon>formMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="From\FormMerge.cs">
+    <Compile Include="From\formMerge.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="From\FormMerge.Designer.cs">
-      <DependentUpon>FormMerge.cs</DependentUpon>
+    <Compile Include="From\formMerge.Designer.cs">
+      <DependentUpon>formMerge.cs</DependentUpon>
     </Compile>
     <Compile Include="From\formPortScan.cs">
       <SubType>Form</SubType>
@@ -95,8 +95,8 @@
     <EmbeddedResource Include="From\formMain.resx">
       <DependentUpon>formMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="From\FormMerge.resx">
-      <DependentUpon>FormMerge.cs</DependentUpon>
+    <EmbeddedResource Include="From\formMerge.resx">
+      <DependentUpon>formMerge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="From\formPortScan.resx">
       <DependentUpon>formPortScan.cs</DependentUpon>
