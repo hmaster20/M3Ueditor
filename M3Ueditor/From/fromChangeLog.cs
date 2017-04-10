@@ -14,6 +14,8 @@ namespace M3Ueditor
         public fromChangeLog()
         {
             InitializeComponent();
+
+            tbLog.Text = Properties.Resources.ChangeLog;
         }
     }
 }
