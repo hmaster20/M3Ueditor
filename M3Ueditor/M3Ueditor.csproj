@@ -77,6 +77,12 @@
     <Compile Include="From\formPortScan.Designer.cs">
       <DependentUpon>formPortScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="From\fromChangeLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="From\fromChangeLog.Designer.cs">
+      <DependentUpon>fromChangeLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="From\IPTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
