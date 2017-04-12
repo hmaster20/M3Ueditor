@@ -220,7 +220,6 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(637, 73);
             this.btnCancel.Name = "btnCancel";
@@ -231,7 +230,6 @@
             // 
             // btnApply
             // 
-            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnApply.Location = new System.Drawing.Point(637, 44);
             this.btnApply.Name = "btnApply";
@@ -258,6 +256,9 @@
             // 
             this.dgvTV.AllowUserToResizeColumns = false;
             this.dgvTV.AllowUserToResizeRows = false;
+            this.dgvTV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTV.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvTV.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;

@@ -20,6 +20,8 @@ namespace M3Ueditor
         {
             InitializeComponent();
 
+            this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
+
             this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
             ipStart.Text = "224.1.1.1";
             ipEnd.Text = "224.1.2.250";
