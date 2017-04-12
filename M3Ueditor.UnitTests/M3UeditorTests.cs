@@ -8,14 +8,26 @@ namespace M3Ueditor.UnitTests
     {
         [TestCase("-")]
         [TestCase("-g")]
-        //[TestCase("+dsgf")]
-       // [TestCase("=dsgf")]
-       // [TestCase("()fghfg")]
-       // [TestCase("_fghfg")]
+        [TestCase("+dsgf")]
+        [TestCase("=dsgf")]
+        [TestCase("()fghfg")]
+        [TestCase("_fghfg")]
         public void TestValidatorTextfalse(string txt)
         {
             bool result = Main.ValidatorText(txt);
             Assert.False(result);
+        }
+
+        [TestCase("n-")]
+        [TestCase("Name+")]
+        [TestCase("Name=")]
+        [TestCase("Name()")]
+        [TestCase("Name_")]
+        [TestCase("@Disney")]
+        public void TestValidatorTextTrue(string txt)
+        {
+            bool result = Main.ValidatorText(txt);
+            Assert.True(result);
         }
 
         [TestCase("udp://@224.1.1.1:6")]
