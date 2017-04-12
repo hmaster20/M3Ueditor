@@ -38,6 +38,8 @@
             this.tss1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMerge = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmScan = new System.Windows.Forms.ToolStripMenuItem();
             this.tss2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,8 +79,6 @@
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmScan = new System.Windows.Forms.ToolStripMenuItem();
             this.status.SuspendLayout();
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
@@ -173,6 +173,19 @@
             this.tsmMerge.Size = new System.Drawing.Size(162, 22);
             this.tsmMerge.Text = "Объединить...";
             this.tsmMerge.Click += new System.EventHandler(this.tsmMerge_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
+            // 
+            // tsmScan
+            // 
+            this.tsmScan.Image = global::M3Ueditor.Properties.Resources.scan;
+            this.tsmScan.Name = "tsmScan";
+            this.tsmScan.Size = new System.Drawing.Size(162, 22);
+            this.tsmScan.Text = "Сканер IPTV";
+            this.tsmScan.Click += new System.EventHandler(this.tsmScan_Click);
             // 
             // tss2
             // 
@@ -566,19 +579,6 @@
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
-            // 
-            // tsmScan
-            // 
-            this.tsmScan.Image = global::M3Ueditor.Properties.Resources.scan;
-            this.tsmScan.Name = "tsmScan";
-            this.tsmScan.Size = new System.Drawing.Size(162, 22);
-            this.tsmScan.Text = "Сканер IPTV";
-            this.tsmScan.Click += new System.EventHandler(this.tsmScan_Click);
             // 
             // Main
             // 

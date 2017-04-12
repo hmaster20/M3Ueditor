@@ -637,6 +637,17 @@ namespace M3Ueditor
         void TableRefresh(string node = "", bool refresh = false)
         {
             TVChannel tvc = GetSelected();
+
+            if (tvc==null)
+            {
+                Debug.Print("TableRefresh : tvc = null");
+            }
+            else
+            {
+                Debug.Print("TableRefresh : tvc = " + tvc.Name + " group = "+ tvc.GroupTitle);
+            }       
+
+
             if (refresh)
             {
                 // SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.GroupTitle == node).ToList());
@@ -689,12 +700,12 @@ namespace M3Ueditor
             {
                 if (Control.ModifierKeys == Keys.Control)
                 {
-                    System.Diagnostics.Debug.Print("CTRL + Left click!");
+                    Debug.Print("CTRL + Left click!");
                     dgvTV.MultiSelect = true;
                 }
                 else
                 {
-                    System.Diagnostics.Debug.Print("Left click!");
+                    Debug.Print("Left click!");
                     dgvTV.MultiSelect = false;
                     // dgvTV.ReadOnly = true;
                 }
@@ -780,10 +791,10 @@ namespace M3Ueditor
         {
             dgv.ClearSelection();
             foreach (DataGridViewRow row in dgv.Rows)
-                if ((row.DataBoundItem as TVChannel).Name == tvc.Name)
+                if ((row.DataBoundItem as TVChannel).Name == tvc.Name && (row.DataBoundItem as TVChannel).GroupTitle == tvc.GroupTitle)
                 {
                     row.Selected = true;
-                    // dgv.FirstDisplayedScrollingRowIndex = row.Index;  // прокрутака таблицы до выбранной строки
+                    // dgv.FirstDisplayedScrollingRowIndex = row.Index;  // прокрутка таблицы до выбранной строки
                     break;
                 }
         }
@@ -1029,7 +1040,25 @@ namespace M3Ueditor
             //string pattern = @"((^[\w\s+/-]+$))";
             //string pattern = @"([\w\s]+$)";
 
-            string pattern = @"((?:[\w][\w\s]+$))";
+            //string pattern = @"((?:[\w][\w\s]+$))";
+            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+$))";
+            //string pattern = "([а-яА-Яa-zA-Z]|[а-яА-Яa-zA-Z0-9]?)(?![\\w])";
+            // string pattern = "((?:[a-z][a-z0-9]*))";
+            // string pattern = "(?:[a-z][a-z0-9_ -=]*)";
+            // string pattern = "(?:[а-яА-Яa-zA-Z0-9]|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
+            //string pattern = "(^[а-яА-Яa-zA-Z0-9]*|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
+            //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]+$*)";
+            //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]*)";
+            //string pattern = "([а-яА-Яa-zA-Z0-9])(?![\\d])";
+            //string pattern = "([а-яА-Яa-zA-Z0-9])(?![\\w])";
+            //string pattern = "([а-яА-Яa-zA-Z])";
+            //string pattern = "^[ A-Za-z0-9]$";
+            //string pattern = "[a-zA-Z]^[A-Za-z0-9]$";//"(?:[^a-z0-9 ]|(?<=['\"])s)"
+            //string pattern = "(?:[^a-z0-9 ]|(?<=['\"])s)";
+            //string pattern = @"(^[\w\s+/-]+$)";
+            //string pattern = "(^[а-яА-Яa-zA-Z0-9])";
+            string pattern = "(^[а-яА-Яa-zA-Z0-9@])";// @Disney
+
 
 
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
