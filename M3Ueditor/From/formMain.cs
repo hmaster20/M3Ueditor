@@ -638,14 +638,14 @@ namespace M3Ueditor
         {
             TVChannel tvc = GetSelected();
 
-            if (tvc==null)
+            if (tvc == null)
             {
                 Debug.Print("TableRefresh : tvc = null");
             }
             else
             {
-                Debug.Print("TableRefresh : tvc = " + tvc.Name + " group = "+ tvc.GroupTitle);
-            }       
+                Debug.Print("TableRefresh : tvc = " + tvc.Name + " group = " + tvc.GroupTitle);
+            }
 
 
             if (refresh)
@@ -1039,13 +1039,12 @@ namespace M3Ueditor
             //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+))";
             //string pattern = @"((^[\w\s+/-]+$))";
             //string pattern = @"([\w\s]+$)";
-
             //string pattern = @"((?:[\w][\w\s]+$))";
             //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+$))";
             //string pattern = "([а-яА-Яa-zA-Z]|[а-яА-Яa-zA-Z0-9]?)(?![\\w])";
-            // string pattern = "((?:[a-z][a-z0-9]*))";
-            // string pattern = "(?:[a-z][a-z0-9_ -=]*)";
-            // string pattern = "(?:[а-яА-Яa-zA-Z0-9]|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
+            //string pattern = "((?:[a-z][a-z0-9]*))";
+            //string pattern = "(?:[a-z][a-z0-9_ -=]*)";
+            //string pattern = "(?:[а-яА-Яa-zA-Z0-9]|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
             //string pattern = "(^[а-яА-Яa-zA-Z0-9]*|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
             //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]+$*)";
             //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]*)";
@@ -1057,9 +1056,8 @@ namespace M3Ueditor
             //string pattern = "(?:[^a-z0-9 ]|(?<=['\"])s)";
             //string pattern = @"(^[\w\s+/-]+$)";
             //string pattern = "(^[а-яА-Яa-zA-Z0-9])";
-            string pattern = "(^[а-яА-Яa-zA-Z0-9@])";// @Disney
 
-
+            string pattern = "(^[а-яА-Яa-zA-Z0-9@])";
 
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             Match m = r.Match(txt);
