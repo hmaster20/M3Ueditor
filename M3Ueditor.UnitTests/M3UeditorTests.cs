@@ -18,7 +18,13 @@ namespace M3Ueditor.UnitTests
             Assert.False(result);
         }
 
+        [TestCase("udp://@224.1.1.1:6")]
+        [TestCase("udp://@224.1.1.1:23")]
+        [TestCase("udp://@224.1.1.1:250")]
+        [TestCase("udp://@224.1.1.1:1024")]
         [TestCase("udp://@224.1.1.1:6000")]
+        [TestCase("udp://@224.1.1.1:16000")]
+        [TestCase("udp://@224.1.1.1:65535")]
         [TestCase("http://@192.168.1.1:1024")]
         public void TestValidatorUDPtrue(string srv)
         {
@@ -26,6 +32,8 @@ namespace M3Ueditor.UnitTests
             Assert.True(result);
         }
 
+        [TestCase("udp://@224.1.1.1:600000")]
+        [TestCase("udp://@224.1.1.1:65536")]
         [TestCase("udp://@224.1.11:6000")]
         [TestCase("udp://@224.1.1.1:")]
         [TestCase("udp://224.1.1.1:33")]
