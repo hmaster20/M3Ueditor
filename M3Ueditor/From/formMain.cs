@@ -993,7 +993,7 @@ namespace M3Ueditor
             string re_at = "(:\\/\\/@)";
             string re_IPv4 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";
             string re7 = "(:)";
-            string re_port = "(\\d+)";
+            string re_port = "(6553[0-5]|655[0-2][0-9]|65[0-4][0-9][0-9]|6[0-4][0-9][0-9][0-9]|[0-5]?[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9]?)(?![\\d])";//string re_port = "(\\d+)";//65535
 
             Regex r = new Regex(re_protocl + re_at + re_IPv4 + re7 + re_port, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             Match m = r.Match(UDPserver);
