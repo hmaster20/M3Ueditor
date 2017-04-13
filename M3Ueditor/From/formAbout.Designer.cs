@@ -74,6 +74,7 @@
             // 
             // textBoxDescription
             // 
+            this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxDescription.Location = new System.Drawing.Point(9, 19);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.textBoxDescription.Multiline = true;
