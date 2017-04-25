@@ -638,16 +638,6 @@ namespace M3Ueditor
         {
             TVChannel tvc = GetSelected();
 
-            if (tvc == null)
-            {
-                Debug.Print("TableRefresh : tvc = null");
-            }
-            else
-            {
-                Debug.Print("TableRefresh : tvc = " + tvc.Name + " group = " + tvc.GroupTitle);
-            }
-
-
             if (refresh)
             {
                 // SortableBindingList<TVChannel> filteredList = new SortableBindingList<TVChannel>(channels.Where(m => m.GroupTitle == node).ToList());
@@ -662,6 +652,7 @@ namespace M3Ueditor
                 dgvTV.DataSource = channels;
                 tssLabel2.Text = "";
             }
+
             if (tvc != null) Selected(dgvTV, tvc);
         }
 
