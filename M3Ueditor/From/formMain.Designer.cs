@@ -29,6 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tree = new System.Windows.Forms.TreeView();
+            this.dgvTV = new System.Windows.Forms.DataGridView();
+            this.panelEdit = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnChangeCancel = new System.Windows.Forms.Button();
+            this.btnChangeApprove = new System.Windows.Forms.Button();
+            this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
+            this.ltvgName = new System.Windows.Forms.Label();
+            this.lName = new System.Windows.Forms.Label();
+            this.lUDPbox = new System.Windows.Forms.Label();
+            this.lgroupTitle = new System.Windows.Forms.Label();
+            this.ltvglogo = new System.Windows.Forms.Label();
+            this.NameBox = new System.Windows.Forms.TextBox();
+            this.UDPbox = new System.Windows.Forms.TextBox();
+            this.tvglogoBox = new System.Windows.Forms.TextBox();
+            this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.status = new System.Windows.Forms.StatusStrip();
             this.tssLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -61,27 +80,8 @@
             this.tsUp = new System.Windows.Forms.ToolStripButton();
             this.tsDown = new System.Windows.Forms.ToolStripButton();
             this.ts4 = new System.Windows.Forms.ToolStripSeparator();
-            this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.tree = new System.Windows.Forms.TreeView();
-            this.dgvTV = new System.Windows.Forms.DataGridView();
-            this.panelEdit = new System.Windows.Forms.Panel();
-            this.btnChangeCancel = new System.Windows.Forms.Button();
-            this.btnChangeApprove = new System.Windows.Forms.Button();
-            this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
-            this.ltvgName = new System.Windows.Forms.Label();
-            this.lName = new System.Windows.Forms.Label();
-            this.lUDPbox = new System.Windows.Forms.Label();
-            this.lgroupTitle = new System.Windows.Forms.Label();
-            this.ltvglogo = new System.Windows.Forms.Label();
-            this.NameBox = new System.Windows.Forms.TextBox();
-            this.UDPbox = new System.Windows.Forms.TextBox();
-            this.tvglogoBox = new System.Windows.Forms.TextBox();
-            this.tvgNameBox = new System.Windows.Forms.TextBox();
+            this.tsSelectLang = new System.Windows.Forms.ToolStripComboBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.status.SuspendLayout();
-            this.menu.SuspendLayout();
-            this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -92,43 +92,276 @@
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).BeginInit();
             this.panelEdit.SuspendLayout();
+            this.status.SuspendLayout();
+            this.menu.SuspendLayout();
+            this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
+            // splitContainer
+            // 
+            resources.ApplyResources(this.splitContainer, "splitContainer");
+            this.errorProvider.SetError(this.splitContainer, resources.GetString("splitContainer.Error"));
+            this.errorProvider.SetIconAlignment(this.splitContainer, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("splitContainer.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.splitContainer, ((int)(resources.GetObject("splitContainer.IconPadding"))));
+            this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            resources.ApplyResources(this.splitContainer.Panel1, "splitContainer.Panel1");
+            this.splitContainer.Panel1.Controls.Add(this.splitContainer2);
+            this.errorProvider.SetError(this.splitContainer.Panel1, resources.GetString("splitContainer.Panel1.Error"));
+            this.errorProvider.SetIconAlignment(this.splitContainer.Panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("splitContainer.Panel1.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.splitContainer.Panel1, ((int)(resources.GetObject("splitContainer.Panel1.IconPadding"))));
+            // 
+            // splitContainer.Panel2
+            // 
+            resources.ApplyResources(this.splitContainer.Panel2, "splitContainer.Panel2");
+            this.splitContainer.Panel2.Controls.Add(this.panelEdit);
+            this.errorProvider.SetError(this.splitContainer.Panel2, resources.GetString("splitContainer.Panel2.Error"));
+            this.errorProvider.SetIconAlignment(this.splitContainer.Panel2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("splitContainer.Panel2.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.splitContainer.Panel2, ((int)(resources.GetObject("splitContainer.Panel2.IconPadding"))));
+            // 
+            // splitContainer2
+            // 
+            resources.ApplyResources(this.splitContainer2, "splitContainer2");
+            this.errorProvider.SetError(this.splitContainer2, resources.GetString("splitContainer2.Error"));
+            this.errorProvider.SetIconAlignment(this.splitContainer2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("splitContainer2.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.splitContainer2, ((int)(resources.GetObject("splitContainer2.IconPadding"))));
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            resources.ApplyResources(this.splitContainer2.Panel1, "splitContainer2.Panel1");
+            this.splitContainer2.Panel1.Controls.Add(this.tree);
+            this.errorProvider.SetError(this.splitContainer2.Panel1, resources.GetString("splitContainer2.Panel1.Error"));
+            this.errorProvider.SetIconAlignment(this.splitContainer2.Panel1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("splitContainer2.Panel1.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.splitContainer2.Panel1, ((int)(resources.GetObject("splitContainer2.Panel1.IconPadding"))));
+            // 
+            // splitContainer2.Panel2
+            // 
+            resources.ApplyResources(this.splitContainer2.Panel2, "splitContainer2.Panel2");
+            this.splitContainer2.Panel2.Controls.Add(this.dgvTV);
+            this.errorProvider.SetError(this.splitContainer2.Panel2, resources.GetString("splitContainer2.Panel2.Error"));
+            this.errorProvider.SetIconAlignment(this.splitContainer2.Panel2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("splitContainer2.Panel2.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.splitContainer2.Panel2, ((int)(resources.GetObject("splitContainer2.Panel2.IconPadding"))));
+            // 
+            // tree
+            // 
+            resources.ApplyResources(this.tree, "tree");
+            this.tree.AllowDrop = true;
+            this.errorProvider.SetError(this.tree, resources.GetString("tree.Error"));
+            this.errorProvider.SetIconAlignment(this.tree, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tree.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.tree, ((int)(resources.GetObject("tree.IconPadding"))));
+            this.tree.Name = "tree";
+            this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
+            this.tree.DragDrop += new System.Windows.Forms.DragEventHandler(this.tree_DragDrop);
+            this.tree.DragEnter += new System.Windows.Forms.DragEventHandler(this.tree_DragEnter);
+            // 
+            // dgvTV
+            // 
+            resources.ApplyResources(this.dgvTV, "dgvTV");
+            this.dgvTV.AllowUserToResizeColumns = false;
+            this.dgvTV.AllowUserToResizeRows = false;
+            this.dgvTV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTV.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvTV.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvTV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.errorProvider.SetError(this.dgvTV, resources.GetString("dgvTV.Error"));
+            this.errorProvider.SetIconAlignment(this.dgvTV, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dgvTV.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.dgvTV, ((int)(resources.GetObject("dgvTV.IconPadding"))));
+            this.dgvTV.MultiSelect = false;
+            this.dgvTV.Name = "dgvTV";
+            this.dgvTV.ReadOnly = true;
+            this.dgvTV.RowHeadersVisible = false;
+            this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTV_CellEndEdit);
+            this.dgvTV.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseClick);
+            this.dgvTV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseDown);
+            this.dgvTV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvTV_CellValidating);
+            this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
+            this.dgvTV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvTV_KeyDown);
+            // 
+            // panelEdit
+            // 
+            resources.ApplyResources(this.panelEdit, "panelEdit");
+            this.panelEdit.Controls.Add(this.button1);
+            this.panelEdit.Controls.Add(this.btnChangeCancel);
+            this.panelEdit.Controls.Add(this.btnChangeApprove);
+            this.panelEdit.Controls.Add(this.groupTitleComboBox);
+            this.panelEdit.Controls.Add(this.ltvgName);
+            this.panelEdit.Controls.Add(this.lName);
+            this.panelEdit.Controls.Add(this.lUDPbox);
+            this.panelEdit.Controls.Add(this.lgroupTitle);
+            this.panelEdit.Controls.Add(this.ltvglogo);
+            this.panelEdit.Controls.Add(this.NameBox);
+            this.panelEdit.Controls.Add(this.UDPbox);
+            this.panelEdit.Controls.Add(this.tvglogoBox);
+            this.panelEdit.Controls.Add(this.tvgNameBox);
+            this.errorProvider.SetError(this.panelEdit, resources.GetString("panelEdit.Error"));
+            this.errorProvider.SetIconAlignment(this.panelEdit, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panelEdit.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.panelEdit, ((int)(resources.GetObject("panelEdit.IconPadding"))));
+            this.panelEdit.Name = "panelEdit";
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.errorProvider.SetError(this.button1, resources.GetString("button1.Error"));
+            this.errorProvider.SetIconAlignment(this.button1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button1.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.button1, ((int)(resources.GetObject("button1.IconPadding"))));
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnChangeCancel
+            // 
+            resources.ApplyResources(this.btnChangeCancel, "btnChangeCancel");
+            this.btnChangeCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.errorProvider.SetError(this.btnChangeCancel, resources.GetString("btnChangeCancel.Error"));
+            this.errorProvider.SetIconAlignment(this.btnChangeCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("btnChangeCancel.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.btnChangeCancel, ((int)(resources.GetObject("btnChangeCancel.IconPadding"))));
+            this.btnChangeCancel.Name = "btnChangeCancel";
+            this.btnChangeCancel.UseVisualStyleBackColor = true;
+            this.btnChangeCancel.Click += new System.EventHandler(this.btnChangeCancel_Click);
+            // 
+            // btnChangeApprove
+            // 
+            resources.ApplyResources(this.btnChangeApprove, "btnChangeApprove");
+            this.btnChangeApprove.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.errorProvider.SetError(this.btnChangeApprove, resources.GetString("btnChangeApprove.Error"));
+            this.errorProvider.SetIconAlignment(this.btnChangeApprove, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("btnChangeApprove.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.btnChangeApprove, ((int)(resources.GetObject("btnChangeApprove.IconPadding"))));
+            this.btnChangeApprove.Name = "btnChangeApprove";
+            this.btnChangeApprove.UseVisualStyleBackColor = true;
+            this.btnChangeApprove.Click += new System.EventHandler(this.btnChangeApprove_Click);
+            // 
+            // groupTitleComboBox
+            // 
+            resources.ApplyResources(this.groupTitleComboBox, "groupTitleComboBox");
+            this.errorProvider.SetError(this.groupTitleComboBox, resources.GetString("groupTitleComboBox.Error"));
+            this.groupTitleComboBox.FormattingEnabled = true;
+            this.errorProvider.SetIconAlignment(this.groupTitleComboBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupTitleComboBox.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.groupTitleComboBox, ((int)(resources.GetObject("groupTitleComboBox.IconPadding"))));
+            this.groupTitleComboBox.Name = "groupTitleComboBox";
+            this.groupTitleComboBox.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            this.groupTitleComboBox.TextUpdate += new System.EventHandler(this.UserModifiedChanged);
+            this.groupTitleComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.groupTitleComboBox_Validating);
+            // 
+            // ltvgName
+            // 
+            resources.ApplyResources(this.ltvgName, "ltvgName");
+            this.errorProvider.SetError(this.ltvgName, resources.GetString("ltvgName.Error"));
+            this.errorProvider.SetIconAlignment(this.ltvgName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("ltvgName.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.ltvgName, ((int)(resources.GetObject("ltvgName.IconPadding"))));
+            this.ltvgName.Name = "ltvgName";
+            // 
+            // lName
+            // 
+            resources.ApplyResources(this.lName, "lName");
+            this.errorProvider.SetError(this.lName, resources.GetString("lName.Error"));
+            this.errorProvider.SetIconAlignment(this.lName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("lName.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.lName, ((int)(resources.GetObject("lName.IconPadding"))));
+            this.lName.Name = "lName";
+            // 
+            // lUDPbox
+            // 
+            resources.ApplyResources(this.lUDPbox, "lUDPbox");
+            this.errorProvider.SetError(this.lUDPbox, resources.GetString("lUDPbox.Error"));
+            this.errorProvider.SetIconAlignment(this.lUDPbox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("lUDPbox.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.lUDPbox, ((int)(resources.GetObject("lUDPbox.IconPadding"))));
+            this.lUDPbox.Name = "lUDPbox";
+            // 
+            // lgroupTitle
+            // 
+            resources.ApplyResources(this.lgroupTitle, "lgroupTitle");
+            this.errorProvider.SetError(this.lgroupTitle, resources.GetString("lgroupTitle.Error"));
+            this.errorProvider.SetIconAlignment(this.lgroupTitle, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("lgroupTitle.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.lgroupTitle, ((int)(resources.GetObject("lgroupTitle.IconPadding"))));
+            this.lgroupTitle.Name = "lgroupTitle";
+            // 
+            // ltvglogo
+            // 
+            resources.ApplyResources(this.ltvglogo, "ltvglogo");
+            this.errorProvider.SetError(this.ltvglogo, resources.GetString("ltvglogo.Error"));
+            this.errorProvider.SetIconAlignment(this.ltvglogo, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("ltvglogo.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.ltvglogo, ((int)(resources.GetObject("ltvglogo.IconPadding"))));
+            this.ltvglogo.Name = "ltvglogo";
+            // 
+            // NameBox
+            // 
+            resources.ApplyResources(this.NameBox, "NameBox");
+            this.errorProvider.SetError(this.NameBox, resources.GetString("NameBox.Error"));
+            this.errorProvider.SetIconAlignment(this.NameBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("NameBox.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.NameBox, ((int)(resources.GetObject("NameBox.IconPadding"))));
+            this.NameBox.Name = "NameBox";
+            this.NameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.NameBox.Validating += new System.ComponentModel.CancelEventHandler(this.NameBox_Validating);
+            // 
+            // UDPbox
+            // 
+            resources.ApplyResources(this.UDPbox, "UDPbox");
+            this.errorProvider.SetError(this.UDPbox, resources.GetString("UDPbox.Error"));
+            this.errorProvider.SetIconAlignment(this.UDPbox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("UDPbox.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.UDPbox, ((int)(resources.GetObject("UDPbox.IconPadding"))));
+            this.UDPbox.Name = "UDPbox";
+            this.UDPbox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.UDPbox.Validating += new System.ComponentModel.CancelEventHandler(this.UDPbox_Validating);
+            // 
+            // tvglogoBox
+            // 
+            resources.ApplyResources(this.tvglogoBox, "tvglogoBox");
+            this.errorProvider.SetError(this.tvglogoBox, resources.GetString("tvglogoBox.Error"));
+            this.errorProvider.SetIconAlignment(this.tvglogoBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tvglogoBox.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.tvglogoBox, ((int)(resources.GetObject("tvglogoBox.IconPadding"))));
+            this.tvglogoBox.Name = "tvglogoBox";
+            this.tvglogoBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.tvglogoBox.Validating += new System.ComponentModel.CancelEventHandler(this.tvglogoBox_Validating);
+            // 
+            // tvgNameBox
+            // 
+            resources.ApplyResources(this.tvgNameBox, "tvgNameBox");
+            this.errorProvider.SetError(this.tvgNameBox, resources.GetString("tvgNameBox.Error"));
+            this.errorProvider.SetIconAlignment(this.tvgNameBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tvgNameBox.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.tvgNameBox, ((int)(resources.GetObject("tvgNameBox.IconPadding"))));
+            this.tvgNameBox.Name = "tvgNameBox";
+            this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.tvgNameBox.Validating += new System.ComponentModel.CancelEventHandler(this.tvgNameBox_Validating);
+            // 
             // status
             // 
+            resources.ApplyResources(this.status, "status");
+            this.errorProvider.SetError(this.status, resources.GetString("status.Error"));
+            this.errorProvider.SetIconAlignment(this.status, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("status.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.status, ((int)(resources.GetObject("status.IconPadding"))));
             this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel1,
             this.tssLabel2});
-            this.status.Location = new System.Drawing.Point(0, 556);
             this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(1025, 22);
-            this.status.TabIndex = 0;
-            this.status.Text = "statusStrip1";
             // 
             // tssLabel1
             // 
+            resources.ApplyResources(this.tssLabel1, "tssLabel1");
             this.tssLabel1.Name = "tssLabel1";
-            this.tssLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // tssLabel2
             // 
+            resources.ApplyResources(this.tssLabel2, "tssLabel2");
             this.tssLabel2.Name = "tssLabel2";
-            this.tssLabel2.Size = new System.Drawing.Size(0, 17);
             // 
             // menu
             // 
+            resources.ApplyResources(this.menu, "menu");
+            this.errorProvider.SetError(this.menu, resources.GetString("menu.Error"));
+            this.errorProvider.SetIconAlignment(this.menu, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("menu.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.menu, ((int)(resources.GetObject("menu.IconPadding"))));
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmFile,
             this.tsmHelp});
-            this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(1025, 24);
-            this.menu.TabIndex = 1;
-            this.menu.Text = "menuStrip1";
             // 
             // tsmFile
             // 
+            resources.ApplyResources(this.tsmFile, "tsmFile");
             this.tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmNew,
             this.tss1,
@@ -142,115 +375,104 @@
             this.tss3,
             this.tsmExit});
             this.tsmFile.Name = "tsmFile";
-            this.tsmFile.Size = new System.Drawing.Size(48, 20);
-            this.tsmFile.Text = "Файл";
             // 
             // tsmNew
             // 
+            resources.ApplyResources(this.tsmNew, "tsmNew");
             this.tsmNew.Name = "tsmNew";
-            this.tsmNew.Size = new System.Drawing.Size(162, 22);
-            this.tsmNew.Text = "Новый";
             this.tsmNew.Click += new System.EventHandler(this.tsmNew_Click);
             // 
             // tss1
             // 
+            resources.ApplyResources(this.tss1, "tss1");
             this.tss1.Name = "tss1";
-            this.tss1.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmOpen
             // 
+            resources.ApplyResources(this.tsmOpen, "tsmOpen");
             this.tsmOpen.Image = global::M3Ueditor.Properties.Resources.file_open;
             this.tsmOpen.Name = "tsmOpen";
-            this.tsmOpen.Size = new System.Drawing.Size(162, 22);
-            this.tsmOpen.Text = "Открыть";
             this.tsmOpen.Click += new System.EventHandler(this.tsmOpen_Click);
             // 
             // tsmMerge
             // 
-            this.tsmMerge.Enabled = false;
+            resources.ApplyResources(this.tsmMerge, "tsmMerge");
             this.tsmMerge.Image = global::M3Ueditor.Properties.Resources.merge;
             this.tsmMerge.Name = "tsmMerge";
-            this.tsmMerge.Size = new System.Drawing.Size(162, 22);
-            this.tsmMerge.Text = "Объединить...";
             this.tsmMerge.Click += new System.EventHandler(this.tsmMerge_Click);
             // 
             // toolStripSeparator1
             // 
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmScan
             // 
+            resources.ApplyResources(this.tsmScan, "tsmScan");
             this.tsmScan.Image = global::M3Ueditor.Properties.Resources.scan;
             this.tsmScan.Name = "tsmScan";
-            this.tsmScan.Size = new System.Drawing.Size(162, 22);
-            this.tsmScan.Text = "Сканер IPTV";
             this.tsmScan.Click += new System.EventHandler(this.tsmScan_Click);
             // 
             // tss2
             // 
+            resources.ApplyResources(this.tss2, "tss2");
             this.tss2.Name = "tss2";
-            this.tss2.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmSave
             // 
-            this.tsmSave.Enabled = false;
+            resources.ApplyResources(this.tsmSave, "tsmSave");
             this.tsmSave.Name = "tsmSave";
-            this.tsmSave.Size = new System.Drawing.Size(162, 22);
-            this.tsmSave.Text = "Сохранить";
             this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
             // 
             // tsmSaveAs
             // 
-            this.tsmSaveAs.Enabled = false;
+            resources.ApplyResources(this.tsmSaveAs, "tsmSaveAs");
             this.tsmSaveAs.Name = "tsmSaveAs";
-            this.tsmSaveAs.Size = new System.Drawing.Size(162, 22);
-            this.tsmSaveAs.Text = "Сохранить как...";
             this.tsmSaveAs.Click += new System.EventHandler(this.tsmSaveAs_Click);
             // 
             // tss3
             // 
+            resources.ApplyResources(this.tss3, "tss3");
             this.tss3.Name = "tss3";
-            this.tss3.Size = new System.Drawing.Size(159, 6);
             // 
             // tsmExit
             // 
+            resources.ApplyResources(this.tsmExit, "tsmExit");
             this.tsmExit.Name = "tsmExit";
-            this.tsmExit.Size = new System.Drawing.Size(162, 22);
-            this.tsmExit.Text = "Выход";
             this.tsmExit.Click += new System.EventHandler(this.tsmExit_Click);
             // 
             // tsmHelp
             // 
+            resources.ApplyResources(this.tsmHelp, "tsmHelp");
             this.tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmHistory,
             this.tss4,
             this.tsmAbout});
             this.tsmHelp.Name = "tsmHelp";
-            this.tsmHelp.Size = new System.Drawing.Size(65, 20);
-            this.tsmHelp.Text = "Справка";
             // 
             // tsmHistory
             // 
+            resources.ApplyResources(this.tsmHistory, "tsmHistory");
             this.tsmHistory.Name = "tsmHistory";
-            this.tsmHistory.Size = new System.Drawing.Size(185, 22);
-            this.tsmHistory.Text = "История изменений";
             this.tsmHistory.Click += new System.EventHandler(this.tsmHistory_Click);
             // 
             // tss4
             // 
+            resources.ApplyResources(this.tss4, "tss4");
             this.tss4.Name = "tss4";
-            this.tss4.Size = new System.Drawing.Size(182, 6);
             // 
             // tsmAbout
             // 
+            resources.ApplyResources(this.tsmAbout, "tsmAbout");
             this.tsmAbout.Name = "tsmAbout";
-            this.tsmAbout.Size = new System.Drawing.Size(185, 22);
-            this.tsmAbout.Text = "О программе";
             this.tsmAbout.Click += new System.EventHandler(this.tsmAbout_Click);
             // 
             // toolS
             // 
+            resources.ApplyResources(this.toolS, "toolS");
+            this.errorProvider.SetError(this.toolS, resources.GetString("toolS.Error"));
+            this.errorProvider.SetIconAlignment(this.toolS, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("toolS.IconAlignment"))));
+            this.errorProvider.SetIconPadding(this.toolS, ((int)(resources.GetObject("toolS.IconPadding"))));
             this.toolS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsNew,
             this.ts1,
@@ -262,345 +484,112 @@
             this.ts3,
             this.tsUp,
             this.tsDown,
-            this.ts4});
-            this.toolS.Location = new System.Drawing.Point(0, 24);
+            this.ts4,
+            this.tsSelectLang});
             this.toolS.Name = "toolS";
-            this.toolS.Size = new System.Drawing.Size(1025, 25);
-            this.toolS.TabIndex = 2;
-            this.toolS.Text = "toolStrip1";
             // 
             // tsNew
             // 
+            resources.ApplyResources(this.tsNew, "tsNew");
             this.tsNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsNew.Image = global::M3Ueditor.Properties.Resources.file_new;
-            this.tsNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsNew.Name = "tsNew";
-            this.tsNew.Size = new System.Drawing.Size(23, 22);
-            this.tsNew.Text = "Новый плейлист";
             this.tsNew.Click += new System.EventHandler(this.tsNew_Click);
             // 
             // ts1
             // 
+            resources.ApplyResources(this.ts1, "ts1");
             this.ts1.Name = "ts1";
-            this.ts1.Size = new System.Drawing.Size(6, 25);
             // 
             // tsOpen
             // 
+            resources.ApplyResources(this.tsOpen, "tsOpen");
             this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsOpen.Image = global::M3Ueditor.Properties.Resources.file_open;
-            this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsOpen.Name = "tsOpen";
-            this.tsOpen.Size = new System.Drawing.Size(23, 22);
-            this.tsOpen.Text = "Открыть";
             this.tsOpen.Click += new System.EventHandler(this.tsOpen_Click);
             // 
             // tsSave
             // 
+            resources.ApplyResources(this.tsSave, "tsSave");
             this.tsSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsSave.Image = global::M3Ueditor.Properties.Resources.file_save;
-            this.tsSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsSave.Name = "tsSave";
-            this.tsSave.Size = new System.Drawing.Size(23, 22);
-            this.tsSave.Text = "Сохранить";
             this.tsSave.Click += new System.EventHandler(this.tsSave_Click);
             // 
             // ts2
             // 
+            resources.ApplyResources(this.ts2, "ts2");
             this.ts2.Name = "ts2";
-            this.ts2.Size = new System.Drawing.Size(6, 25);
             // 
             // tsAdd
             // 
+            resources.ApplyResources(this.tsAdd, "tsAdd");
             this.tsAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsAdd.Image = global::M3Ueditor.Properties.Resources.add;
-            this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsAdd.Name = "tsAdd";
-            this.tsAdd.Size = new System.Drawing.Size(23, 22);
-            this.tsAdd.Text = "Добавить";
             this.tsAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
             // tsRemove
             // 
+            resources.ApplyResources(this.tsRemove, "tsRemove");
             this.tsRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsRemove.Image = global::M3Ueditor.Properties.Resources.remove;
-            this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsRemove.Name = "tsRemove";
-            this.tsRemove.Size = new System.Drawing.Size(23, 22);
-            this.tsRemove.Text = "Удалить";
             this.tsRemove.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // ts3
             // 
+            resources.ApplyResources(this.ts3, "ts3");
             this.ts3.Name = "ts3";
-            this.ts3.Size = new System.Drawing.Size(6, 25);
             // 
             // tsUp
             // 
+            resources.ApplyResources(this.tsUp, "tsUp");
             this.tsUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsUp.Image = global::M3Ueditor.Properties.Resources.arrow_up;
-            this.tsUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsUp.Name = "tsUp";
-            this.tsUp.Size = new System.Drawing.Size(23, 22);
-            this.tsUp.Text = "Сдвинуть строку выше";
             this.tsUp.Click += new System.EventHandler(this.tsUp_Click);
             // 
             // tsDown
             // 
+            resources.ApplyResources(this.tsDown, "tsDown");
             this.tsDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsDown.Image = global::M3Ueditor.Properties.Resources.arrow_down;
-            this.tsDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsDown.Name = "tsDown";
-            this.tsDown.Size = new System.Drawing.Size(23, 22);
-            this.tsDown.Text = "Сдвинуть строку ниже";
             this.tsDown.Click += new System.EventHandler(this.tsDown_Click);
             // 
             // ts4
             // 
+            resources.ApplyResources(this.ts4, "ts4");
             this.ts4.Name = "ts4";
-            this.ts4.Size = new System.Drawing.Size(6, 25);
             // 
-            // splitContainer
+            // tsSelectLang
             // 
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(0, 49);
-            this.splitContainer.Name = "splitContainer";
-            // 
-            // splitContainer.Panel1
-            // 
-            this.splitContainer.Panel1.Controls.Add(this.splitContainer2);
-            // 
-            // splitContainer.Panel2
-            // 
-            this.splitContainer.Panel2.Controls.Add(this.panelEdit);
-            this.splitContainer.Size = new System.Drawing.Size(1025, 507);
-            this.splitContainer.SplitterDistance = 720;
-            this.splitContainer.TabIndex = 3;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.tree);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.dgvTV);
-            this.splitContainer2.Size = new System.Drawing.Size(720, 507);
-            this.splitContainer2.SplitterDistance = 232;
-            this.splitContainer2.TabIndex = 1;
-            // 
-            // tree
-            // 
-            this.tree.AllowDrop = true;
-            this.tree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tree.Location = new System.Drawing.Point(0, 0);
-            this.tree.Name = "tree";
-            this.tree.Size = new System.Drawing.Size(232, 507);
-            this.tree.TabIndex = 0;
-            this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_AfterSelect);
-            this.tree.DragDrop += new System.Windows.Forms.DragEventHandler(this.tree_DragDrop);
-            this.tree.DragEnter += new System.Windows.Forms.DragEventHandler(this.tree_DragEnter);
-            // 
-            // dgvTV
-            // 
-            this.dgvTV.AllowUserToResizeColumns = false;
-            this.dgvTV.AllowUserToResizeRows = false;
-            this.dgvTV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTV.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgvTV.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvTV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTV.Location = new System.Drawing.Point(0, 0);
-            this.dgvTV.MultiSelect = false;
-            this.dgvTV.Name = "dgvTV";
-            this.dgvTV.ReadOnly = true;
-            this.dgvTV.RowHeadersVisible = false;
-            this.dgvTV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTV.Size = new System.Drawing.Size(484, 507);
-            this.dgvTV.TabIndex = 0;
-            this.dgvTV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTV_CellEndEdit);
-            this.dgvTV.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseClick);
-            this.dgvTV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTV_CellMouseDown);
-            this.dgvTV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvTV_CellValidating);
-            this.dgvTV.SelectionChanged += new System.EventHandler(this.dgvTV_SelectionChanged);
-            this.dgvTV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvTV_KeyDown);
-            // 
-            // panelEdit
-            // 
-            this.panelEdit.Controls.Add(this.btnChangeCancel);
-            this.panelEdit.Controls.Add(this.btnChangeApprove);
-            this.panelEdit.Controls.Add(this.groupTitleComboBox);
-            this.panelEdit.Controls.Add(this.ltvgName);
-            this.panelEdit.Controls.Add(this.lName);
-            this.panelEdit.Controls.Add(this.lUDPbox);
-            this.panelEdit.Controls.Add(this.lgroupTitle);
-            this.panelEdit.Controls.Add(this.ltvglogo);
-            this.panelEdit.Controls.Add(this.NameBox);
-            this.panelEdit.Controls.Add(this.UDPbox);
-            this.panelEdit.Controls.Add(this.tvglogoBox);
-            this.panelEdit.Controls.Add(this.tvgNameBox);
-            this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEdit.Location = new System.Drawing.Point(0, 0);
-            this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(301, 507);
-            this.panelEdit.TabIndex = 0;
-            // 
-            // btnChangeCancel
-            // 
-            this.btnChangeCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangeCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnChangeCancel.Location = new System.Drawing.Point(205, 274);
-            this.btnChangeCancel.Name = "btnChangeCancel";
-            this.btnChangeCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnChangeCancel.TabIndex = 3;
-            this.btnChangeCancel.Text = "Отмена";
-            this.btnChangeCancel.UseVisualStyleBackColor = true;
-            this.btnChangeCancel.Visible = false;
-            this.btnChangeCancel.Click += new System.EventHandler(this.btnChangeCancel_Click);
-            // 
-            // btnChangeApprove
-            // 
-            this.btnChangeApprove.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnChangeApprove.Location = new System.Drawing.Point(18, 274);
-            this.btnChangeApprove.Name = "btnChangeApprove";
-            this.btnChangeApprove.Size = new System.Drawing.Size(75, 23);
-            this.btnChangeApprove.TabIndex = 3;
-            this.btnChangeApprove.Text = "Применить";
-            this.btnChangeApprove.UseVisualStyleBackColor = true;
-            this.btnChangeApprove.Visible = false;
-            this.btnChangeApprove.Click += new System.EventHandler(this.btnChangeApprove_Click);
-            // 
-            // groupTitleComboBox
-            // 
-            this.groupTitleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupTitleComboBox.FormattingEnabled = true;
-            this.groupTitleComboBox.Location = new System.Drawing.Point(18, 170);
-            this.groupTitleComboBox.Name = "groupTitleComboBox";
-            this.groupTitleComboBox.Size = new System.Drawing.Size(262, 21);
-            this.groupTitleComboBox.TabIndex = 2;
-            this.groupTitleComboBox.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
-            this.groupTitleComboBox.TextUpdate += new System.EventHandler(this.UserModifiedChanged);
-            this.groupTitleComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.groupTitleComboBox_Validating);
-            // 
-            // ltvgName
-            // 
-            this.ltvgName.AutoSize = true;
-            this.ltvgName.Location = new System.Drawing.Point(15, 62);
-            this.ltvgName.Name = "ltvgName";
-            this.ltvgName.Size = new System.Drawing.Size(50, 13);
-            this.ltvgName.TabIndex = 1;
-            this.ltvgName.Text = "tvgName";
-            // 
-            // lName
-            // 
-            this.lName.AutoSize = true;
-            this.lName.Location = new System.Drawing.Point(15, 15);
-            this.lName.Name = "lName";
-            this.lName.Size = new System.Drawing.Size(133, 13);
-            this.lName.TabIndex = 1;
-            this.lName.Text = "Name (Название канала)";
-            // 
-            // lUDPbox
-            // 
-            this.lUDPbox.AutoSize = true;
-            this.lUDPbox.Location = new System.Drawing.Point(15, 200);
-            this.lUDPbox.Name = "lUDPbox";
-            this.lUDPbox.Size = new System.Drawing.Size(45, 13);
-            this.lUDPbox.TabIndex = 1;
-            this.lUDPbox.Text = "UDP/IP";
-            // 
-            // lgroupTitle
-            // 
-            this.lgroupTitle.AutoSize = true;
-            this.lgroupTitle.Location = new System.Drawing.Point(15, 154);
-            this.lgroupTitle.Name = "lgroupTitle";
-            this.lgroupTitle.Size = new System.Drawing.Size(54, 13);
-            this.lgroupTitle.TabIndex = 1;
-            this.lgroupTitle.Text = "groupTitle";
-            // 
-            // ltvglogo
-            // 
-            this.ltvglogo.AutoSize = true;
-            this.ltvglogo.Location = new System.Drawing.Point(15, 109);
-            this.ltvglogo.Name = "ltvglogo";
-            this.ltvglogo.Size = new System.Drawing.Size(42, 13);
-            this.ltvglogo.TabIndex = 1;
-            this.ltvglogo.Text = "tvglogo";
-            // 
-            // NameBox
-            // 
-            this.NameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameBox.Location = new System.Drawing.Point(18, 31);
-            this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(262, 20);
-            this.NameBox.TabIndex = 0;
-            this.NameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            this.NameBox.Validating += new System.ComponentModel.CancelEventHandler(this.NameBox_Validating);
-            // 
-            // UDPbox
-            // 
-            this.UDPbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.UDPbox.Location = new System.Drawing.Point(18, 216);
-            this.UDPbox.Name = "UDPbox";
-            this.UDPbox.Size = new System.Drawing.Size(262, 20);
-            this.UDPbox.TabIndex = 0;
-            this.UDPbox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            this.UDPbox.Validating += new System.ComponentModel.CancelEventHandler(this.UDPbox_Validating);
-            // 
-            // tvglogoBox
-            // 
-            this.tvglogoBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvglogoBox.Location = new System.Drawing.Point(18, 125);
-            this.tvglogoBox.Name = "tvglogoBox";
-            this.tvglogoBox.Size = new System.Drawing.Size(262, 20);
-            this.tvglogoBox.TabIndex = 0;
-            this.tvglogoBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            this.tvglogoBox.Validating += new System.ComponentModel.CancelEventHandler(this.tvglogoBox_Validating);
-            // 
-            // tvgNameBox
-            // 
-            this.tvgNameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvgNameBox.Location = new System.Drawing.Point(18, 78);
-            this.tvgNameBox.Name = "tvgNameBox";
-            this.tvgNameBox.Size = new System.Drawing.Size(262, 20);
-            this.tvgNameBox.TabIndex = 0;
-            this.tvgNameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            this.tvgNameBox.Validating += new System.ComponentModel.CancelEventHandler(this.tvgNameBox_Validating);
+            resources.ApplyResources(this.tsSelectLang, "tsSelectLang");
+            this.tsSelectLang.BackColor = System.Drawing.SystemColors.Control;
+            this.tsSelectLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tsSelectLang.Name = "tsSelectLang";
+            this.tsSelectLang.SelectedIndexChanged += new System.EventHandler(this.tsSelectLang_SelectedIndexChanged);
             // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider, "errorProvider");
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 578);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.toolS);
             this.Controls.Add(this.status);
             this.Controls.Add(this.menu);
             this.MainMenuStrip = this.menu;
             this.Name = "Main";
-            this.Text = "M3U editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.status.ResumeLayout(false);
-            this.status.PerformLayout();
-            this.menu.ResumeLayout(false);
-            this.menu.PerformLayout();
-            this.toolS.ResumeLayout(false);
-            this.toolS.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -612,6 +601,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTV)).EndInit();
             this.panelEdit.ResumeLayout(false);
             this.panelEdit.PerformLayout();
+            this.status.ResumeLayout(false);
+            this.status.PerformLayout();
+            this.menu.ResumeLayout(false);
+            this.menu.PerformLayout();
+            this.toolS.ResumeLayout(false);
+            this.toolS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -670,6 +665,8 @@
         private System.Windows.Forms.ToolStripSeparator ts4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmScan;
+        private System.Windows.Forms.ToolStripComboBox tsSelectLang;
+        private System.Windows.Forms.Button button1;
     }
 }
 

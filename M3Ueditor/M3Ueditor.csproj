@@ -92,6 +92,15 @@
     <EmbeddedResource Include="From\formAbout.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="From\formMain.de-DE.resx">
+      <DependentUpon>formMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="From\formMain.en-GB.resx">
+      <DependentUpon>formMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="From\formMain.en-US.resx">
+      <DependentUpon>formMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="From\formMain.resx">
       <DependentUpon>formMain.cs</DependentUpon>
     </EmbeddedResource>
