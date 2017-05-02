@@ -4,25 +4,30 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace M3Ueditor
 {
-    public partial class FormMerge : Form
+    public partial class FormMerge : FormGlobal
     {
         public SortableBindingList<TVChannelMerge> NewChannels { get; set; }    // Новый список каналов с селектором
         public SortableBindingList<TVChannel> ModChannels { get; set; }         // Новый стандартный список каналов
-
+        
         public FormMerge()
         {
             InitializeComponent();
         }
 
-        public FormMerge(SortableBindingList<TVChannel> tvcCurrent, SortableBindingList<TVChannel> tvcMerge)
+        public FormMerge(SortableBindingList<TVChannel> tvcCurrent, SortableBindingList<TVChannel> tvcMerge, string lng)
         {
             InitializeComponent();
+
+            this.resManager = new ComponentResourceManager(this.GetType());
+            this.Culture = CultureInfo.GetCultureInfo(lng);
 
             this.Icon = M3Ueditor.Properties.Resources.m3u_icon;
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMerge));
             this.cBoxSelectDubl = new System.Windows.Forms.CheckBox();
             this.btnApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -47,46 +48,30 @@
             // 
             // cBoxSelectDubl
             // 
-            this.cBoxSelectDubl.AutoSize = true;
-            this.cBoxSelectDubl.Location = new System.Drawing.Point(76, 6);
+            resources.ApplyResources(this.cBoxSelectDubl, "cBoxSelectDubl");
             this.cBoxSelectDubl.Name = "cBoxSelectDubl";
-            this.cBoxSelectDubl.Size = new System.Drawing.Size(148, 17);
-            this.cBoxSelectDubl.TabIndex = 1;
-            this.cBoxSelectDubl.Text = "Выбрать все дубликаты";
             this.cBoxSelectDubl.UseVisualStyleBackColor = true;
             this.cBoxSelectDubl.CheckedChanged += new System.EventHandler(this.cBoxSelectDubl_CheckedChanged);
             // 
             // btnApply
             // 
-            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnApply, "btnApply");
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(495, 349);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 2;
-            this.btnApply.Text = "Применить";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(576, 349);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // bntDelete
             // 
-            this.bntDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bntDelete.Location = new System.Drawing.Point(526, 4);
+            resources.ApplyResources(this.bntDelete, "bntDelete");
             this.bntDelete.Name = "bntDelete";
-            this.bntDelete.Size = new System.Drawing.Size(125, 23);
-            this.bntDelete.TabIndex = 2;
-            this.bntDelete.Text = "Удалить выбранные";
             this.bntDelete.UseVisualStyleBackColor = true;
             this.bntDelete.Click += new System.EventHandler(this.bntDelete_Click);
             // 
@@ -95,9 +80,7 @@
             this.dgvMerge.AllowUserToAddRows = false;
             this.dgvMerge.AllowUserToResizeColumns = false;
             this.dgvMerge.AllowUserToResizeRows = false;
-            this.dgvMerge.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.dgvMerge, "dgvMerge");
             this.dgvMerge.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMerge.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -106,13 +89,10 @@
             this.Column5,
             this.Column6,
             this.Column3});
-            this.dgvMerge.Location = new System.Drawing.Point(12, 31);
             this.dgvMerge.MultiSelect = false;
             this.dgvMerge.Name = "dgvMerge";
             this.dgvMerge.RowHeadersVisible = false;
             this.dgvMerge.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMerge.Size = new System.Drawing.Size(639, 312);
-            this.dgvMerge.TabIndex = 3;
             this.dgvMerge.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellClick);
             this.dgvMerge.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellContentClick);
             this.dgvMerge.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMerge_CellValueChanged);
@@ -121,79 +101,69 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.DataPropertyName = "TvgName";
-            this.Column1.HeaderText = "TvgName";
+            resources.ApplyResources(this.Column1, "Column1");
             this.Column1.Name = "Column1";
             // 
             // Column4
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column4.DataPropertyName = "Tvglogo";
-            this.Column4.HeaderText = "Tvglogo";
+            resources.ApplyResources(this.Column4, "Column4");
             this.Column4.Name = "Column4";
             // 
             // Column2
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.DataPropertyName = "GroupTitle";
-            this.Column2.HeaderText = "GroupTitle";
+            resources.ApplyResources(this.Column2, "Column2");
             this.Column2.Name = "Column2";
             // 
             // Column5
             // 
             this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column5.DataPropertyName = "UDP";
-            this.Column5.HeaderText = "UDP";
+            resources.ApplyResources(this.Column5, "Column5");
             this.Column5.Name = "Column5";
             // 
             // Column6
             // 
             this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column6.DataPropertyName = "Name";
-            this.Column6.HeaderText = "Name";
+            resources.ApplyResources(this.Column6, "Column6");
             this.Column6.Name = "Column6";
             // 
             // Column3
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column3.DataPropertyName = "check";
-            this.Column3.HeaderText = "Дубль";
+            resources.ApplyResources(this.Column3, "Column3");
             this.Column3.Name = "Column3";
-            this.Column3.Width = 50;
             // 
             // infolabel
             // 
-            this.infolabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.infolabel.Location = new System.Drawing.Point(12, 354);
+            resources.ApplyResources(this.infolabel, "infolabel");
             this.infolabel.Name = "infolabel";
-            this.infolabel.Size = new System.Drawing.Size(212, 23);
-            this.infolabel.TabIndex = 4;
             // 
             // btnSelectAll
             // 
             this.btnSelectAll.Image = global::M3Ueditor.Properties.Resources.select_all;
-            this.btnSelectAll.Location = new System.Drawing.Point(12, 2);
+            resources.ApplyResources(this.btnSelectAll, "btnSelectAll");
             this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(23, 23);
-            this.btnSelectAll.TabIndex = 5;
             this.btnSelectAll.UseVisualStyleBackColor = true;
             this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
             // 
             // btnUnSelectAll
             // 
-            this.btnUnSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            resources.ApplyResources(this.btnUnSelectAll, "btnUnSelectAll");
             this.btnUnSelectAll.Image = global::M3Ueditor.Properties.Resources.unselect_all;
-            this.btnUnSelectAll.Location = new System.Drawing.Point(41, 2);
             this.btnUnSelectAll.Name = "btnUnSelectAll";
-            this.btnUnSelectAll.Size = new System.Drawing.Size(23, 23);
-            this.btnUnSelectAll.TabIndex = 5;
             this.btnUnSelectAll.UseVisualStyleBackColor = true;
             this.btnUnSelectAll.Click += new System.EventHandler(this.btnUnSelectAll_Click);
             // 
             // FormMerge
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 379);
             this.Controls.Add(this.btnUnSelectAll);
             this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.infolabel);
@@ -203,8 +173,6 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.cBoxSelectDubl);
             this.Name = "FormMerge";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Слияние плейлистов";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvMerge)).EndInit();
             this.ResumeLayout(false);

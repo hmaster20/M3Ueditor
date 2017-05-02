@@ -278,7 +278,7 @@ namespace M3Ueditor
 
                     SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);
 
-                    FormMerge form = new FormMerge(channels, channelsForMerge);
+                    FormMerge form = new FormMerge(channels, channelsForMerge, lng);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         if (channels != null)
