@@ -143,8 +143,7 @@ namespace M3Ueditor
 
             tsSelectLang.Items.Add("Russian");
             tsSelectLang.Items.Add("English");
-            tsSelectLang.Text = "Russian"; 
-            //tsSelectLang.SelectedIndex = 0;
+            tsSelectLang.Text = "Russian";
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -152,6 +151,7 @@ namespace M3Ueditor
             // загрузка параметров из файла конфигурации
             this.Left = Settings.Default.Left;
             this.Top = Settings.Default.Top;
+            this.tsSelectLang.SelectedIndex = Settings.Default.Language;
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -159,6 +159,7 @@ namespace M3Ueditor
             // сохранение параметров в файл конфигурации
             Settings.Default.Left = this.Left;
             Settings.Default.Top = this.Top;
+            Settings.Default.Language = this.tsSelectLang.SelectedIndex;
             Settings.Default.Save();
         }
 
@@ -175,6 +176,7 @@ namespace M3Ueditor
         private void tsRemove_Click(object sender, EventArgs e) => Remove();
         private void tsUp_Click(object sender, EventArgs e) => Up();
         private void tsDown_Click(object sender, EventArgs e) => Down();
+        private void tsSelectLang_SelectedIndexChanged(object sender, EventArgs e) => ChangeLanguage();
 
         #endregion
 
@@ -319,7 +321,6 @@ namespace M3Ueditor
             return false;
         }
 
-
         private void ImportFromScan()
         {
             formPortScan form = new formPortScan(lng);
@@ -347,7 +348,6 @@ namespace M3Ueditor
                 Changed();
             }
         }
-
 
         private void SaveListTv()
         {
@@ -738,6 +738,30 @@ namespace M3Ueditor
         {
             formAbout about = new formAbout(lng);
             about.ShowDialog();
+        }
+
+        private void ChangeLanguage()
+        {
+            switch (tsSelectLang.SelectedIndex)
+            {
+                case 0:
+                    {
+                        this.Culture = CultureInfo.GetCultureInfo("");
+                        lng = "";
+                        ChangeLanguage(menu.Items);
+                        ChangeLanguage(toolS.Items);
+                        break;
+                    }
+                case 1:
+                    {
+                        this.Culture = CultureInfo.GetCultureInfo("en-US");
+                        lng = "en-US";
+                        ChangeLanguage(menu.Items);
+                        ChangeLanguage(toolS.Items);
+                        break;
+                    }
+                default: break;
+            }
         }
 
         #endregion
@@ -1172,31 +1196,6 @@ namespace M3Ueditor
         }
 
         #endregion
-
-        private void tsSelectLang_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (tsSelectLang.SelectedIndex)
-            {
-                case 0:
-                    { 
-                    this.Culture = CultureInfo.GetCultureInfo("");
-                        lng = "";
-                        ChangeLanguage(menu.Items);
-                        ChangeLanguage(toolS.Items);
-                        break;
-                    }
-                case 1:
-                    {
-                        this.Culture = CultureInfo.GetCultureInfo("en-US");
-                        lng = "en-US";
-                        ChangeLanguage(menu.Items);
-                        ChangeLanguage(toolS.Items);
-                        break;
-                    }
-                default: break;
-            }
-        }
-
 
     }
 }
