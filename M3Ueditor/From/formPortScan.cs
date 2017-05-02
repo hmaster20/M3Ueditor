@@ -9,25 +9,20 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
 using System.Globalization;
+using System.Threading;
 
 namespace M3Ueditor
 {
-    public partial class formPortScan : FormGlobal
+    public partial class formPortScan : Form
     {
         public SortableBindingList<TVChannel> FindChannels { get; set; } = new SortableBindingList<TVChannel>();
         private Scanner scanner { get; set; }
 
-        public formPortScan()
-        {
-            InitializeComponent();
-        }
-
         public formPortScan(string lng)
         {
-            InitializeComponent();
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(lng);
 
-            this.resManager = new ComponentResourceManager(this.GetType());
-            this.Culture = CultureInfo.GetCultureInfo(lng);
+            InitializeComponent();
 
             this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
 

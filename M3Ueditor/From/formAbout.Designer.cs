@@ -45,29 +45,29 @@
             // 
             // btnOk
             // 
-            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             resources.ApplyResources(this.btnOk, "btnOk");
+            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Name = "btnOk";
             this.btnOk.UseVisualStyleBackColor = true;
             // 
             // pBoxLogo
             // 
-            this.pBoxLogo.Image = global::M3Ueditor.Properties.Resources.m3u;
             resources.ApplyResources(this.pBoxLogo, "pBoxLogo");
+            this.pBoxLogo.Image = global::M3Ueditor.Properties.Resources.m3u;
             this.pBoxLogo.Name = "pBoxLogo";
             this.pBoxLogo.TabStop = false;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBoxDescription);
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.textBoxDescription);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
+            this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.TabStop = false;

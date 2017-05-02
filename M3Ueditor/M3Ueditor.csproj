@@ -92,6 +92,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\stringOperations.cs" />
+    <EmbeddedResource Include="From\formAbout.en-US.resx">
+      <DependentUpon>formAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="From\formAbout.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="From\formPortScan.resx">
       <DependentUpon>formPortScan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="From\fromChangeLog.en-US.resx">
+      <DependentUpon>fromChangeLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="From\fromChangeLog.resx">
       <DependentUpon>fromChangeLog.cs</DependentUpon>

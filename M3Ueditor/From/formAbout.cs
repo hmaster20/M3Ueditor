@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
+using System.Resources;
 
 namespace M3Ueditor
 {
@@ -19,14 +22,36 @@ namespace M3Ueditor
             false;
 #endif
 
-        public formAbout()
+        public formAbout(string lng)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(lng);
+
             InitializeComponent();
 
-            this.Text = String.Format("О программе {0}", AssemblyTitle);
+            //// Объявите экземпляр диспетчера ресурсов. 
+            //ResourceManager LocRM = new ResourceManager("formAbout.formAbout", typeof(formAbout).Assembly);
+            //// Назначьте строку для ключа "strMessage" в окне сообщения.
+            //MessageBox.Show(LocRM.GetString("lName.Text"));
 
-            lName.Text = AssemblyTitle;
-            lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
+            if (lng == "")
+            {
+                this.Text = String.Format("О программе");
+                //this.Text = String.Format("О программе {0}", AssemblyTitle);
+                lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
+                lName.Text = AssemblyTitle;
+            }
+            else
+            {
+                this.Text = String.Format("About");
+                // this.Text = String.Format("About {0}", AssemblyProduct);
+                lVersion.Text = String.Format("Version {0}", AssemblyVersion);
+                lName.Text = AssemblyProduct;
+            }
+
+           // this.Text = String.Format("О программе {0}", AssemblyTitle);
+
+            //lName.Text = AssemblyTitle;
+           // lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
             lCopyright.Text = AssemblyCopyright;
 
             textBoxDescription.Text = AssemblyDescription;
@@ -46,6 +71,23 @@ namespace M3Ueditor
                     if (titleAttribute.Title != "")
                     {
                         return titleAttribute.Title;
+                    }
+                }
+                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+            }
+        }
+
+        public string AssemblyProduct
+        {
+            get
+            {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+                if (attributes.Length > 0)
+                {
+                    AssemblyProductAttribute titleAttribute = (AssemblyProductAttribute)attributes[0];
+                    if (titleAttribute.Product != "")
+                    {
+                        return titleAttribute.Product;
                     }
                 }
                 return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);

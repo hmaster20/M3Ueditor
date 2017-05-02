@@ -719,9 +719,9 @@ namespace M3Ueditor
             }
         }
 
-        private static void History()
+        private void History()
         {
-            fromChangeLog formLog = new fromChangeLog();
+            fromChangeLog formLog = new fromChangeLog(lng);
             formLog.ShowDialog();
 
             //string ChangeLog = "ChangeLog.txt";
@@ -731,9 +731,9 @@ namespace M3Ueditor
             //}
         }
 
-        private static void About()
+        private void About()
         {
-            formAbout about = new formAbout();
+            formAbout about = new formAbout(lng);
             about.ShowDialog();
         }
 
