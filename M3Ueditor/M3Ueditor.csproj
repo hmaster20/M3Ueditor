@@ -107,6 +107,9 @@
     <EmbeddedResource Include="From\formMerge.resx">
       <DependentUpon>formMerge.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="From\formPortScan.en-US.resx">
+      <DependentUpon>formPortScan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="From\formPortScan.resx">
       <DependentUpon>formPortScan.cs</DependentUpon>
     </EmbeddedResource>

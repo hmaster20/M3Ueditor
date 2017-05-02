@@ -28,31 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fromChangeLog));
             this.tbLog = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tbLog
             // 
             this.tbLog.BackColor = System.Drawing.SystemColors.Control;
-            this.tbLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLog.Location = new System.Drawing.Point(0, 0);
-            this.tbLog.Multiline = true;
+            resources.ApplyResources(this.tbLog, "tbLog");
             this.tbLog.Name = "tbLog";
-            this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(801, 569);
-            this.tbLog.TabIndex = 0;
             this.tbLog.TabStop = false;
             // 
             // fromChangeLog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 569);
             this.Controls.Add(this.tbLog);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "fromChangeLog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "История изменений";
             this.ResumeLayout(false);
             this.PerformLayout();
 

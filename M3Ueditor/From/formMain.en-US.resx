@@ -190,4 +190,34 @@
   <data name="btnChangeApprove.Text" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="tsOpen.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="tsmHistory.Text" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="tsDown.Text" xml:space="preserve">
+    <value>Move row below</value>
+  </data>
+  <data name="tsNew.Text" xml:space="preserve">
+    <value>New Playlist</value>
+  </data>
+  <data name="tsRemove.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="tsAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="tsUp.Text" xml:space="preserve">
+    <value>Move row above</value>
+  </data>
+  <data name="tsmMerge.Text" xml:space="preserve">
+    <value>Merge ...</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>M3U editor</value>
+  </data>
+  <data name="tsSave.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

@@ -129,4 +129,7 @@
   <data name="bntDelete.Text" xml:space="preserve">
     <value>Delete selected</value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Merge playlists</value>
+  </data>
 </root>
