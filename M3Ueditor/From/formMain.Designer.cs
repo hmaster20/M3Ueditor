@@ -478,6 +478,7 @@
             // 
             // tsSelectLang
             // 
+            this.tsSelectLang.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsSelectLang.BackColor = System.Drawing.SystemColors.Control;
             this.tsSelectLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tsSelectLang.Name = "tsSelectLang";

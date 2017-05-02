@@ -49,9 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Ethernet.cs" />
-    <Compile Include="Class\FormGlobal.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Class\Scanner.cs" />
     <Compile Include="Class\Sortable.cs" />
     <Compile Include="Class\TVChannel.cs" />
