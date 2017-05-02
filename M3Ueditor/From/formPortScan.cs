@@ -8,10 +8,11 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
+using System.Globalization;
 
 namespace M3Ueditor
 {
-    public partial class formPortScan : Form
+    public partial class formPortScan : FormGlobal
     {
         public SortableBindingList<TVChannel> FindChannels { get; set; } = new SortableBindingList<TVChannel>();
         private Scanner scanner { get; set; }
@@ -19,6 +20,14 @@ namespace M3Ueditor
         public formPortScan()
         {
             InitializeComponent();
+        }
+
+        public formPortScan(string lng)
+        {
+            InitializeComponent();
+
+            this.resManager = new ComponentResourceManager(this.GetType());
+            this.Culture = CultureInfo.GetCultureInfo(lng);
 
             this.MinimumSize = new Size(this.Size.Width, this.Size.Height);
 
