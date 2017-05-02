@@ -19,14 +19,13 @@ namespace M3Ueditor
 
         }
 
-        #region Переключатель локализации
         /// <summary>
         /// Occurs when current UI culture is changed
         /// </summary>
         [Browsable(true)]
-        [Description("Occurs when current UI culture is changed")]
+        [Description("Возникает при изменении текущей культуры пользовательского интерфейса")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [Category("Property Changed")]
+        [Category("Изменяемое свойство")]
         public event EventHandler CultureChanged;
 
         protected CultureInfo culture;
@@ -36,7 +35,7 @@ namespace M3Ueditor
         /// Current culture of this form
         /// </summary>
         [Browsable(false)]
-        [Description("Current culture of this form")]
+        [Description("Текущая культура этой формы")]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CultureInfo Culture
         {
@@ -46,7 +45,6 @@ namespace M3Ueditor
                 if (this.culture != value)
                 {
                     this.ApplyResources(this, value);
-
                     this.culture = value;
                     this.OnCultureChanged();
                 }
@@ -77,7 +75,7 @@ namespace M3Ueditor
             {
                 if (GlobalUICulture.Equals(value) == false)
                 {
-                    foreach (var form in Application.OpenForms.OfType<Main>())
+                    foreach (var form in Application.OpenForms.OfType<FormGlobal>())
                     {
                         form.Culture = value;
                     }
@@ -86,35 +84,37 @@ namespace M3Ueditor
                 }
             }
         }
-        #endregion
-
-        #region Изменение локализации меню
-        private ComponentResourceManager resources { get; set; } = new ComponentResourceManager(typeof(Main));
-        public string lng { get; set; } = "";
 
 
-        private void ChangeLanguage(string lang)
-        {
-            //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            foreach (Control c in this.Controls)
-            {
-                resources.ApplyResources(c, c.Name, new CultureInfo(lang));
-            }
 
-            //ChangeLanguage(menu.Items);
-        }
 
-        private void ChangeLanguage(ToolStripItemCollection collection)
-        {
-            foreach (ToolStripItem item in collection)
-            {
-                //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-                resources.ApplyResources(item, item.Name, new CultureInfo(lng));
-                if (item is ToolStripDropDownItem)
-                    ChangeLanguage(((ToolStripDropDownItem)item).DropDownItems);
-            }
-        }
-        #endregion
+        //#region Изменение локализации меню
+        //private ComponentResourceManager resources { get; set; } = new ComponentResourceManager(typeof(FormGlobal));
+        //public string lng { get; set; } = "";
+
+
+        //public void ChangeLanguage(string lang)
+        //{
+        //    //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+        //    foreach (Control c in this.Controls)
+        //    {
+        //        resources.ApplyResources(c, c.Name, new CultureInfo(lang));
+        //    }
+
+        //    //ChangeLanguage(menu.Items);
+        //}
+
+        //public void ChangeLanguage(ToolStripItemCollection collection)
+        //{
+        //    foreach (ToolStripItem item in collection)
+        //    {
+        //        //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+        //        resources.ApplyResources(item, item.Name, new CultureInfo(lng));
+        //        if (item is ToolStripDropDownItem)
+        //            ChangeLanguage(((ToolStripDropDownItem)item).DropDownItems);
+        //    }
+        //}
+        //#endregion
 
     }
 }
