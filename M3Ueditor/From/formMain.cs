@@ -1177,22 +1177,21 @@ namespace M3Ueditor
                 //case 0: this.Culture = CultureInfo.InvariantCulture;  break;
                 case 0:
                     { 
-                    this.Culture = CultureInfo.GetCultureInfo("en-US");
+                    this.Culture = CultureInfo.GetCultureInfo("");
+                        lng = "";
+                        ChangeLanguage(menu.Items);
+                        break;
+                    }
+                case 1:
+                    {
+                        this.Culture = CultureInfo.GetCultureInfo("en-US");
                         lng = "en-US";
                         ChangeLanguage(menu.Items);
                         break;
                     }
-                case 1: this.Culture = CultureInfo.GetCultureInfo("en-US"); break;
                 default: break;
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Culture = CultureInfo.GetCultureInfo("de-DE");
-            lng = "de-DE";
-            ChangeLanguage(menu.Items);
-
-        }
     }
 }

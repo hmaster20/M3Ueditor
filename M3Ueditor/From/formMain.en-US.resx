@@ -158,7 +158,7 @@
     <value>150, 22</value>
   </data>
   <data name="tsmSaveAs.Text" xml:space="preserve">
-    <value>Save ass...</value>
+    <value>Save as...</value>
   </data>
   <data name="tss3.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 6</value>
