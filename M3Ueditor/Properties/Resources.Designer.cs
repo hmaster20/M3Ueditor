@@ -91,16 +91,16 @@ namespace M3Ueditor.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 1.2	(2016-04-12)
+        ///   Ищет локализованную строку, похожую на 1.3 (2017-05-02)
+        ///	Изменение кодовой базы: добавлена английская локализация
+        ///	Изменение кодовой базы: добавлена возможность сохранения параметров лоаклизации
+        ///
+        ///1.2	(2017-04-12)
         ///	Ошибки: устранено ошибка неверного выбора строки при обновлении данных в карточке
         ///	Изменение кодовой базы: изменен метод проверки корректности ввода текстовой информации в поля карточки
         ///	Изменение кодовой базы: изменен метод проверки корректности номера порта
         ///	Изменение кодовой базы: изменены параметры настройки формы сканера
-        ///	Тесты: добавлены необходимые тесты
-        ///
-        ///1.1	(2016-04-10)
-        ///	Новый функционал: добавлена форма вывода информации из журнала изменений (текстовый файл удален)
-        ///	Ошиб [остаток строки не уместился]&quot;;.
+        /// [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -134,6 +134,26 @@ namespace M3Ueditor.Properties {
         internal static System.Drawing.Bitmap file_save {
             get {
                 object obj = ResourceManager.GetObject("file_save", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flag_rus {
+            get {
+                object obj = ResourceManager.GetObject("flag_rus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flag_usa {
+            get {
+                object obj = ResourceManager.GetObject("flag_usa", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

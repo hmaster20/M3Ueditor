@@ -79,7 +79,8 @@
             this.tsUp = new System.Windows.Forms.ToolStripButton();
             this.tsDown = new System.Windows.Forms.ToolStripButton();
             this.ts4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsSelectLang = new System.Windows.Forms.ToolStripComboBox();
+            this.tsChangeLang = new System.Windows.Forms.ToolStripDropDownButton();
+            this.CurrentFlag = new System.Windows.Forms.ToolStripLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -396,7 +397,8 @@
             this.tsUp,
             this.tsDown,
             this.ts4,
-            this.tsSelectLang});
+            this.tsChangeLang,
+            this.CurrentFlag});
             resources.ApplyResources(this.toolS, "toolS");
             this.toolS.Name = "toolS";
             // 
@@ -476,14 +478,19 @@
             this.ts4.Name = "ts4";
             resources.ApplyResources(this.ts4, "ts4");
             // 
-            // tsSelectLang
+            // tsChangeLang
             // 
-            this.tsSelectLang.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsSelectLang.BackColor = System.Drawing.SystemColors.Control;
-            this.tsSelectLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tsSelectLang.Name = "tsSelectLang";
-            resources.ApplyResources(this.tsSelectLang, "tsSelectLang");
-            this.tsSelectLang.SelectedIndexChanged += new System.EventHandler(this.tsSelectLang_SelectedIndexChanged);
+            this.tsChangeLang.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsChangeLang.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.tsChangeLang, "tsChangeLang");
+            this.tsChangeLang.Name = "tsChangeLang";
+            // 
+            // CurrentFlag
+            // 
+            this.CurrentFlag.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            resources.ApplyResources(this.CurrentFlag, "CurrentFlag");
+            this.CurrentFlag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CurrentFlag.Name = "CurrentFlag";
             // 
             // errorProvider
             // 
@@ -577,7 +584,8 @@
         private System.Windows.Forms.ToolStripSeparator ts4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmScan;
-        private System.Windows.Forms.ToolStripComboBox tsSelectLang;
+        private System.Windows.Forms.ToolStripDropDownButton tsChangeLang;
+        private System.Windows.Forms.ToolStripLabel CurrentFlag;
     }
 }
 
