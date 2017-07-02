@@ -148,6 +148,7 @@
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
     <Content Include="Resources\merge.png" />
+    <Content Include="Resources\flag_rus.png" />
     <Content Include="Resources\scan.png" />
     <Content Include="Resources\add.png" />
     <Content Include="Resources\arrow_down.png" />
@@ -160,6 +161,7 @@
     <Content Include="Resources\remove.png" />
     <Content Include="Resources\select_all.png" />
     <Content Include="Resources\unselect_all.png" />
+    <Content Include="Resources\flag_usa.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

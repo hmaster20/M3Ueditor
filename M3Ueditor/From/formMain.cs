@@ -23,7 +23,8 @@ namespace M3Ueditor
         SortableBindingList<TVChannel> channels { get; set; } // Список каналов
         List<string> groupList { get; set; }    // Список групп
         bool isChange { get; set; } = false;
-        FileInfo fileName { get; set; } // название открытого файла
+        FileInfo fileName { get; set; }         // название открытого файла
+        string currentSetLanguage { get; set; }
         #endregion
 
 
@@ -102,25 +103,24 @@ namespace M3Ueditor
         public string lng { get; set; } = "";
 
 
-        private void ChangeLanguage(string lang)
-        {
-            //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            foreach (Control c in this.Controls)
-            {
-                resources.ApplyResources(c, c.Name, new CultureInfo(lang));
-            }
+        //private void ChangeLanguage(string lang)
+        //{
+        //    //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+        //    foreach (Control c in this.Controls)
+        //    {
+        //        resources.ApplyResources(c, c.Name, new CultureInfo(lang));
+        //    }
+        //    ChangeLanguage(menu.Items);
+        //}
 
-            ChangeLanguage(menu.Items);
-        }
-
-        private void ChangeLanguage(ToolStripItemCollection collection)
+        private void ChangeLanguageMenu(ToolStripItemCollection collection)
         {
             foreach (ToolStripItem item in collection)
             {
                 //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
                 resources.ApplyResources(item, item.Name, new CultureInfo(lng));
                 if (item is ToolStripDropDownItem)
-                    ChangeLanguage(((ToolStripDropDownItem)item).DropDownItems);
+                    ChangeLanguageMenu(((ToolStripDropDownItem)item).DropDownItems);
             }
         }
         #endregion
@@ -141,17 +141,58 @@ namespace M3Ueditor
             channels = new SortableBindingList<TVChannel>();
             ButtonMenuEnable();
 
-            tsSelectLang.Items.Add("Russian");
-            tsSelectLang.Items.Add("English");
-            tsSelectLang.Text = "Russian";
+            tsChangeLang.DropDownItems.Add("Russian", Resources.flag_rus);
+            tsChangeLang.DropDownItems.Add("English", Resources.flag_usa);
+            CurrentFlag.Image = Resources.flag_rus;
+            tsChangeLang.DropDownItemClicked += new ToolStripItemClickedEventHandler(this.tsChangeLang_Clicked);
         }
+
+        private void tsChangeLang_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            SetCurrentLanguage(e.ClickedItem.ToString());
+        }
+
+        private void SetCurrentLanguage(string lang)
+        {
+            switch (lang)
+            {
+                case "Russian":
+                    {
+                        this.Culture = CultureInfo.GetCultureInfo("");
+                        lng = "";
+                        ChangeLanguageMenu(menu.Items);
+                        ChangeLanguageMenu(toolS.Items);
+                        CurrentFlag.Image = Resources.flag_rus;
+                        currentSetLanguage = "Russian";
+                        tsChangeLang.Text = "Выбор языка";
+                        tsChangeLang.ToolTipText = "Language selection";
+                        break;
+                    }
+                case "English":
+                    {
+                        this.Culture = CultureInfo.GetCultureInfo("en-US");
+                        lng = "en-US";
+                        ChangeLanguageMenu(menu.Items);
+                        ChangeLanguageMenu(toolS.Items);
+                        CurrentFlag.Image = Resources.flag_usa;
+                        currentSetLanguage = "English";
+                        tsChangeLang.Text = "Language selection";
+                        tsChangeLang.ToolTipText = "Выбор языка";
+                        break;
+                    }
+                default: break;
+            }
+        }
+
+
 
         private void Main_Load(object sender, EventArgs e)
         {
             // загрузка параметров из файла конфигурации
             this.Left = Settings.Default.Left;
             this.Top = Settings.Default.Top;
-            this.tsSelectLang.SelectedIndex = Settings.Default.Language;
+            currentSetLanguage = Settings.Default.Language;
+            SetCurrentLanguage(currentSetLanguage);
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -159,7 +200,7 @@ namespace M3Ueditor
             // сохранение параметров в файл конфигурации
             Settings.Default.Left = this.Left;
             Settings.Default.Top = this.Top;
-            Settings.Default.Language = this.tsSelectLang.SelectedIndex;
+            Settings.Default.Language = currentSetLanguage;
             Settings.Default.Save();
         }
 
@@ -176,8 +217,6 @@ namespace M3Ueditor
         private void tsRemove_Click(object sender, EventArgs e) => Remove();
         private void tsUp_Click(object sender, EventArgs e) => Up();
         private void tsDown_Click(object sender, EventArgs e) => Down();
-        private void tsSelectLang_SelectedIndexChanged(object sender, EventArgs e) => ChangeLanguage();
-
         #endregion
 
 
@@ -738,30 +777,6 @@ namespace M3Ueditor
         {
             formAbout about = new formAbout(lng);
             about.ShowDialog();
-        }
-
-        private void ChangeLanguage()
-        {
-            switch (tsSelectLang.SelectedIndex)
-            {
-                case 0:
-                    {
-                        this.Culture = CultureInfo.GetCultureInfo("");
-                        lng = "";
-                        ChangeLanguage(menu.Items);
-                        ChangeLanguage(toolS.Items);
-                        break;
-                    }
-                case 1:
-                    {
-                        this.Culture = CultureInfo.GetCultureInfo("en-US");
-                        lng = "en-US";
-                        ChangeLanguage(menu.Items);
-                        ChangeLanguage(toolS.Items);
-                        break;
-                    }
-                default: break;
-            }
         }
 
         #endregion
