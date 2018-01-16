@@ -239,6 +239,8 @@ namespace M3Ueditor
 
         private void newListTV()
         {
+            dgvTV.CancelEdit();
+
             fileName = null;
             channels.Clear();
             UpdategroupListAndTree();
@@ -485,7 +487,8 @@ namespace M3Ueditor
             else
             {
                 tree.Nodes.Clear();
-                dgvTV.DataSource = null;
+                dgvTV.Rows.Clear();
+                dgvTV.Refresh();
                 ButtonMenuEnable(false);
                 tssLabel1.Text = "";
             }
@@ -917,14 +920,22 @@ namespace M3Ueditor
 
         private TVChannel GetSelected()
         {
-            DataGridView dgv = dgvTV;
-            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            try
             {
-                TVChannel tvc = null;
-                if (dgv.SelectedRows[0].DataBoundItem is TVChannel) tvc = dgv.SelectedRows[0].DataBoundItem as TVChannel;
-                if (tvc != null) return tvc;
+                DataGridView dgv = dgvTV;
+                if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                {
+                    TVChannel tvc = null;
+                    if (dgv.SelectedRows[0].DataBoundItem is TVChannel) tvc = dgv.SelectedRows[0].DataBoundItem as TVChannel;
+                    if (tvc != null) return tvc;
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                Debug.Print("Ошибка выполнения GetSelected()\n" + ex.Message);
+                return null;
+            }
         }
 
         private void Selected(DataGridView dgv, TVChannel tvc)
