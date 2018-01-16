@@ -437,7 +437,7 @@ namespace M3Ueditor
                     + "tvg-name=\"" + channels[i].TvgName + "\" "
                     + "tvg-logo=\"" + channels[i].Tvglogo + "\" "
                     + "group-title=\"" + channels[i].GroupTitle + "\""
-                    + "," + channels[i].TvgName);
+                    + "," + channels[i].Name);
                 file.WriteLine(channels[i].UDP);
             }
             file.Close();
@@ -581,7 +581,11 @@ namespace M3Ueditor
 
             while ((line = playlist.ReadLine()) != null)
             {
-                if (line.StartsWith("#EXTINF"))
+                if (line.StartsWith("#EXTM3U"))
+                {
+                    continue;
+                }
+                    if (line.StartsWith("#EXTINF"))
                 {
                     tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
                     tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
