@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Ethernet.cs" />
+    <Compile Include="Class\Helper.cs" />
     <Compile Include="Class\Keywords.cs" />
     <Compile Include="Class\Scanner.cs" />
     <Compile Include="Class\Sortable.cs" />
@@ -150,6 +151,7 @@
     <Content Include="ChangeLog.txt" />
     <Content Include="Resources\merge.png" />
     <Content Include="Resources\flag_rus.png" />
+    <Content Include="Resources\save.png" />
     <Content Include="Resources\scan.png" />
     <Content Include="Resources\add.png" />
     <Content Include="Resources\arrow_down.png" />

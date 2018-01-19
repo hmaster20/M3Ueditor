@@ -83,8 +83,9 @@
             this.CurrentFlag = new System.Windows.Forms.ToolStripLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelOptions = new System.Windows.Forms.Panel();
-            this.labelGlobal = new System.Windows.Forms.Label();
             this.textBoxGlobal = new System.Windows.Forms.TextBox();
+            this.labelGlobal = new System.Windows.Forms.Label();
+            this.btnSaveGlobal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -504,20 +505,28 @@
             // panelOptions
             // 
             this.panelOptions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelOptions.Controls.Add(this.btnSaveGlobal);
             this.panelOptions.Controls.Add(this.textBoxGlobal);
             this.panelOptions.Controls.Add(this.labelGlobal);
             resources.ApplyResources(this.panelOptions, "panelOptions");
             this.panelOptions.Name = "panelOptions";
+            // 
+            // textBoxGlobal
+            // 
+            resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");
+            this.textBoxGlobal.Name = "textBoxGlobal";
             // 
             // labelGlobal
             // 
             resources.ApplyResources(this.labelGlobal, "labelGlobal");
             this.labelGlobal.Name = "labelGlobal";
             // 
-            // textBoxGlobal
+            // btnSaveGlobal
             // 
-            resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");
-            this.textBoxGlobal.Name = "textBoxGlobal";
+            this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
+            resources.ApplyResources(this.btnSaveGlobal, "btnSaveGlobal");
+            this.btnSaveGlobal.Name = "btnSaveGlobal";
+            this.btnSaveGlobal.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -615,6 +624,7 @@
         private System.Windows.Forms.Panel panelOptions;
         private System.Windows.Forms.TextBox textBoxGlobal;
         private System.Windows.Forms.Label labelGlobal;
+        private System.Windows.Forms.Button btnSaveGlobal;
     }
 }
 
