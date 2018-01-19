@@ -82,6 +82,9 @@
             this.tsChangeLang = new System.Windows.Forms.ToolStripDropDownButton();
             this.CurrentFlag = new System.Windows.Forms.ToolStripLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panelOptions = new System.Windows.Forms.Panel();
+            this.labelGlobal = new System.Windows.Forms.Label();
+            this.textBoxGlobal = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -96,6 +99,7 @@
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.panelOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -156,6 +160,7 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelEdit.Controls.Add(this.btnChangeCancel);
             this.panelEdit.Controls.Add(this.btnChangeApprove);
             this.panelEdit.Controls.Add(this.groupTitleComboBox);
@@ -496,11 +501,30 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // panelOptions
+            // 
+            this.panelOptions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelOptions.Controls.Add(this.textBoxGlobal);
+            this.panelOptions.Controls.Add(this.labelGlobal);
+            resources.ApplyResources(this.panelOptions, "panelOptions");
+            this.panelOptions.Name = "panelOptions";
+            // 
+            // labelGlobal
+            // 
+            resources.ApplyResources(this.labelGlobal, "labelGlobal");
+            this.labelGlobal.Name = "labelGlobal";
+            // 
+            // textBoxGlobal
+            // 
+            resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");
+            this.textBoxGlobal.Name = "textBoxGlobal";
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer);
+            this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.toolS);
             this.Controls.Add(this.status);
             this.Controls.Add(this.menu);
@@ -527,6 +551,8 @@
             this.toolS.ResumeLayout(false);
             this.toolS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.panelOptions.ResumeLayout(false);
+            this.panelOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -586,6 +612,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmScan;
         private System.Windows.Forms.ToolStripDropDownButton tsChangeLang;
         private System.Windows.Forms.ToolStripLabel CurrentFlag;
+        private System.Windows.Forms.Panel panelOptions;
+        private System.Windows.Forms.TextBox textBoxGlobal;
+        private System.Windows.Forms.Label labelGlobal;
     }
 }
 
