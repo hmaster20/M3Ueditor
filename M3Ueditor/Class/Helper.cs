@@ -9,7 +9,7 @@ namespace M3Ueditor
 {
     public class Helper
     {
-        public static void ParseM3Utest(StreamReader playlist)
+        private static void ParseM3Utest(StreamReader playlist)
         {
             List<TVChannel> channel = new List<TVChannel>();
 
@@ -22,14 +22,14 @@ namespace M3Ueditor
         }
 
 
-        public static MatchCollection getGlobalOptions(StreamReader playlist)
+        private static MatchCollection getGlobalOptions(StreamReader playlist)
         {
             Regex pattern = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             MatchCollection matchesOptions = pattern.Matches(playlist.ReadToEnd());
             return matchesOptions;
         }
 
-        public static MatchCollection getOptions(StreamReader playlist)
+        private static MatchCollection getOptions(StreamReader playlist)
         {
             Regex pattern = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             MatchCollection matchesOptions = pattern.Matches(playlist.ReadToEnd());
@@ -37,7 +37,7 @@ namespace M3Ueditor
         }
 
 
-        public static MatchCollection ParseStream(string playlist, string textPattern)
+        private static MatchCollection ParseStream(string playlist, string textPattern)
         {
             Regex pattern = new Regex(@textPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             MatchCollection matchesOptions = pattern.Matches(playlist);
@@ -46,7 +46,7 @@ namespace M3Ueditor
 
         public static string GlobalOptions(string playlist)
         {
-            MatchCollection mt = ParseStream(playlist, @"#EXTM3U.*");
+            MatchCollection mt = ParseStream(playlist, @"#EXTM3U.*#EXTINF");
             return mt[0].Value;
         }
 
