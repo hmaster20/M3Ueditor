@@ -239,30 +239,48 @@ namespace M3Ueditor
 
         private void newListTV()
         {
-            dgvTV.CancelEdit();
+            if (!ChannelsStatus())
+            {
+                dgvTV.CancelEdit();
 
-            fileName = null;
-            channels.Clear();
-            UpdategroupListAndTree();
+                fileName = null;
+                channels.Clear();
+                UpdategroupListAndTree();
 
-            string tvgName = "New Channel";
-            string tvglogo = "New Logo";
-            string groupTitle = "New Group";
-            string Name = "New Channel";
-            string udp = "udp://@224.1.1.1:6000";
+                string tvgName = "New Channel";
+                string tvglogo = "New Logo";
+                string groupTitle = "New Group";
+                string Name = "New Channel";
+                string udp = "udp://@224.1.1.1:6000";
 
-            channels.Add(new TVChannel(
-                        _tvgName: tvgName.Trim(),
-                        _tvglogo: tvglogo.Trim(),
-                        _groupTitle: groupTitle.Trim(),
-                        _udp: udp.Trim(),
-                        _Name: Name.Trim()
-                        ));
+                channels.Add(new TVChannel(
+                            _tvgName: tvgName.Trim(),
+                            _tvglogo: tvglogo.Trim(),
+                            _groupTitle: groupTitle.Trim(),
+                            _udp: udp.Trim(),
+                            _Name: Name.Trim()
+                            ));
 
-            dgvTV.DataSource = channels;
+                dgvTV.DataSource = channels;
 
-            UpdategroupListAndTree();
-            Changed();
+                UpdategroupListAndTree();
+                Changed();
+            }
+            else
+            {
+                // Далогове окно, вы уверено, что хотите перезаписать плейлист
+                DialogResult result = MessageBox.Show("Выполнить удаление текущего плейлиста ?",
+                    "Удаление плейлиста", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    dgvTV.DataSource = null;
+                    channels.Clear();
+                    UpdategroupListAndTree();
+                }
+            }
         }
 
         private void OpenListTV()
@@ -303,7 +321,7 @@ namespace M3Ueditor
 
         private void MergeListTV()
         {
-            if (isChannelsCorrect())
+            if (ChannelsStatus())
             {
                 FileInfo currentfileName = null;
                 if (fileName != null)
@@ -443,21 +461,28 @@ namespace M3Ueditor
             file.Close();
         }
 
-        private bool isChannelsCorrect()
+
+        /// <summary>Если элементов больше 0, вернуть true</summary>
+        private bool ChannelsStatus()
         {
+            //return (channels != null && channels.Count > 0) ? true : false;
+
             if (channels != null && channels.Count > 0)
             {
+                Debug.Print("ChannelsStatus = " + true.ToString());
                 return true;
             }
             else
             {
+                Debug.Print("ChannelsStatus = " + false.ToString());
                 return false;
             }
         }
 
+        /// <summary>Отрисовка дерева</summary>
         private void UpdategroupListAndTree()
         {
-            if (isChannelsCorrect())
+            if (ChannelsStatus())
             {
                 groupList.Clear();
                 for (int i = 0; i < channels.Count; i++)
@@ -505,7 +530,7 @@ namespace M3Ueditor
             }
             else
             {
-                if (isChannelsCorrect())
+                if (ChannelsStatus())
                 {
                     this.Text = "Новый" + " - M3U editor";
                 }
@@ -524,7 +549,7 @@ namespace M3Ueditor
 
         private bool CheckChanged(FormClosingEventArgs e = null)
         {
-            if (fileName != null && isChannelsCorrect())
+            if (fileName != null && ChannelsStatus())
             {
                 if (isChange)
                 {
@@ -664,11 +689,7 @@ namespace M3Ueditor
 
         private void Remove()
         {
-            if ((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
-            {
-                return;
-            }
-            else
+            if (ChannelsStatus())
             {
                 if (dgvTV.MultiSelect)
                 {
@@ -678,7 +699,27 @@ namespace M3Ueditor
                 {
                     RemoveSingleSelect();
                 }
-            }
+            } 
+
+            // Нужно проверить число элементов
+            // Если удаляется последний, то уничтожаем коллекцию и очищаем панели
+
+
+            //if ((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
+            //{
+            //    return;
+            //}
+            //else
+            //{
+            //    if (dgvTV.MultiSelect)
+            //    {
+            //        RemoveMultiSelect();
+            //    }
+            //    else
+            //    {
+            //        RemoveSingleSelect();
+            //    }
+            //}
             Changed();
         }
 
@@ -708,7 +749,15 @@ namespace M3Ueditor
 
             channels.RemoveAt(selectedRow);
 
-            NextRowSelect(selectedRow);
+            if (channels.Count > 0)
+            {
+                NextRowSelect(selectedRow);
+            }
+            else
+            {
+                dgvTV.DataSource = null;
+            }
+            
         }
 
         private void NextRowSelect(int selectedRow)
