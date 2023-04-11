@@ -82,6 +82,10 @@
             this.tsChangeLang = new System.Windows.Forms.ToolStripDropDownButton();
             this.CurrentFlag = new System.Windows.Forms.ToolStripLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panelOptions = new System.Windows.Forms.Panel();
+            this.btnSaveGlobal = new System.Windows.Forms.Button();
+            this.textBoxGlobal = new System.Windows.Forms.TextBox();
+            this.labelGlobal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -96,6 +100,7 @@
             this.menu.SuspendLayout();
             this.toolS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.panelOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -156,6 +161,7 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelEdit.Controls.Add(this.btnChangeCancel);
             this.panelEdit.Controls.Add(this.btnChangeApprove);
             this.panelEdit.Controls.Add(this.groupTitleComboBox);
@@ -251,6 +257,7 @@
             // 
             // status
             // 
+            this.status.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel1,
             this.tssLabel2});
@@ -269,6 +276,7 @@
             // 
             // menu
             // 
+            this.menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmFile,
             this.tsmHelp});
@@ -385,6 +393,7 @@
             // 
             // toolS
             // 
+            this.toolS.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsNew,
             this.ts1,
@@ -496,11 +505,38 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // panelOptions
+            // 
+            this.panelOptions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelOptions.Controls.Add(this.btnSaveGlobal);
+            this.panelOptions.Controls.Add(this.textBoxGlobal);
+            this.panelOptions.Controls.Add(this.labelGlobal);
+            resources.ApplyResources(this.panelOptions, "panelOptions");
+            this.panelOptions.Name = "panelOptions";
+            // 
+            // btnSaveGlobal
+            // 
+            this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
+            resources.ApplyResources(this.btnSaveGlobal, "btnSaveGlobal");
+            this.btnSaveGlobal.Name = "btnSaveGlobal";
+            this.btnSaveGlobal.UseVisualStyleBackColor = true;
+            // 
+            // textBoxGlobal
+            // 
+            resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");
+            this.textBoxGlobal.Name = "textBoxGlobal";
+            // 
+            // labelGlobal
+            // 
+            resources.ApplyResources(this.labelGlobal, "labelGlobal");
+            this.labelGlobal.Name = "labelGlobal";
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer);
+            this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.toolS);
             this.Controls.Add(this.status);
             this.Controls.Add(this.menu);
@@ -527,6 +563,8 @@
             this.toolS.ResumeLayout(false);
             this.toolS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.panelOptions.ResumeLayout(false);
+            this.panelOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -586,6 +624,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmScan;
         private System.Windows.Forms.ToolStripDropDownButton tsChangeLang;
         private System.Windows.Forms.ToolStripLabel CurrentFlag;
+        private System.Windows.Forms.Panel panelOptions;
+        private System.Windows.Forms.TextBox textBoxGlobal;
+        private System.Windows.Forms.Label labelGlobal;
+        private System.Windows.Forms.Button btnSaveGlobal;
     }
 }
 

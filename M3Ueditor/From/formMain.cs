@@ -145,6 +145,26 @@ namespace M3Ueditor
             tsChangeLang.DropDownItems.Add("English", Resources.flag_usa);
             CurrentFlag.Image = Resources.flag_rus;
             tsChangeLang.DropDownItemClicked += new ToolStripItemClickedEventHandler(this.tsChangeLang_Clicked);
+
+            textBoxGlobal.ReadOnly = true;
+            textBoxGlobal.DoubleClick += TextBoxGlobal_DoubleClick;
+            textBoxGlobal.KeyPress += TextBoxGlobal_KeyPress;
+        }
+
+        private void TextBoxGlobal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                textBoxGlobal.ReadOnly = true;
+                this.ActiveControl = labelGlobal;
+            }
+        }
+
+        private void TextBoxGlobal_DoubleClick(object sender, EventArgs e)
+        {
+            textBoxGlobal.ReadOnly = false;
+            textBoxGlobal.Refresh();
         }
 
         private void tsChangeLang_Clicked(object sender, ToolStripItemClickedEventArgs e)
@@ -158,8 +178,8 @@ namespace M3Ueditor
             {
                 case "Russian":
                     {
-                        this.Culture = CultureInfo.GetCultureInfo("");
-                        lng = "";
+                        this.Culture = CultureInfo.GetCultureInfo("ru-RU");
+                        lng = "ru-RU";
                         ChangeLanguageMenu(menu.Items);
                         ChangeLanguageMenu(toolS.Items);
                         CurrentFlag.Image = Resources.flag_rus;
@@ -239,30 +259,48 @@ namespace M3Ueditor
 
         private void newListTV()
         {
-            dgvTV.CancelEdit();
+            if (!ChannelsStatus())
+            {
+                dgvTV.CancelEdit();
 
-            fileName = null;
-            channels.Clear();
-            UpdategroupListAndTree();
+                fileName = null;
+                channels.Clear();
+                UpdategroupListAndTree();
 
-            string tvgName = "New Channel";
-            string tvglogo = "New Logo";
-            string groupTitle = "New Group";
-            string Name = "New Channel";
-            string udp = "udp://@224.1.1.1:6000";
+                string tvgName = "New Channel";
+                string tvglogo = "New Logo";
+                string groupTitle = "New Group";
+                string Name = "New Channel";
+                string udp = "udp://@224.1.1.1:6000";
 
-            channels.Add(new TVChannel(
-                        _tvgName: tvgName.Trim(),
-                        _tvglogo: tvglogo.Trim(),
-                        _groupTitle: groupTitle.Trim(),
-                        _udp: udp.Trim(),
-                        _Name: Name.Trim()
-                        ));
+                channels.Add(new TVChannel(
+                            _tvgName: tvgName.Trim(),
+                            _tvglogo: tvglogo.Trim(),
+                            _groupTitle: groupTitle.Trim(),
+                            _udp: udp.Trim(),
+                            _Name: Name.Trim()
+                            ));
 
-            dgvTV.DataSource = channels;
+                dgvTV.DataSource = channels;
 
-            UpdategroupListAndTree();
-            Changed();
+                UpdategroupListAndTree();
+                Changed();
+            }
+            else
+            {
+                // Далогове окно, вы уверено, что хотите перезаписать плейлист
+                DialogResult result = MessageBox.Show("Выполнить удаление текущего плейлиста ?",
+                    "Удаление плейлиста", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    dgvTV.DataSource = null;
+                    channels.Clear();
+                    UpdategroupListAndTree();
+                }
+            }
         }
 
         private void OpenListTV()
@@ -279,21 +317,27 @@ namespace M3Ueditor
                 {
                     fileName = new FileInfo(fileDialog.FileName);
 
-                    using (StreamReader playlist = new StreamReader(fileName.FullName))
-                    {
-                        channels.Clear();
+                    //using (StreamReader playlist = new StreamReader(fileName.FullName))
+                    //{
+                    //    channels.Clear();
 
-                        switch (Path.GetExtension(fileName.FullName))
-                        {
-                            case ".m3u":
-                                channels = ParseM3U(playlist);
-                                break;
+                    //    switch (Path.GetExtension(fileName.FullName))
+                    //    {
+                    //        case ".m3u":
+                    //            //channels = ParseM3U(playlist);
+                    //            ParseM3Utest(playlist);
+                    //            break;
 
-                            case ".csv":
-                                //ParseCSV();
-                                break;
-                        }
-                    }
+                    //        case ".csv":
+                    //            //ParseCSV();
+                    //            break;
+                    //    }
+                    //}
+
+
+                    ParseM3Utest(fileName.FullName);
+
+
 
                     TableRefresh();
                     UpdategroupListAndTree();
@@ -303,7 +347,7 @@ namespace M3Ueditor
 
         private void MergeListTV()
         {
-            if (isChannelsCorrect())
+            if (ChannelsStatus())
             {
                 FileInfo currentfileName = null;
                 if (fileName != null)
@@ -443,21 +487,28 @@ namespace M3Ueditor
             file.Close();
         }
 
-        private bool isChannelsCorrect()
+
+        /// <summary>Если элементов больше 0, вернуть true</summary>
+        private bool ChannelsStatus()
         {
+            //return (channels != null && channels.Count > 0) ? true : false;
+
             if (channels != null && channels.Count > 0)
             {
+                Debug.Print("ChannelsStatus = " + true.ToString());
                 return true;
             }
             else
             {
+                Debug.Print("ChannelsStatus = " + false.ToString());
                 return false;
             }
         }
 
+        /// <summary>Отрисовка дерева</summary>
         private void UpdategroupListAndTree()
         {
-            if (isChannelsCorrect())
+            if (ChannelsStatus())
             {
                 groupList.Clear();
                 for (int i = 0; i < channels.Count; i++)
@@ -505,7 +556,7 @@ namespace M3Ueditor
             }
             else
             {
-                if (isChannelsCorrect())
+                if (ChannelsStatus())
                 {
                     this.Text = "Новый" + " - M3U editor";
                 }
@@ -524,7 +575,7 @@ namespace M3Ueditor
 
         private bool CheckChanged(FormClosingEventArgs e = null)
         {
-            if (fileName != null && isChannelsCorrect())
+            if (fileName != null && ChannelsStatus())
             {
                 if (isChange)
                 {
@@ -567,6 +618,69 @@ namespace M3Ueditor
             tsmSaveAs.Enabled = state;
         }
 
+
+        public void ParseM3Utest(string fullName)
+        {
+            using (StreamReader playlist = new StreamReader(fullName))
+            {
+                string fullTextFile = playlist.ReadToEnd();
+                textBoxGlobal.Text = Helper.GlobalOptions(fullTextFile);
+                Helper.Options(fullTextFile);
+
+                // GetGlobalOption = // string
+                // GetListChannel = // List<TVChannel>
+            }
+
+
+            //List<TVChannel> channel = new List<TVChannel>();
+
+
+
+            ////string readText = File.ReadAllText(path);
+            ////sr.ReadToEnd()
+            //string test = playlist.ReadToEnd();
+
+            //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            //MatchCollection matchesM = rm3.Matches(test);
+            //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            //MatchCollection matchesI = rin.Matches(test);
+
+
+            //string line = "";
+            //while ((line = playlist.ReadLine()) != null)
+            //{
+            //    string pattern = @"#EXTM3U.*";
+            //    Match m = Regex.Match(line, pattern);
+            //    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
+
+            //    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            //    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            //    // Define a test string.        
+            //    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
+
+            //    // Find matches.
+            //    MatchCollection matches = rx.Matches(line);
+
+
+            //    //if (line.StartsWith("#EXTM3U"))
+            //    //{
+            //    //    // continue;
+            //    //    //
+
+            //    //    string pattern = @"#EXTM3U.*";
+            //    //    Match m = Regex.Match(line, pattern);
+
+            //    //    //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
+            //    //    //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
+            //    //    //Match match = pattern.Match(line);
+            //    //    //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
+            //    //    //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
+            //    //    //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
+            //    //    //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
+            //    //}
+            //}
+        }
+
         public SortableBindingList<TVChannel> ParseM3U(StreamReader playlist)
         {
             SortableBindingList<TVChannel> ListTV = new SortableBindingList<TVChannel>();
@@ -585,7 +699,7 @@ namespace M3Ueditor
                 {
                     continue;
                 }
-                    if (line.StartsWith("#EXTINF"))
+                if (line.StartsWith("#EXTINF"))
                 {
                     tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
                     tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
@@ -664,11 +778,7 @@ namespace M3Ueditor
 
         private void Remove()
         {
-            if ((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
-            {
-                return;
-            }
-            else
+            if (ChannelsStatus())
             {
                 if (dgvTV.MultiSelect)
                 {
@@ -678,7 +788,27 @@ namespace M3Ueditor
                 {
                     RemoveSingleSelect();
                 }
-            }
+            } 
+
+            // Нужно проверить число элементов
+            // Если удаляется последний, то уничтожаем коллекцию и очищаем панели
+
+
+            //if ((dgvTV.Rows.Count == 0) && (dgvTV.SelectedRows.Count == 0))
+            //{
+            //    return;
+            //}
+            //else
+            //{
+            //    if (dgvTV.MultiSelect)
+            //    {
+            //        RemoveMultiSelect();
+            //    }
+            //    else
+            //    {
+            //        RemoveSingleSelect();
+            //    }
+            //}
             Changed();
         }
 
@@ -708,7 +838,15 @@ namespace M3Ueditor
 
             channels.RemoveAt(selectedRow);
 
-            NextRowSelect(selectedRow);
+            if (channels.Count > 0)
+            {
+                NextRowSelect(selectedRow);
+            }
+            else
+            {
+                dgvTV.DataSource = null;
+            }
+            
         }
 
         private void NextRowSelect(int selectedRow)
