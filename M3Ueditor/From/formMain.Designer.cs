@@ -521,6 +521,7 @@
             this.btnSaveGlobal.Name = "btnSaveGlobal";
             this.btnSaveGlobal.UseVisualStyleBackColor = true;
             // 
+
             // textBoxGlobal
             // 
             resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");

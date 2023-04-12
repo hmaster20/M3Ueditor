@@ -1224,6 +1224,102 @@
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
+  <data name="btnSaveGlobal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>978, 9</value>
+  </data>
+  <data name="btnSaveGlobal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 24</value>
+  </data>
+  <data name="btnSaveGlobal.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btnSaveGlobal.Name" xml:space="preserve">
+    <value>btnSaveGlobal</value>
+  </data>
+  <data name="&gt;&gt;btnSaveGlobal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSaveGlobal.Parent" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;btnSaveGlobal.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxGlobal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxGlobal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>118, 11</value>
+  </data>
+  <data name="textBoxGlobal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>858, 20</value>
+  </data>
+  <data name="textBoxGlobal.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxGlobal.Name" xml:space="preserve">
+    <value>textBoxGlobal</value>
+  </data>
+  <data name="&gt;&gt;textBoxGlobal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxGlobal.Parent" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;textBoxGlobal.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelGlobal.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelGlobal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 14</value>
+  </data>
+  <data name="labelGlobal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 13</value>
+  </data>
+  <data name="labelGlobal.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelGlobal.Text" xml:space="preserve">
+    <value>Общие параметры:</value>
+  </data>
+  <data name="&gt;&gt;labelGlobal.Name" xml:space="preserve">
+    <value>labelGlobal</value>
+  </data>
+  <data name="&gt;&gt;labelGlobal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelGlobal.Parent" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;labelGlobal.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panelOptions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panelOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 49</value>
+  </data>
+  <data name="panelOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1025, 43</value>
+  </data>
+  <data name="panelOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.Name" xml:space="preserve">
+    <value>panelOptions</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelOptions.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>M3U editor</value>
   </data>
