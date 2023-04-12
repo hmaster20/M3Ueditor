@@ -83,9 +83,9 @@
             this.CurrentFlag = new System.Windows.Forms.ToolStripLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.btnSaveGlobal = new System.Windows.Forms.Button();
             this.textBoxGlobal = new System.Windows.Forms.TextBox();
             this.labelGlobal = new System.Windows.Forms.Label();
-            this.btnSaveGlobal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -257,6 +257,7 @@
             // 
             // status
             // 
+            this.status.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel1,
             this.tssLabel2});
@@ -275,6 +276,7 @@
             // 
             // menu
             // 
+            this.menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmFile,
             this.tsmHelp});
@@ -391,6 +393,7 @@
             // 
             // toolS
             // 
+            this.toolS.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsNew,
             this.ts1,
@@ -511,6 +514,14 @@
             resources.ApplyResources(this.panelOptions, "panelOptions");
             this.panelOptions.Name = "panelOptions";
             // 
+            // btnSaveGlobal
+            // 
+            this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
+            resources.ApplyResources(this.btnSaveGlobal, "btnSaveGlobal");
+            this.btnSaveGlobal.Name = "btnSaveGlobal";
+            this.btnSaveGlobal.UseVisualStyleBackColor = true;
+            // 
+
             // textBoxGlobal
             // 
             resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");
@@ -520,13 +531,6 @@
             // 
             resources.ApplyResources(this.labelGlobal, "labelGlobal");
             this.labelGlobal.Name = "labelGlobal";
-            // 
-            // btnSaveGlobal
-            // 
-            this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
-            resources.ApplyResources(this.btnSaveGlobal, "btnSaveGlobal");
-            this.btnSaveGlobal.Name = "btnSaveGlobal";
-            this.btnSaveGlobal.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
