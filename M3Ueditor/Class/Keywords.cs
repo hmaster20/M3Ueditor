@@ -7,8 +7,17 @@ namespace M3Ueditor
 {
     public class Keywords
     {
-        string[] keys = { "url-tvg", "cache" , "deinterlace ", "aspect-ratio", "croppadd",  };
+        // https://borpas.info/iptvplayer-docs#6
+
+        string[] keys = {
+            "url-tvg",
+            "cache" ,
+            "deinterlace ",
+            "aspect-ratio",
+            "croppadd",
+            "num"  };
        
+
 
    
     }
