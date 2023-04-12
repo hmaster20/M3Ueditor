@@ -516,12 +516,11 @@
             // 
             // btnSaveGlobal
             // 
-            this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
             resources.ApplyResources(this.btnSaveGlobal, "btnSaveGlobal");
+            this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
             this.btnSaveGlobal.Name = "btnSaveGlobal";
             this.btnSaveGlobal.UseVisualStyleBackColor = true;
             // 
-
             // textBoxGlobal
             // 
             resources.ApplyResources(this.textBoxGlobal, "textBoxGlobal");
