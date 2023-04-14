@@ -333,11 +333,10 @@ namespace M3Ueditor
                     //            break;
                     //    }
                     //}
+                    
+                    textBoxGlobal.Text = Helper.getGlobalParams(fileName.FullName);
 
-
-                    ParseM3Utest(fileName.FullName);
-
-
+                    channels = Helper.ParseM3U(fileName.FullName);
 
                     TableRefresh();
                     UpdategroupListAndTree();
@@ -364,9 +363,11 @@ namespace M3Ueditor
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
                     fileName = new FileInfo(fileDialog.FileName);
-                    StreamReader playlist = new StreamReader(fileName.FullName);
+                    //StreamReader playlist = new StreamReader(fileName.FullName);
 
-                    SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);
+                    //SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);                 
+
+                    SortableBindingList<TVChannel> channelsForMerge = Helper.ParseM3U(fileName.FullName);
 
                     FormMerge form = new FormMerge(channels, channelsForMerge, lng);
                     if (form.ShowDialog() == DialogResult.OK)
@@ -619,25 +620,29 @@ namespace M3Ueditor
         }
 
 
-        public void ParseM3Utest(string fullName)
+
+
+        public void ParseM3UtestV2(string fullName)
         {
             using (StreamReader playlist = new StreamReader(fullName))
             {
-                string fullTextFile = playlist.ReadToEnd();
-                textBoxGlobal.Text = Helper.GlobalOptions(fullTextFile);
-                Helper.Options(fullTextFile);
+                //string fullTextFile = playlist.ReadToEnd();
+                //textBoxGlobal.Text = Helper.getGlobalParams(fullTextFile);
+
+                //Helper.Options(fullTextFile);
+                // channels = Helper.Options(fullTextFile);
 
                 // GetGlobalOption = // string
                 // GetListChannel = // List<TVChannel>
-            }
+      
+                
+            List<TVChannel> channel = new List<TVChannel>();
+
+            //string readText = File.ReadAllText(path);
+            //sr.ReadToEnd()           
 
 
-            //List<TVChannel> channel = new List<TVChannel>();
 
-
-
-            ////string readText = File.ReadAllText(path);
-            ////sr.ReadToEnd()
             //string test = playlist.ReadToEnd();
 
             //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -646,102 +651,44 @@ namespace M3Ueditor
             //MatchCollection matchesI = rin.Matches(test);
 
 
-            //string line = "";
-            //while ((line = playlist.ReadLine()) != null)
-            //{
-            //    string pattern = @"#EXTM3U.*";
-            //    Match m = Regex.Match(line, pattern);
-            //    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
-
-            //    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //    // Define a test string.        
-            //    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
-
-            //    // Find matches.
-            //    MatchCollection matches = rx.Matches(line);
-
-
-            //    //if (line.StartsWith("#EXTM3U"))
-            //    //{
-            //    //    // continue;
-            //    //    //
-
-            //    //    string pattern = @"#EXTM3U.*";
-            //    //    Match m = Regex.Match(line, pattern);
-
-            //    //    //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
-            //    //    //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
-            //    //    //Match match = pattern.Match(line);
-            //    //    //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
-            //    //    //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
-            //    //    //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
-            //    //    //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
-            //    //}
-            //}
-        }
-
-        public SortableBindingList<TVChannel> ParseM3U(StreamReader playlist)
-        {
-            SortableBindingList<TVChannel> ListTV = new SortableBindingList<TVChannel>();
-
             string line = "";
-
-            string tvgName = "N/A";
-            string tvglogo = "N/A";
-            string groupTitle = "N/A";
-            string Name = "N/A";
-            string udp = "N/A";
-
             while ((line = playlist.ReadLine()) != null)
             {
-                if (line.StartsWith("#EXTM3U"))
-                {
-                    continue;
-                }
-                if (line.StartsWith("#EXTINF"))
-                {
-                    tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
-                    tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
-                    groupTitle = stringOperations.Between(line, "group-title=\"", "\"");
-                    Name = line.Split(',').Last();
-                    continue;
-                }
-                else if (line.Contains("//"))
-                {
-                    udp = line;
-                }
-                else
-                {
-                    continue;
-                }
+                string pattern = @"#EXTM3U.*";
+                Match m = Regex.Match(line, pattern);
+                Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
 
-                try
-                {
-                    ListTV.Add(new TVChannel(
-                        _tvgName: tvgName.Trim(),
-                        _tvglogo: tvglogo.Trim(),
-                        _groupTitle: groupTitle.Trim(),
-                        _udp: udp.Trim(),
-                        _Name: Name.Trim()
-                        ));
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    MessageBox.Show("A channel has been omitted due to its incorrect format");
-                    continue;
+                //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                // Define a test string.        
+                //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
+
+                // Find matches.
+                MatchCollection matches = rx.Matches(line);
+
+
+                    if (line.StartsWith("#EXTM3U"))
+                    {
+                        // continue;
+                        //
+
+                        string pattern2 = @"#EXTM3U.*";
+                        Match m2 = Regex.Match(line, pattern2);
+
+                        //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
+                        //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
+                        //Match match = pattern.Match(line);
+                        //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
+                        //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
+                        //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
+                        //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
+                    }
                 }
             }
-            playlist.Close();
 
-            if (ListTV.Count == 0)
-            {
-                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                fileName = null;
-            }
-            return ListTV;
         }
 
+        
         #region Добавление
         private void Add()
         {
