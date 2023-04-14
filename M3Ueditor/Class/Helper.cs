@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace M3Ueditor
 {
@@ -72,33 +73,19 @@ namespace M3Ueditor
         }
 
 
+        /// <summary>Парсит файл и создает список строк каналов</summary>
         public static List<string> getRawChannels(string playlist)
         {
             string data = playlist;
             var start1 = data.IndexOf(@"#EXTM3U") + 7;
             var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
 
-
-            //string input = playlist;
-            //var start = input.IndexOf(@"#EXTM3U") + 7;
-            //var match2 = input.Substring(start, input.IndexOf(@"#EXTINF") - start);
-
-            //string St = "super exemple of string key : text I want to keep - end of my string";
-            //int pFrom = St.IndexOf("key : ") + "key : ".Length;
-            //int pTo = St.LastIndexOf(" - ");
-            //string result = St.Substring(pFrom, pTo - pFrom);
-
             string input = playlist;
-            //input = input.Replace("\r\n", "\n");
             //input = input.Replace("\r\n", "");
-            //input = input.Replace("\n", "");
-
             //input = Regex.Replace(input, @"\s+", string.Empty);
-
             input = Regex.Replace(input, @"\t|\n|\r", "");
 
             Debug.Print(input);
-
 
             var start = input.IndexOf(@"#EXTM3U") + @"#EXTM3U".Length;
             var match2 = input.Substring(start, input.IndexOf(@"#EXTINF") - start);
@@ -132,24 +119,115 @@ namespace M3Ueditor
                 }
             }
 
+            return listChannel;
 
-            Debug.Print("allChannels -- start");
-            Debug.Print(allChannels);
-            Debug.Print("allChannels -- end");
+            //Debug.Print("allChannels -- start");
+            //Debug.Print(allChannels);
+            //Debug.Print("allChannels -- end");
 
-            //var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
-            var tets  = allChannels.Split(@"#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
-            var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
+            ////var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
+            //var tets  = allChannels.Split(@"#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
+            //var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
 
-            Debug.Print(tets.ToString());
-
-            MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
-            List<string> lst = new List<string>();
-            foreach (var item in mt)
-            {
-                lst.Add(item.ToString());
-            }            
-            return lst;
+            //MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
+            //List<string> lst = new List<string>();
+            //foreach (var item in mt)
+            //{
+            //    lst.Add(item.ToString());
+            //}            
+            //return lst;
         }
+
+        public static SortableBindingList<TVChannel> getChannels(string fullName)
+        {
+            List<string> RawChannels = getRawChannels(fullName);
+
+            SortableBindingList<TVChannel> channels = new SortableBindingList<TVChannel>();
+
+            for (int i = 0; i < RawChannels.Count; i++)
+            {
+
+            }            
+            return channels;
+        }
+
+        public static SortableBindingList<TVChannel> ParseM3U(string fullName)
+        {
+            StreamReader playlist = new StreamReader(fullName);
+
+            SortableBindingList<TVChannel> ListTV = new SortableBindingList<TVChannel>();
+
+            string line = "";
+
+            string tvgName = "N/A";
+            string tvglogo = "N/A";
+            string groupTitle = "N/A";
+            string Name = "N/A";
+            string udp = "N/A";
+
+            while ((line = playlist.ReadLine()) != null)
+            {
+                if (line.StartsWith("#EXTM3U"))
+                {
+                    continue;
+                }
+                if (line.StartsWith("#EXTINF"))
+                {
+                    tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
+                    tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
+                    groupTitle = stringOperations.Between(line, "group-title=\"", "\"");
+                    Name = line.Split(',').Last();
+                    continue;
+                }
+                else if (line.Contains("//"))
+                {
+                    udp = line;
+                }
+                else
+                {
+                    continue;
+                }
+
+                try
+                {
+                    ListTV.Add(new TVChannel(
+                        _tvgName: tvgName.Trim(),
+                        _tvglogo: tvglogo.Trim(),
+                        _groupTitle: groupTitle.Trim(),
+                        _udp: udp.Trim(),
+                        _Name: Name.Trim()
+                        ));
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("A channel has been omitted due to its incorrect format");
+                    continue;
+                }
+            }
+            playlist.Close();
+
+            if (ListTV.Count == 0)
+            {
+                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //fileName = null;
+            }
+            return ListTV;
+        }
+
+
+        //public void ParseM3Utest(string fullName)
+        //{
+        //    using (StreamReader playlist = new StreamReader(fullName))
+        //    {
+        //        string fullTextFile = playlist.ReadToEnd();
+        //        textBoxGlobal.Text = Helper.getGlobalParams(fullTextFile);
+        //        Helper.getRawChannels(fullTextFile);
+        //        // channels = Helper.Options(fullTextFile);
+        //        // GetGlobalOption = // string
+        //        // GetListChannel = // List<TVChannel>
+        //    }
+        //}
+
+
     }
 }
