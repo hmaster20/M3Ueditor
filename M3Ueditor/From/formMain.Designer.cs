@@ -520,6 +520,7 @@
             this.btnSaveGlobal.Image = global::M3Ueditor.Properties.Resources.save;
             this.btnSaveGlobal.Name = "btnSaveGlobal";
             this.btnSaveGlobal.UseVisualStyleBackColor = true;
+            this.btnSaveGlobal.Click += new System.EventHandler(this.btnSaveGlobal_Click);
             // 
             // textBoxGlobal
             // 

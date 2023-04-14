@@ -20,8 +20,7 @@ namespace M3Ueditor
     public partial class Main : Form
     {
         #region Переменные
-        string GlobalParams { get; set; }
-
+        string globalParams { get; set; } // Общие параметры для плейлиста
         SortableBindingList<TVChannel> channels { get; set; } // Список каналов
         List<string> groupList { get; set; }    // Список групп
         bool isChange { get; set; } = false;
@@ -239,6 +238,8 @@ namespace M3Ueditor
         private void tsRemove_Click(object sender, EventArgs e) => Remove();
         private void tsUp_Click(object sender, EventArgs e) => Up();
         private void tsDown_Click(object sender, EventArgs e) => Down();
+        private void btnSaveGlobal_Click(object sender, EventArgs e) => setGlobalParams();
+
         #endregion
 
 
@@ -267,7 +268,7 @@ namespace M3Ueditor
 
                 fileName = null;
                 channels.Clear();
-                UpdategroupListAndTree();
+                updateGroupListAndTree();
 
                 string tvgName = "New Channel";
                 string tvglogo = "New Logo";
@@ -285,7 +286,7 @@ namespace M3Ueditor
 
                 dgvTV.DataSource = channels;
 
-                UpdategroupListAndTree();
+                updateGroupListAndTree();
                 Changed();
             }
             else
@@ -300,7 +301,7 @@ namespace M3Ueditor
                 {
                     dgvTV.DataSource = null;
                     channels.Clear();
-                    UpdategroupListAndTree();
+                    updateGroupListAndTree();
                 }
             }
         }
@@ -310,8 +311,7 @@ namespace M3Ueditor
             if (CheckChanged())
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
-                //fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
-                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u";
+                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u"; // "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv"
                 fileDialog.Title = "Открыть плейлист";
                 fileDialog.RestoreDirectory = true;
 
@@ -322,26 +322,23 @@ namespace M3Ueditor
                     //using (StreamReader playlist = new StreamReader(fileName.FullName))
                     //{
                     //    channels.Clear();
-
                     //    switch (Path.GetExtension(fileName.FullName))
                     //    {
                     //        case ".m3u":
                     //            //channels = ParseM3U(playlist);
                     //            ParseM3Utest(playlist);
                     //            break;
-
                     //        case ".csv":
                     //            //ParseCSV();
                     //            break;
                     //    }
                     //}
 
-                    textBoxGlobal.Text = Helper.getGlobalParams(fileName.FullName);
-
+                    globalParams = Helper.getGlobalParams(fileName.FullName);
                     channels = Helper.ParseM3U(fileName.FullName);
 
                     TableRefresh();
-                    UpdategroupListAndTree();
+                    updateGroupListAndTree();
                 }
             }
         }
@@ -393,7 +390,7 @@ namespace M3Ueditor
 
                     TableRefresh();
 
-                    UpdategroupListAndTree();
+                    updateGroupListAndTree();
                     Changed();
                 }
             }
@@ -432,7 +429,7 @@ namespace M3Ueditor
                 }
 
                 dgvTV.DataSource = channels;
-                UpdategroupListAndTree();
+                updateGroupListAndTree();
                 Changed();
             }
         }
@@ -509,7 +506,7 @@ namespace M3Ueditor
         }
 
         /// <summary>Отрисовка дерева</summary>
-        private void UpdategroupListAndTree()
+        private void updateGroupListAndTree()
         {
             if (ChannelsStatus())
             {
@@ -585,7 +582,7 @@ namespace M3Ueditor
         private void Changed()
         {
             isChange = true;
-            UpdategroupListAndTree();
+            updateGroupListAndTree();
         }
 
         private bool CheckChanged(FormClosingEventArgs e = null)
@@ -1323,6 +1320,5 @@ namespace M3Ueditor
         }
 
         #endregion
-
     }
 }
