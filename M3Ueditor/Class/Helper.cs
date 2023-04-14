@@ -47,13 +47,28 @@ namespace M3Ueditor
 
         /// <summary>Получает файл и извлекает строку EXTM3U с общими параметрами</summary>
         /// <returns>Возвращает EXTM3U... (string)</returns>
-        public static string getGlobalParams(string playlist)
+        public static string getGlobalParams(string fullName)
         {
             try
             {
+                StreamReader RAWlist = new StreamReader(fullName);
+                string playlist = RAWlist.ReadToEnd();
+
+                string valueFind = @"#EXTM3U";
+
+                string raw = playlist;
+                var F1 = raw.IndexOf(valueFind) + valueFind.Length;
+                var F2 = raw.IndexOf(@"#EXTINF");
+                var RESULT = raw.Substring(F1, F2 - F1);
+
+
+                string data = playlist;
+                var start1 = data.IndexOf(@"#EXTM3U") + 7;
+                var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
+
                 // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
 
-                string global = playlist.Split(new string[] { @"#EXTM3U" }, 
+                string global = playlist.Split(new string[] { @"#EXTM3U" },
                     StringSplitOptions.None)[1]
                     .Split(@"#EXTINF".ToCharArray())[0]
                     .Trim();
@@ -66,9 +81,10 @@ namespace M3Ueditor
                 //var options = mt[0].Value;
                 //return options;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return "";
+                Debug.Print(ex.Message);
+                return "#EXTM3U";
             }
         }
 
@@ -96,12 +112,12 @@ namespace M3Ueditor
 
             string allChannelsParse = allChannels;
 
-            while (allChannelsParse.Length>0)
+            while (allChannelsParse.Length > 0)
             {
                 string valueFind = @"#EXTINF:";
                 var FistIndex = allChannelsParse.IndexOf(valueFind) + valueFind.Length;
                 var SecondIndex = allChannelsParse.IndexOf(valueFind, FistIndex);
-                if (SecondIndex>0)
+                if (SecondIndex > 0)
                 {
                     var FindString = allChannelsParse.Substring(FistIndex, SecondIndex - FistIndex);
                     listChannel.Add(FindString);
@@ -147,7 +163,7 @@ namespace M3Ueditor
             for (int i = 0; i < RawChannels.Count; i++)
             {
 
-            }            
+            }
             return channels;
         }
 
