@@ -20,6 +20,8 @@ namespace M3Ueditor
     public partial class Main : Form
     {
         #region Переменные
+        string GlobalParams { get; set; }
+
         SortableBindingList<TVChannel> channels { get; set; } // Список каналов
         List<string> groupList { get; set; }    // Список групп
         bool isChange { get; set; } = false;
@@ -290,8 +292,8 @@ namespace M3Ueditor
             {
                 // Далогове окно, вы уверено, что хотите перезаписать плейлист
                 DialogResult result = MessageBox.Show("Выполнить удаление текущего плейлиста ?",
-                    "Удаление плейлиста", 
-                    MessageBoxButtons.YesNo, 
+                    "Удаление плейлиста",
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -333,7 +335,7 @@ namespace M3Ueditor
                     //            break;
                     //    }
                     //}
-                    
+
                     textBoxGlobal.Text = Helper.getGlobalParams(fileName.FullName);
 
                     channels = Helper.ParseM3U(fileName.FullName);
@@ -634,37 +636,37 @@ namespace M3Ueditor
 
                 // GetGlobalOption = // string
                 // GetListChannel = // List<TVChannel>
-      
-                
-            List<TVChannel> channel = new List<TVChannel>();
-
-            //string readText = File.ReadAllText(path);
-            //sr.ReadToEnd()           
 
 
+                List<TVChannel> channel = new List<TVChannel>();
 
-            //string test = playlist.ReadToEnd();
-
-            //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //MatchCollection matchesM = rm3.Matches(test);
-            //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //MatchCollection matchesI = rin.Matches(test);
+                //string readText = File.ReadAllText(path);
+                //sr.ReadToEnd()           
 
 
-            string line = "";
-            while ((line = playlist.ReadLine()) != null)
-            {
-                string pattern = @"#EXTM3U.*";
-                Match m = Regex.Match(line, pattern);
-                Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
 
-                //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                // Define a test string.        
-                //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
+                //string test = playlist.ReadToEnd();
 
-                // Find matches.
-                MatchCollection matches = rx.Matches(line);
+                //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchesM = rm3.Matches(test);
+                //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchesI = rin.Matches(test);
+
+
+                string line = "";
+                while ((line = playlist.ReadLine()) != null)
+                {
+                    string pattern = @"#EXTM3U.*";
+                    Match m = Regex.Match(line, pattern);
+                    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
+
+                    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    // Define a test string.        
+                    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
+
+                    // Find matches.
+                    MatchCollection matches = rx.Matches(line);
 
 
                     if (line.StartsWith("#EXTM3U"))
@@ -685,10 +687,9 @@ namespace M3Ueditor
                     }
                 }
             }
-
         }
 
-        
+
         #region Добавление
         private void Add()
         {
@@ -735,7 +736,7 @@ namespace M3Ueditor
                 {
                     RemoveSingleSelect();
                 }
-            } 
+            }
 
             // Нужно проверить число элементов
             // Если удаляется последний, то уничтожаем коллекцию и очищаем панели
@@ -793,7 +794,6 @@ namespace M3Ueditor
             {
                 dgvTV.DataSource = null;
             }
-            
         }
 
         private void NextRowSelect(int selectedRow)
