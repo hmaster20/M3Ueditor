@@ -548,8 +548,20 @@ namespace M3Ueditor
             }
 
             FileInfoInMainFormTitle();
+            updateGlobalParams();
         }
 
+        private void updateGlobalParams()
+        {
+            textBoxGlobal.Text = globalParams;
+        }
+
+        private void setGlobalParams()
+        {
+            globalParams = textBoxGlobal.Text;
+            textBoxGlobal.ReadOnly = true;
+            this.ActiveControl = labelGlobal;
+        }
 
         private void FileInfoInMainFormTitle()
         {
