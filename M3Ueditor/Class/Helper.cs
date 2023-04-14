@@ -44,10 +44,32 @@ namespace M3Ueditor
             return matchesOptions;
         }
 
-        public static string GlobalOptions(string playlist)
+
+        /// <summary>Получает файл и извлекает строку EXTM3U с общими параметрами</summary>
+        /// <returns>Возвращает EXTM3U... (string)</returns>
+        public static string getGlobalParams(string playlist)
         {
-            MatchCollection mt = ParseStream(playlist, @"#EXTM3U.*#EXTINF");
-            return mt[0].Value;
+            try
+            {
+                // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
+
+                string global = playlist.Split(new string[] { @"#EXTM3U" }, 
+                    StringSplitOptions.None)[1]
+                    .Split(@"#EXTINF".ToCharArray())[0]
+                    .Trim();
+
+                global = "#EXTM3U " + global;
+                return global;
+
+                // Старая версия
+                //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
+                //var options = mt[0].Value;
+                //return options;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
         }
 
         public static List<string> Options(string playlist)
