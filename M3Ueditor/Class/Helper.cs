@@ -110,27 +110,25 @@ namespace M3Ueditor
 
             List<string> listChannel = new List<string>();
 
-            string allChannelsParse = allChannels;
-
-            while (allChannelsParse.Length > 0)
+            while (allChannels.Length > 0)
             {
                 string valueFind = @"#EXTINF:";
-                var FistIndex = allChannelsParse.IndexOf(valueFind) + valueFind.Length;
-                var SecondIndex = allChannelsParse.IndexOf(valueFind, FistIndex);
+                var FistIndex = allChannels.IndexOf(valueFind) + valueFind.Length;
+                var SecondIndex = allChannels.IndexOf(valueFind, FistIndex);
                 if (SecondIndex > 0)
                 {
-                    var FindString = allChannelsParse.Substring(FistIndex, SecondIndex - FistIndex);
+                    var FindString = allChannels.Substring(FistIndex, SecondIndex - FistIndex);
                     listChannel.Add(FindString);
-                    allChannelsParse = allChannelsParse.Remove(0, SecondIndex);
+                    allChannels = allChannels.Remove(0, SecondIndex);
                 }
                 else
                 {
-                    if (allChannelsParse.Length > 0)
+                    if (allChannels.Length > 0)
                     {
-                        var FindString = allChannelsParse.Substring(FistIndex, allChannelsParse.Length - FistIndex);
+                        var FindString = allChannels.Substring(FistIndex, allChannels.Length - FistIndex);
                         listChannel.Add(FindString);
                     }
-                    allChannelsParse = null;
+                    allChannels = null;
                     break;
                 }
             }
