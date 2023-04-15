@@ -20,6 +20,7 @@ namespace M3Ueditor
     public partial class Main : Form
     {
         #region Переменные
+        string globalParams { get; set; } // Общие параметры для плейлиста
         SortableBindingList<TVChannel> channels { get; set; } // Список каналов
         List<string> groupList { get; set; }    // Список групп
         bool isChange { get; set; } = false;
@@ -237,6 +238,8 @@ namespace M3Ueditor
         private void tsRemove_Click(object sender, EventArgs e) => Remove();
         private void tsUp_Click(object sender, EventArgs e) => Up();
         private void tsDown_Click(object sender, EventArgs e) => Down();
+        private void btnSaveGlobal_Click(object sender, EventArgs e) => setGlobalParams();
+
         #endregion
 
 
@@ -265,7 +268,7 @@ namespace M3Ueditor
 
                 fileName = null;
                 channels.Clear();
-                UpdategroupListAndTree();
+                updateGroupListAndTree();
 
                 string tvgName = "New Channel";
                 string tvglogo = "New Logo";
@@ -283,22 +286,22 @@ namespace M3Ueditor
 
                 dgvTV.DataSource = channels;
 
-                UpdategroupListAndTree();
+                updateGroupListAndTree();
                 Changed();
             }
             else
             {
                 // Далогове окно, вы уверено, что хотите перезаписать плейлист
                 DialogResult result = MessageBox.Show("Выполнить удаление текущего плейлиста ?",
-                    "Удаление плейлиста", 
-                    MessageBoxButtons.YesNo, 
+                    "Удаление плейлиста",
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
                     dgvTV.DataSource = null;
                     channels.Clear();
-                    UpdategroupListAndTree();
+                    updateGroupListAndTree();
                 }
             }
         }
@@ -308,8 +311,7 @@ namespace M3Ueditor
             if (CheckChanged())
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
-                //fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
-                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u";
+                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u"; // "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv"
                 fileDialog.Title = "Открыть плейлист";
                 fileDialog.RestoreDirectory = true;
 
@@ -320,27 +322,23 @@ namespace M3Ueditor
                     //using (StreamReader playlist = new StreamReader(fileName.FullName))
                     //{
                     //    channels.Clear();
-
                     //    switch (Path.GetExtension(fileName.FullName))
                     //    {
                     //        case ".m3u":
                     //            //channels = ParseM3U(playlist);
                     //            ParseM3Utest(playlist);
                     //            break;
-
                     //        case ".csv":
                     //            //ParseCSV();
                     //            break;
                     //    }
                     //}
 
-
-                    ParseM3Utest(fileName.FullName);
-
-
+                    globalParams = Helper.getGlobalParams(fileName.FullName);
+                    channels = Helper.ParseM3U(fileName.FullName);
 
                     TableRefresh();
-                    UpdategroupListAndTree();
+                    updateGroupListAndTree();
                 }
             }
         }
@@ -364,9 +362,11 @@ namespace M3Ueditor
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
                     fileName = new FileInfo(fileDialog.FileName);
-                    StreamReader playlist = new StreamReader(fileName.FullName);
+                    //StreamReader playlist = new StreamReader(fileName.FullName);
 
-                    SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);
+                    //SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);                 
+
+                    SortableBindingList<TVChannel> channelsForMerge = Helper.ParseM3U(fileName.FullName);
 
                     FormMerge form = new FormMerge(channels, channelsForMerge, lng);
                     if (form.ShowDialog() == DialogResult.OK)
@@ -390,7 +390,7 @@ namespace M3Ueditor
 
                     TableRefresh();
 
-                    UpdategroupListAndTree();
+                    updateGroupListAndTree();
                     Changed();
                 }
             }
@@ -429,7 +429,7 @@ namespace M3Ueditor
                 }
 
                 dgvTV.DataSource = channels;
-                UpdategroupListAndTree();
+                updateGroupListAndTree();
                 Changed();
             }
         }
@@ -506,7 +506,7 @@ namespace M3Ueditor
         }
 
         /// <summary>Отрисовка дерева</summary>
-        private void UpdategroupListAndTree()
+        private void updateGroupListAndTree()
         {
             if (ChannelsStatus())
             {
@@ -545,8 +545,20 @@ namespace M3Ueditor
             }
 
             FileInfoInMainFormTitle();
+            updateGlobalParams();
         }
 
+        private void updateGlobalParams()
+        {
+            textBoxGlobal.Text = globalParams;
+        }
+
+        private void setGlobalParams()
+        {
+            globalParams = textBoxGlobal.Text;
+            textBoxGlobal.ReadOnly = true;
+            this.ActiveControl = labelGlobal;
+        }
 
         private void FileInfoInMainFormTitle()
         {
@@ -570,7 +582,7 @@ namespace M3Ueditor
         private void Changed()
         {
             isChange = true;
-            UpdategroupListAndTree();
+            updateGroupListAndTree();
         }
 
         private bool CheckChanged(FormClosingEventArgs e = null)
@@ -619,128 +631,73 @@ namespace M3Ueditor
         }
 
 
-        public void ParseM3Utest(string fullName)
+
+
+        public void ParseM3UtestV2(string fullName)
         {
             using (StreamReader playlist = new StreamReader(fullName))
             {
-                string fullTextFile = playlist.ReadToEnd();
-                textBoxGlobal.Text = Helper.GlobalOptions(fullTextFile);
-                Helper.Options(fullTextFile);
+                //string fullTextFile = playlist.ReadToEnd();
+                //textBoxGlobal.Text = Helper.getGlobalParams(fullTextFile);
+
+                //Helper.Options(fullTextFile);
+                // channels = Helper.Options(fullTextFile);
 
                 // GetGlobalOption = // string
                 // GetListChannel = // List<TVChannel>
+
+
+                List<TVChannel> channel = new List<TVChannel>();
+
+                //string readText = File.ReadAllText(path);
+                //sr.ReadToEnd()           
+
+
+
+                //string test = playlist.ReadToEnd();
+
+                //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchesM = rm3.Matches(test);
+                //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchesI = rin.Matches(test);
+
+
+                string line = "";
+                while ((line = playlist.ReadLine()) != null)
+                {
+                    string pattern = @"#EXTM3U.*";
+                    Match m = Regex.Match(line, pattern);
+                    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
+
+                    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    // Define a test string.        
+                    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
+
+                    // Find matches.
+                    MatchCollection matches = rx.Matches(line);
+
+
+                    if (line.StartsWith("#EXTM3U"))
+                    {
+                        // continue;
+                        //
+
+                        string pattern2 = @"#EXTM3U.*";
+                        Match m2 = Regex.Match(line, pattern2);
+
+                        //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
+                        //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
+                        //Match match = pattern.Match(line);
+                        //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
+                        //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
+                        //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
+                        //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
+                    }
+                }
             }
-
-
-            //List<TVChannel> channel = new List<TVChannel>();
-
-
-
-            ////string readText = File.ReadAllText(path);
-            ////sr.ReadToEnd()
-            //string test = playlist.ReadToEnd();
-
-            //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //MatchCollection matchesM = rm3.Matches(test);
-            //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //MatchCollection matchesI = rin.Matches(test);
-
-
-            //string line = "";
-            //while ((line = playlist.ReadLine()) != null)
-            //{
-            //    string pattern = @"#EXTM3U.*";
-            //    Match m = Regex.Match(line, pattern);
-            //    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
-
-            //    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //    // Define a test string.        
-            //    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
-
-            //    // Find matches.
-            //    MatchCollection matches = rx.Matches(line);
-
-
-            //    //if (line.StartsWith("#EXTM3U"))
-            //    //{
-            //    //    // continue;
-            //    //    //
-
-            //    //    string pattern = @"#EXTM3U.*";
-            //    //    Match m = Regex.Match(line, pattern);
-
-            //    //    //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
-            //    //    //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
-            //    //    //Match match = pattern.Match(line);
-            //    //    //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
-            //    //    //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
-            //    //    //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
-            //    //    //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
-            //    //}
-            //}
         }
 
-        public SortableBindingList<TVChannel> ParseM3U(StreamReader playlist)
-        {
-            SortableBindingList<TVChannel> ListTV = new SortableBindingList<TVChannel>();
-
-            string line = "";
-
-            string tvgName = "N/A";
-            string tvglogo = "N/A";
-            string groupTitle = "N/A";
-            string Name = "N/A";
-            string udp = "N/A";
-
-            while ((line = playlist.ReadLine()) != null)
-            {
-                if (line.StartsWith("#EXTM3U"))
-                {
-                    continue;
-                }
-                if (line.StartsWith("#EXTINF"))
-                {
-                    tvgName = stringOperations.Between(line, "tvg-name=\"", "\"");
-                    tvglogo = stringOperations.Between(line, "tvg-logo=\"", "\"");
-                    groupTitle = stringOperations.Between(line, "group-title=\"", "\"");
-                    Name = line.Split(',').Last();
-                    continue;
-                }
-                else if (line.Contains("//"))
-                {
-                    udp = line;
-                }
-                else
-                {
-                    continue;
-                }
-
-                try
-                {
-                    ListTV.Add(new TVChannel(
-                        _tvgName: tvgName.Trim(),
-                        _tvglogo: tvglogo.Trim(),
-                        _groupTitle: groupTitle.Trim(),
-                        _udp: udp.Trim(),
-                        _Name: Name.Trim()
-                        ));
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    MessageBox.Show("A channel has been omitted due to its incorrect format");
-                    continue;
-                }
-            }
-            playlist.Close();
-
-            if (ListTV.Count == 0)
-            {
-                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                fileName = null;
-            }
-            return ListTV;
-        }
 
         #region Добавление
         private void Add()
@@ -788,7 +745,7 @@ namespace M3Ueditor
                 {
                     RemoveSingleSelect();
                 }
-            } 
+            }
 
             // Нужно проверить число элементов
             // Если удаляется последний, то уничтожаем коллекцию и очищаем панели
@@ -846,7 +803,6 @@ namespace M3Ueditor
             {
                 dgvTV.DataSource = null;
             }
-            
         }
 
         private void NextRowSelect(int selectedRow)
@@ -1364,6 +1320,5 @@ namespace M3Ueditor
         }
 
         #endregion
-
     }
 }
