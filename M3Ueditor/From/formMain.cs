@@ -26,6 +26,11 @@ namespace M3Ueditor
         bool isChange { get; set; } = false;
         FileInfo fileName { get; set; }         // название открытого файла
         string currentSetLanguage { get; set; }
+        string fileNameFilter { get; set; } = "Файлы плейлиста (*.m3u)|*.m3u"; // "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv"
+        string fileNameTitleOpen { get; set; } = "Открыть плейлист";
+        string fileNameTitleSave { get; set; } = "Сохранить плейлист";
+
+
         #endregion
 
 
@@ -311,8 +316,8 @@ namespace M3Ueditor
             if (CheckChanged())
             {
                 OpenFileDialog fileDialog = new OpenFileDialog();
-                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u"; // "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv"
-                fileDialog.Title = "Открыть плейлист";
+                fileDialog.Filter = fileNameFilter;
+                fileDialog.Title = fileNameTitleOpen;
                 fileDialog.RestoreDirectory = true;
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -335,7 +340,12 @@ namespace M3Ueditor
                     //}
 
                     globalParams = Helper.getGlobalParams(fileName.FullName);
+
+                    Helper.getChannels(fileName.FullName);
+
                     channels = Helper.ParseM3U(fileName.FullName);
+
+
 
                     TableRefresh();
                     updateGroupListAndTree();
@@ -355,8 +365,8 @@ namespace M3Ueditor
 
                 CheckChanged();
                 OpenFileDialog fileDialog = new OpenFileDialog();
-                fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
-                fileDialog.Title = "Открыть плейлист";
+                fileDialog.Filter = fileNameFilter;
+                fileDialog.Title = fileNameTitleOpen;
                 fileDialog.RestoreDirectory = true;
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -450,9 +460,8 @@ namespace M3Ueditor
         private void SaveListTvAs()
         {
             SaveFileDialog fileDialog = new SaveFileDialog();
-            //fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv";
-            fileDialog.Filter = "Файлы плейлиста (*.m3u)|*.m3u";
-            fileDialog.Title = "Сохранить плейлист";
+            fileDialog.Filter = fileNameFilter;
+            fileDialog.Title = fileNameTitleSave;
             fileDialog.RestoreDirectory = true;
 
             if (fileName != null)
@@ -629,75 +638,6 @@ namespace M3Ueditor
             tsmSave.Enabled = state;
             tsmSaveAs.Enabled = state;
         }
-
-
-
-
-        public void ParseM3UtestV2(string fullName)
-        {
-            using (StreamReader playlist = new StreamReader(fullName))
-            {
-                //string fullTextFile = playlist.ReadToEnd();
-                //textBoxGlobal.Text = Helper.getGlobalParams(fullTextFile);
-
-                //Helper.Options(fullTextFile);
-                // channels = Helper.Options(fullTextFile);
-
-                // GetGlobalOption = // string
-                // GetListChannel = // List<TVChannel>
-
-
-                List<TVChannel> channel = new List<TVChannel>();
-
-                //string readText = File.ReadAllText(path);
-                //sr.ReadToEnd()           
-
-
-
-                //string test = playlist.ReadToEnd();
-
-                //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                //MatchCollection matchesM = rm3.Matches(test);
-                //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                //MatchCollection matchesI = rin.Matches(test);
-
-
-                string line = "";
-                while ((line = playlist.ReadLine()) != null)
-                {
-                    string pattern = @"#EXTM3U.*";
-                    Match m = Regex.Match(line, pattern);
-                    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
-
-                    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    // Define a test string.        
-                    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
-
-                    // Find matches.
-                    MatchCollection matches = rx.Matches(line);
-
-
-                    if (line.StartsWith("#EXTM3U"))
-                    {
-                        // continue;
-                        //
-
-                        string pattern2 = @"#EXTM3U.*";
-                        Match m2 = Regex.Match(line, pattern2);
-
-                        //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
-                        //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
-                        //Match match = pattern.Match(line);
-                        //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
-                        //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
-                        //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
-                        //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
-                    }
-                }
-            }
-        }
-
 
         #region Добавление
         private void Add()
@@ -1092,10 +1032,6 @@ namespace M3Ueditor
             ButtonControlEnabled(false);
             Debug.Print("UnModified - Finish");
         }
-
-
-
-
 
 
         private void dgvTVtreeEnabled(bool state = false)
