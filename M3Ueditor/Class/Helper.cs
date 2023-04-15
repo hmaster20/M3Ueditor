@@ -54,17 +54,17 @@ namespace M3Ueditor
                 StreamReader RAWlist = new StreamReader(fullName);
                 string playlist = RAWlist.ReadToEnd();
 
-                string valueFind = @"#EXTM3U";
+                //string valueFind = @"#EXTM3U";
 
-                string raw = playlist;
-                var F1 = raw.IndexOf(valueFind) + valueFind.Length;
-                var F2 = raw.IndexOf(@"#EXTINF");
-                var RESULT = raw.Substring(F1, F2 - F1);
+                //string raw = playlist;
+                //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
+                //var F2 = raw.IndexOf(@"#EXTINF");
+                //var RESULT = raw.Substring(F1, F2 - F1);
 
 
-                string data = playlist;
-                var start1 = data.IndexOf(@"#EXTM3U") + 7;
-                var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
+                //string data = playlist;
+                //var start1 = data.IndexOf(@"#EXTM3U") + 7;
+                //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
 
                 // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
 
@@ -89,67 +89,60 @@ namespace M3Ueditor
         }
 
 
-        /// <summary>Парсит содержимое файла и создает список каналов</summary>
+        /// <summary>Разбивает содержимое файла на список каналов</summary>
         private static List<string> getRawChannels(string playlist)
         {
-            string data = playlist;
-            var start1 = data.IndexOf(@"#EXTM3U") + 7;
-            var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
+            //string data = playlist;
+            //var start1 = data.IndexOf(@"#EXTM3U") + 7;
+            //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
 
-            string input = playlist;
-            //input = input.Replace("\r\n", "");
-            //input = Regex.Replace(input, @"\s+", string.Empty);
-            input = Regex.Replace(input, @"\t|\n|\r", "");
+            //string input = playlist;
+            ////input = input.Replace("\r\n", "");
+            ////input = Regex.Replace(input, @"\s+", string.Empty);
+            //input = Regex.Replace(input, @"\t|\n|\r", "");
 
-            Debug.Print(input);
+            //var start = input.IndexOf(@"#EXTM3U") + @"#EXTM3U".Length;
+            //var match2 = input.Substring(start, input.IndexOf(@"#EXTINF") - start);
 
-            var start = input.IndexOf(@"#EXTM3U") + @"#EXTM3U".Length;
-            var match2 = input.Substring(start, input.IndexOf(@"#EXTINF") - start);
-
-            string allChannels = input.Substring(input.IndexOf(@"#EXTINF"));
+            //string allChannels = input.Substring(input.IndexOf(@"#EXTINF"));
 
             List<string> listChannel = new List<string>();
 
-            while (allChannels.Length > 0)
+            int indexator = playlist.IndexOf(@"#EXTINF");
+
+            if (indexator > 0)
             {
-                string valueFind = @"#EXTINF:";
-                var FistIndex = allChannels.IndexOf(valueFind) + valueFind.Length;
-                var SecondIndex = allChannels.IndexOf(valueFind, FistIndex);
-                if (SecondIndex > 0)
+                string allChannels = playlist.Substring(indexator);
+
+                while (allChannels.Length > 0)
                 {
-                    var FindString = allChannels.Substring(FistIndex, SecondIndex - FistIndex);
-                    listChannel.Add(FindString);
-                    allChannels = allChannels.Remove(0, SecondIndex);
-                }
-                else
-                {
-                    if (allChannels.Length > 0)
+                    string valueFind = @"#EXTINF:";
+                    var FistIndex = allChannels.IndexOf(valueFind) + valueFind.Length;
+                    var SecondIndex = allChannels.IndexOf(valueFind, FistIndex);
+                    if (SecondIndex > 0)
                     {
-                        var FindString = allChannels.Substring(FistIndex, allChannels.Length - FistIndex);
+                        var FindString = allChannels.Substring(FistIndex, SecondIndex - FistIndex);
                         listChannel.Add(FindString);
+                        allChannels = allChannels.Remove(0, SecondIndex);
                     }
-                    allChannels = null;
-                    break;
+                    else
+                    {
+                        if (allChannels.Length > 0)
+                        {
+                            var FindString = allChannels.Substring(FistIndex, allChannels.Length - FistIndex);
+                            listChannel.Add(FindString);
+                        }
+                        allChannels = null;
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return listChannel;
-
-            //Debug.Print("allChannels -- start");
-            //Debug.Print(allChannels);
-            //Debug.Print("allChannels -- end");
-
-            ////var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
-            //var tets  = allChannels.Split(@"#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
-            //var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
-
-            //MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
-            //List<string> lst = new List<string>();
-            //foreach (var item in mt)
-            //{
-            //    lst.Add(item.ToString());
-            //}            
-            //return lst;
         }
 
         public static SortableBindingList<TVChannel> getChannels(string fullName)
@@ -166,6 +159,17 @@ namespace M3Ueditor
                 {
 
                 }
+
+                ////var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
+                //var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
+
+                //MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
+                //List<string> lst = new List<string>();
+                //foreach (var item in mt)
+                //{
+                //    lst.Add(item.ToString());
+                //}            
+                //return lst;
             }
 
             return channels;
