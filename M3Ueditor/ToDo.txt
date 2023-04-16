@@ -1,0 +1,22 @@
+﻿
+Использование Regex шаблонов
+(#EXTM3U)(.*)(#EXTINF)(.*)(#EXTINF)
+(#EXTINF).*\s\S.*
+(#EXTINF)(.*\s\S.*)
+#EXTINF(\S+)
+\B(\#[a-zA-Z]+\b)(?!;)
+\#[a-zA-Z]+\b(\S+\s+\b\D+\d+\S+)
+\#[a-zA-Z]+\b((\S+\s+\b)(\D+\S+))
+http://cc.davelozinski.com/c-sharp/the-fastest-way-to-read-and-process-text-files
+https://borpas.info/iptvplayer-docs#6
+
+//var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
+var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
+
+MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
+List<string> lst = new List<string>();
+foreach (var item in mt)
+{
+    lst.Add(item.ToString());
+}
+return lst;

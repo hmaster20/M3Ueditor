@@ -165,6 +165,7 @@
     <Content Include="Resources\select_all.png" />
     <Content Include="Resources\unselect_all.png" />
     <Content Include="Resources\flag_usa.png" />
+    <Content Include="ToDo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

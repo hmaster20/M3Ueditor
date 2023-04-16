@@ -5,25 +5,16 @@ using System.Text;
 
 namespace M3Ueditor
 {
+    /// <summary>Класс, обеспечивающий параметризацию</summary>
     public class Keywords
     {
-        // https://borpas.info/iptvplayer-docs#6
-
         string[] keys = {
             "url-tvg",
             "cache" ,
             "deinterlace ",
             "aspect-ratio",
             "croppadd",
-            "num"  };
-       
-
-
-   
+            "num"
+        };
     }
 }
-
-//(#EXTM3U)(.*)(#EXTINF)(.*)(#EXTINF)
-//(#EXTINF).*\s\S.*
-//(#EXTINF)(.*\s\S.*)
-//http://cc.davelozinski.com/c-sharp/the-fastest-way-to-read-and-process-text-files
