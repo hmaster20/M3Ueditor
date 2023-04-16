@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace M3Ueditor
 {
+    /// <summary>Класс обработки данных, полученных из файла</summary>
     public class Helper
     {
         private static void ParseM3Utest(StreamReader playlist)
@@ -54,17 +55,21 @@ namespace M3Ueditor
                 StreamReader RAWlist = new StreamReader(fullName);
                 string playlist = RAWlist.ReadToEnd();
 
-                string valueFind = @"#EXTM3U";
+                // Старая версия
+                //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
+                //var options = mt[0].Value;
+                //return options;
 
-                string raw = playlist;
-                var F1 = raw.IndexOf(valueFind) + valueFind.Length;
-                var F2 = raw.IndexOf(@"#EXTINF");
-                var RESULT = raw.Substring(F1, F2 - F1);
+                //string valueFind = @"#EXTM3U";
+                //string raw = playlist;
+                //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
+                //var F2 = raw.IndexOf(@"#EXTINF");
+                //var RESULT = raw.Substring(F1, F2 - F1);
 
 
-                string data = playlist;
-                var start1 = data.IndexOf(@"#EXTM3U") + 7;
-                var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
+                //string data = playlist;
+                //var start1 = data.IndexOf(@"#EXTM3U") + 7;
+                //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
 
                 // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
 
@@ -75,11 +80,6 @@ namespace M3Ueditor
 
                 global = "#EXTM3U " + global;
                 return global;
-
-                // Старая версия
-                //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
-                //var options = mt[0].Value;
-                //return options;
             }
             catch (Exception ex)
             {
@@ -88,80 +88,138 @@ namespace M3Ueditor
             }
         }
 
-
-        /// <summary>Парсит файл и создает список строк каналов</summary>
-        public static List<string> getRawChannels(string playlist)
+        /// <summary>Разбивает содержимое файла на список каналов</summary>
+        private static List<string> getRawChannels(string playlist)
         {
-            string data = playlist;
-            var start1 = data.IndexOf(@"#EXTM3U") + 7;
-            var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
+            //string data = playlist;
+            //var start1 = data.IndexOf(@"#EXTM3U") + 7;
+            //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
 
-            string input = playlist;
-            //input = input.Replace("\r\n", "");
-            //input = Regex.Replace(input, @"\s+", string.Empty);
-            input = Regex.Replace(input, @"\t|\n|\r", "");
+            //string input = playlist;
+            ////input = input.Replace("\r\n", "");
+            ////input = Regex.Replace(input, @"\s+", string.Empty);
+            //input = Regex.Replace(input, @"\t|\n|\r", "");
 
-            Debug.Print(input);
+            //var start = input.IndexOf(@"#EXTM3U") + @"#EXTM3U".Length;
+            //var match2 = input.Substring(start, input.IndexOf(@"#EXTINF") - start);
 
-            var start = input.IndexOf(@"#EXTM3U") + @"#EXTM3U".Length;
-            var match2 = input.Substring(start, input.IndexOf(@"#EXTINF") - start);
-
-            string allChannels = input.Substring(input.IndexOf(@"#EXTINF"));
+            //string allChannels = input.Substring(input.IndexOf(@"#EXTINF"));
 
             List<string> listChannel = new List<string>();
 
-            while (allChannels.Length > 0)
+            int indexator = playlist.IndexOf(@"#EXTINF");
+
+            if (indexator > 0)
             {
-                string valueFind = @"#EXTINF:";
-                var FistIndex = allChannels.IndexOf(valueFind) + valueFind.Length;
-                var SecondIndex = allChannels.IndexOf(valueFind, FistIndex);
-                if (SecondIndex > 0)
+                string allChannels = playlist.Substring(indexator);
+
+                while (allChannels.Length > 0)
                 {
-                    var FindString = allChannels.Substring(FistIndex, SecondIndex - FistIndex);
-                    listChannel.Add(FindString);
-                    allChannels = allChannels.Remove(0, SecondIndex);
-                }
-                else
-                {
-                    if (allChannels.Length > 0)
+                    string valueFind = @"#EXTINF:";
+                    var FistIndex = allChannels.IndexOf(valueFind) + valueFind.Length;
+                    var SecondIndex = allChannels.IndexOf(valueFind, FistIndex);
+                    if (SecondIndex > 0)
                     {
-                        var FindString = allChannels.Substring(FistIndex, allChannels.Length - FistIndex);
+                        var FindString = allChannels.Substring(FistIndex, SecondIndex - FistIndex);
                         listChannel.Add(FindString);
+                        allChannels = allChannels.Remove(0, SecondIndex);
                     }
-                    allChannels = null;
-                    break;
+                    else
+                    {
+                        if (allChannels.Length > 0)
+                        {
+                            var FindString = allChannels.Substring(FistIndex, allChannels.Length - FistIndex);
+                            listChannel.Add(FindString);
+                        }
+                        allChannels = null;
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return listChannel;
-
-            //Debug.Print("allChannels -- start");
-            //Debug.Print(allChannels);
-            //Debug.Print("allChannels -- end");
-
-            ////var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
-            //var tets  = allChannels.Split(@"#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray();
-            //var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
-
-            //MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
-            //List<string> lst = new List<string>();
-            //foreach (var item in mt)
-            //{
-            //    lst.Add(item.ToString());
-            //}            
-            //return lst;
         }
 
         public static SortableBindingList<TVChannel> getChannels(string fullName)
         {
-            List<string> RawChannels = getRawChannels(fullName);
-
             SortableBindingList<TVChannel> channels = new SortableBindingList<TVChannel>();
 
-            for (int i = 0; i < RawChannels.Count; i++)
+            using (StreamReader playlist = new StreamReader(fullName))
             {
+                string fullTextFile = playlist.ReadToEnd();
 
+                List<string> RawChannels = getRawChannels(fullTextFile);
+
+                for (int i = 0; i < RawChannels.Count; i++)
+                {
+                    string tvgName = "N/A";
+                    string tvglogo = "N/A";
+                    string groupTitle = "N/A";
+                    string Name = "N/A";
+                    string udp = "N/A";
+                    string addon = "";
+
+                    string ch = RawChannels[i];
+
+                    // "-1 tvg-name=\"tvgFirst\" tvg-logo=\"New Logo\" group-title=\"New Group\",First\r\nudp://@224.1.1.1:6000\r\n"
+                    // "1740 tvg-name=\"5 канал (Россия) (+4)\" tvg-logo=\"http://web.web/1740.png?w=250&h=250\" group-title=\"Эфирные\",5 канал +4 http://web.web/web.php?channel=1740 "
+
+
+                    tvgName = stringOperations.Between(ch, "tvg-name=\"", "\"");
+                    tvglogo = stringOperations.Between(ch, "tvg-logo=\"", "\"");
+                    groupTitle = stringOperations.Between(ch, "group-title=\"", "\"");
+
+
+                    Name = ch.Split(',').Last();
+
+                    int indexatorFIND = 0;
+
+                    int indexatorUDP = Name.IndexOf(@"udp://");
+                    int indexatorHTTP = Name.IndexOf(@"http://");
+
+                    if (indexatorUDP > 0)
+                    {
+                        indexatorFIND = indexatorUDP;
+                    }
+                    else if (indexatorHTTP > 0)
+                    {
+                        indexatorFIND = indexatorHTTP;
+                    }
+
+                    if (indexatorFIND > 0)
+                    {
+                        udp = Name.Substring(indexatorFIND);
+                        Name = Name.Remove(indexatorFIND);
+                    }
+
+                    try
+                    {
+                        channels.Add(new TVChannel(
+                            _tvgName: tvgName.Trim(),
+                            _tvglogo: tvglogo.Trim(),
+                            _groupTitle: groupTitle.Trim(),
+                            _udp: udp.Trim(),
+                            _Name: Name.Trim()
+                            ));
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        //MessageBox.Show("A channel has been omitted due to its incorrect format");                        
+                        MessageBox.Show("Канал был пропущен из-за его неправильного формата");
+                    }
+
+                }
             }
+
+            if (channels.Count == 0)
+            {
+                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             return channels;
         }
 
@@ -241,6 +299,79 @@ namespace M3Ueditor
         //        // GetListChannel = // List<TVChannel>
         //    }
         //}
+
+
+
+
+        // БЫЛ БЕЗ ССЫЛОК, возможно на удаление
+        public void ParseM3UtestV2(string fullName)
+        {
+            using (StreamReader playlist = new StreamReader(fullName))
+            {
+                //string fullTextFile = playlist.ReadToEnd();
+                //textBoxGlobal.Text = Helper.getGlobalParams(fullTextFile);
+
+                //Helper.Options(fullTextFile);
+                // channels = Helper.Options(fullTextFile);
+
+                // GetGlobalOption = // string
+                // GetListChannel = // List<TVChannel>
+
+
+                List<TVChannel> channel = new List<TVChannel>();
+
+                //string readText = File.ReadAllText(path);
+                //sr.ReadToEnd()           
+
+
+
+                //string test = playlist.ReadToEnd();
+
+                //Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchesM = rm3.Matches(test);
+                //Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchesI = rin.Matches(test);
+
+
+                string line = "";
+                while ((line = playlist.ReadLine()) != null)
+                {
+                    string pattern = @"#EXTM3U.*";
+                    Match m = Regex.Match(line, pattern);
+                    Match ml = Regex.Match(line, @"#EXTINF.*\s\S.*");
+
+                    //Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    Regex rx = new Regex(@"#.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    // Define a test string.        
+                    //string text = "The the quick brown fox  fox jumped over the lazy dog dog.";
+
+                    // Find matches.
+                    MatchCollection matches = rx.Matches(line);
+
+
+                    if (line.StartsWith("#EXTM3U"))
+                    {
+                        // continue;
+                        //
+
+                        string pattern2 = @"#EXTM3U.*";
+                        Match m2 = Regex.Match(line, pattern2);
+
+                        //string text = "ImageDimension=655x0;ThumbnailDimension=0x0";
+                        //Regex pattern = new Regex(@"#EXTM3U.*#EXTINF");
+                        //Match match = pattern.Match(line);
+                        //int imageWidth = int.Parse(match.Groups["imageWidth"].Value);
+                        //int imageHeight = int.Parse(match.Groups["imageHeight"].Value);
+                        //int thumbWidth = int.Parse(match.Groups["thumbWidth"].Value);
+                        //int thumbHeight = int.Parse(match.Groups["thumbHeight"].Value);
+                    }
+                }
+            }
+        }
+
+
+
+
 
 
     }
