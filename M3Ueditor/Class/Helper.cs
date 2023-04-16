@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace M3Ueditor
 {
+    /// <summary>Класс обработки данных, полученных из файла</summary>
     public class Helper
     {
         private static void ParseM3Utest(StreamReader playlist)
@@ -54,8 +55,12 @@ namespace M3Ueditor
                 StreamReader RAWlist = new StreamReader(fullName);
                 string playlist = RAWlist.ReadToEnd();
 
-                //string valueFind = @"#EXTM3U";
+                // Старая версия
+                //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
+                //var options = mt[0].Value;
+                //return options;
 
+                //string valueFind = @"#EXTM3U";
                 //string raw = playlist;
                 //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
                 //var F2 = raw.IndexOf(@"#EXTINF");
@@ -75,11 +80,6 @@ namespace M3Ueditor
 
                 global = "#EXTM3U " + global;
                 return global;
-
-                // Старая версия
-                //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
-                //var options = mt[0].Value;
-                //return options;
             }
             catch (Exception ex)
             {
@@ -87,7 +87,6 @@ namespace M3Ueditor
                 return "#EXTM3U";
             }
         }
-
 
         /// <summary>Разбивает содержимое файла на список каналов</summary>
         private static List<string> getRawChannels(string playlist)
@@ -157,19 +156,68 @@ namespace M3Ueditor
 
                 for (int i = 0; i < RawChannels.Count; i++)
                 {
+                    string tvgName = "N/A";
+                    string tvglogo = "N/A";
+                    string groupTitle = "N/A";
+                    string Name = "N/A";
+                    string udp = "N/A";
+                    string addon = "";
+
+                    string ch = RawChannels[i];
+
+                    // "-1 tvg-name=\"tvgFirst\" tvg-logo=\"New Logo\" group-title=\"New Group\",First\r\nudp://@224.1.1.1:6000\r\n"
+                    // "1740 tvg-name=\"5 канал (Россия) (+4)\" tvg-logo=\"http://web.web/1740.png?w=250&h=250\" group-title=\"Эфирные\",5 канал +4 http://web.web/web.php?channel=1740 "
+
+
+                    tvgName = stringOperations.Between(ch, "tvg-name=\"", "\"");
+                    tvglogo = stringOperations.Between(ch, "tvg-logo=\"", "\"");
+                    groupTitle = stringOperations.Between(ch, "group-title=\"", "\"");
+
+
+                    Name = ch.Split(',').Last();
+
+                    int indexatorFIND = 0;
+
+                    int indexatorUDP = Name.IndexOf(@"udp://");
+                    int indexatorHTTP = Name.IndexOf(@"http://");
+
+                    if (indexatorUDP > 0)
+                    {
+                        indexatorFIND = indexatorUDP;
+                    }
+                    else if (indexatorHTTP > 0)
+                    {
+                        indexatorFIND = indexatorHTTP;
+                    }
+
+                    if (indexatorFIND > 0)
+                    {
+                        udp = Name.Substring(indexatorFIND);
+                        Name = Name.Remove(indexatorFIND);
+                    }
+
+                    try
+                    {
+                        channels.Add(new TVChannel(
+                            _tvgName: tvgName.Trim(),
+                            _tvglogo: tvglogo.Trim(),
+                            _groupTitle: groupTitle.Trim(),
+                            _udp: udp.Trim(),
+                            _Name: Name.Trim()
+                            ));
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        //MessageBox.Show("A channel has been omitted due to its incorrect format");                        
+                        MessageBox.Show("Канал был пропущен из-за его неправильного формата");
+                    }
 
                 }
+            }
 
-                ////var tets = allChannels.Split("#EXTINF".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToArray().Where(x => !string.IsNullOrEmpty(x)).Distinct();
-                //var tets2 = allChannels.Split(@"#EXTINF".ToCharArray()).ToArray().Distinct();
-
-                //MatchCollection mt = ParseStream(playlist, @"#EXTINF.*\s\S.*");
-                //List<string> lst = new List<string>();
-                //foreach (var item in mt)
-                //{
-                //    lst.Add(item.ToString());
-                //}            
-                //return lst;
+            if (channels.Count == 0)
+            {
+                MessageBox.Show("Структура файла не распознана!", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return channels;
