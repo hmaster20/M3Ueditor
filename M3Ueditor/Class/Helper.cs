@@ -12,6 +12,21 @@ namespace M3Ueditor
     /// <summary>Класс обработки данных, полученных из файла</summary>
     public class Helper
     {
+        public static string Between(string strSource, string strStart, string strEnd)
+        {
+            int Start, End;
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
+            }
+            else
+            {
+                return "";
+            }
+        }
+
         private static void ParseM3Utest(StreamReader playlist)
         {
             List<TVChannel> channel = new List<TVChannel>();
@@ -169,9 +184,9 @@ namespace M3Ueditor
                     // "1740 tvg-name=\"5 канал (Россия) (+4)\" tvg-logo=\"http://web.web/1740.png?w=250&h=250\" group-title=\"Эфирные\",5 канал +4 http://web.web/web.php?channel=1740 "
 
 
-                    tvgName = stringOperations.Between(ch, "tvg-name=\"", "\"");
-                    tvglogo = stringOperations.Between(ch, "tvg-logo=\"", "\"");
-                    groupTitle = stringOperations.Between(ch, "group-title=\"", "\"");
+                    tvgName = Between(ch, "tvg-name=\"", "\"");
+                    tvglogo = Between(ch, "tvg-logo=\"", "\"");
+                    groupTitle = Between(ch, "group-title=\"", "\"");
 
 
                     Name = ch.Split(',').Last();
