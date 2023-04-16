@@ -412,13 +412,13 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="lUDPbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 17</value>
+    <value>60, 17</value>
   </data>
   <data name="lUDPbox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="lUDPbox.Text" xml:space="preserve">
-    <value>UDP/IP</value>
+    <value>Address</value>
   </data>
   <data name="&gt;&gt;lUDPbox.Name" xml:space="preserve">
     <value>lUDPbox</value>

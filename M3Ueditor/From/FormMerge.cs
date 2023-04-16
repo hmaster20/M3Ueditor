@@ -62,7 +62,7 @@ namespace M3Ueditor
                             _tvgName: item.TvgName,
                             _tvglogo: item.Tvglogo,
                             _groupTitle: item.GroupTitle,
-                            _udp: item.UDP,
+                            _address: item.Address,
                             _Name: item.Name,
                             _check: false));
         }

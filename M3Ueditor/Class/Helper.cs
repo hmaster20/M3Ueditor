@@ -217,7 +217,7 @@ namespace M3Ueditor
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
-                            _udp: udp.Trim(),
+                            _address: udp.Trim(),
                             _Name: Name.Trim()
                             ));
                     }

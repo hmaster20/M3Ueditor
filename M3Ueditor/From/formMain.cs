@@ -285,7 +285,7 @@ namespace M3Ueditor
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
-                            _udp: udp.Trim(),
+                            _address: udp.Trim(),
                             _Name: Name.Trim()
                             ));
 
@@ -496,7 +496,7 @@ namespace M3Ueditor
                     + "tvg-logo=\"" + channels[i].Tvglogo + "\" "
                     + "group-title=\"" + channels[i].GroupTitle + "\""
                     + "," + channels[i].Name);
-                file.WriteLine(channels[i].UDP);
+                file.WriteLine(channels[i].Address);
             }
             file.Close();
         }
@@ -651,13 +651,13 @@ namespace M3Ueditor
             string tvglogo = "New Logo";
             string groupTitle = "New Group";
             string Name = "New Channel";
-            string udp = "udp://@224.1.1.1:6000";
+            string address = "udp://@224.1.1.1:6000";
 
             channels.Add(new TVChannel(
                         _tvgName: tvgName.Trim(),
                         _tvglogo: tvglogo.Trim(),
                         _groupTitle: groupTitle.Trim(),
-                        _udp: udp.Trim(),
+                        _address: address.Trim(),
                         _Name: Name.Trim()
                         ));
 
@@ -862,7 +862,7 @@ namespace M3Ueditor
                 tvgNameBox.Text = tvc.TvgName;
                 tvglogoBox.Text = tvc.Tvglogo;
                 groupTitleComboBox.Text = tvc.GroupTitle;
-                UDPbox.Text = tvc.UDP;
+                UDPbox.Text = tvc.Address;
                 NameBox.Text = tvc.Name;
             }
         }
@@ -1079,7 +1079,7 @@ namespace M3Ueditor
 
                 if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = groupTitleComboBox.Text;
 
-                if (ValidatorUDP(UDPbox.Text)) tvc.UDP = UDPbox.Text;
+                if (ValidatorUDP(UDPbox.Text)) tvc.Address = UDPbox.Text;
 
                 if (ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
             }
