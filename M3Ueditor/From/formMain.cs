@@ -341,9 +341,13 @@ namespace M3Ueditor
 
                     globalParams = Helper.getGlobalParams(fileName.FullName);
 
-                    Helper.getChannels(fileName.FullName);
 
-                    channels = Helper.ParseM3U(fileName.FullName);
+
+                    channels = Helper.getChannels(fileName.FullName);
+
+                    //channels = Helper.ParseM3U(fileName.FullName);
+
+
 
 
 
@@ -376,7 +380,8 @@ namespace M3Ueditor
 
                     //SortableBindingList<TVChannel> channelsForMerge = ParseM3U(playlist);                 
 
-                    SortableBindingList<TVChannel> channelsForMerge = Helper.ParseM3U(fileName.FullName);
+                    //SortableBindingList<TVChannel> channelsForMerge = Helper.ParseM3U(fileName.FullName);
+                    SortableBindingList<TVChannel> channelsForMerge = Helper.getChannels(fileName.FullName);
 
                     FormMerge form = new FormMerge(channels, channelsForMerge, lng);
                     if (form.ShowDialog() == DialogResult.OK)
