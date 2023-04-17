@@ -862,7 +862,7 @@ namespace M3Ueditor
                 tvgNameBox.Text = tvc.TvgName;
                 tvglogoBox.Text = tvc.Tvglogo;
                 groupTitleComboBox.Text = tvc.GroupTitle;
-                UDPbox.Text = tvc.Address;
+                Addressbox.Text = tvc.Address;
                 NameBox.Text = tvc.Name;
             }
         }
@@ -1028,7 +1028,7 @@ namespace M3Ueditor
             //return status
             tvgNameBox.Modified = false;
             tvglogoBox.Modified = false;
-            UDPbox.Modified = false;
+            Addressbox.Modified = false;
             NameBox.Modified = false;
             Debug.Print("Change status for textBox");
 
@@ -1079,7 +1079,7 @@ namespace M3Ueditor
 
                 if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = groupTitleComboBox.Text;
 
-                if (ValidatorUDP(UDPbox.Text)) tvc.Address = UDPbox.Text;
+                if (ValidatorUDP(Addressbox.Text)) tvc.Address = Addressbox.Text;
 
                 if (ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
             }
@@ -1100,7 +1100,7 @@ namespace M3Ueditor
             Debug.Print("btnChangeCancel - TableRefresh");
 
             //errorProvider.Clear();  //errorProvider.SetError(UDPbox, null);
-            errorProvider.SetError(UDPbox, null);
+            errorProvider.SetError(Addressbox, null);
             Debug.Print("btnChangeCancel - errorProvider");
 
             UnModified();
@@ -1115,7 +1115,7 @@ namespace M3Ueditor
         private void tvgNameBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(tvgNameBox, ltvgName.Text);
         private void tvglogoBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(tvglogoBox, ltvglogo.Text);
         private void groupTitleComboBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(groupTitleComboBox, lgroupTitle.Text);
-        private void UDPbox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(UDPbox, lUDPbox.Text);
+        private void UDPbox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(Addressbox, lAddress.Text);
 
 
         private void TextEnterValidate(Control ctrl, string lblText)
@@ -1132,7 +1132,7 @@ namespace M3Ueditor
 
         bool RunValidate(Control ctrl)
         {
-            if (ctrl.Name == UDPbox.Name) { return ValidatorUDP(ctrl.Text); }
+            if (ctrl.Name == Addressbox.Name) { return ValidatorUDP(ctrl.Text); }
             else { return ValidatorText(ctrl.Text); }
         }
 
@@ -1261,5 +1261,6 @@ namespace M3Ueditor
         }
 
         #endregion
+
     }
 }
