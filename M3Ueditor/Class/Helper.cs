@@ -26,41 +26,7 @@ namespace M3Ueditor
                 return "";
             }
         }
-
-        private static void ParseM3Utest(StreamReader playlist)
-        {
-            List<TVChannel> channel = new List<TVChannel>();
-
-            string test = playlist.ReadToEnd();
-
-            Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            MatchCollection matchesM = rm3.Matches(test);
-            Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            MatchCollection matchesI = rin.Matches(test);
-        }
-
-        private static MatchCollection getGlobalOptions(StreamReader playlist)
-        {
-            Regex pattern = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            MatchCollection matchesOptions = pattern.Matches(playlist.ReadToEnd());
-            return matchesOptions;
-        }
-
-        private static MatchCollection getOptions(StreamReader playlist)
-        {
-            Regex pattern = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            MatchCollection matchesOptions = pattern.Matches(playlist.ReadToEnd());
-            return matchesOptions;
-        }
-
-        private static MatchCollection ParseStream(string playlist, string textPattern)
-        {
-            Regex pattern = new Regex(@textPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            MatchCollection matchesOptions = pattern.Matches(playlist);
-            return matchesOptions;
-        }
-
-
+        
         /// <summary>Получает файл и извлекает строку EXTM3U с общими параметрами</summary>
         /// <returns>Возвращает EXTM3U... (string)</returns>
         public static string getGlobalParams(string fullName)
@@ -232,5 +198,40 @@ namespace M3Ueditor
 
             return channels;
         }
+
+
+        private static void ParseM3Utest(StreamReader playlist)
+        {
+            List<TVChannel> channel = new List<TVChannel>();
+
+            string test = playlist.ReadToEnd();
+
+            Regex rm3 = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matchesM = rm3.Matches(test);
+            Regex rin = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matchesI = rin.Matches(test);
+        }
+
+        private static MatchCollection getGlobalOptions(StreamReader playlist)
+        {
+            Regex pattern = new Regex(@"#EXTM3U.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matchesOptions = pattern.Matches(playlist.ReadToEnd());
+            return matchesOptions;
+        }
+
+        private static MatchCollection getOptions(StreamReader playlist)
+        {
+            Regex pattern = new Regex(@"#EXTINF.*\s\S.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matchesOptions = pattern.Matches(playlist.ReadToEnd());
+            return matchesOptions;
+        }
+
+        private static MatchCollection ParseStream(string playlist, string textPattern)
+        {
+            Regex pattern = new Regex(@textPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            MatchCollection matchesOptions = pattern.Matches(playlist);
+            return matchesOptions;
+        }
+
     }
 }
