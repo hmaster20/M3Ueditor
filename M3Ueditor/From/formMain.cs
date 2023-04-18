@@ -397,7 +397,8 @@ namespace M3Ueditor
                     {
                         fileName = currentfileName;
                     }
-                    else if (fileName != null)
+                    //else if (fileName != null)
+                    else
                     {
                         fileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
                     }
