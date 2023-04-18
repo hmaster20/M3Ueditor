@@ -67,34 +67,36 @@ namespace M3Ueditor
         {
             try
             {
-                StreamReader RAWlist = new StreamReader(fullName);
-                string playlist = RAWlist.ReadToEnd();
+                using (StreamReader RAWlist = new StreamReader(fullName))
+                {
+                    string playlist = RAWlist.ReadToEnd();
 
-                // Старая версия
-                //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
-                //var options = mt[0].Value;
-                //return options;
+                    // Старая версия
+                    //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
+                    //var options = mt[0].Value;
+                    //return options;
 
-                //string valueFind = @"#EXTM3U";
-                //string raw = playlist;
-                //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
-                //var F2 = raw.IndexOf(@"#EXTINF");
-                //var RESULT = raw.Substring(F1, F2 - F1);
+                    //string valueFind = @"#EXTM3U";
+                    //string raw = playlist;
+                    //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
+                    //var F2 = raw.IndexOf(@"#EXTINF");
+                    //var RESULT = raw.Substring(F1, F2 - F1);
 
 
-                //string data = playlist;
-                //var start1 = data.IndexOf(@"#EXTM3U") + 7;
-                //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
+                    //string data = playlist;
+                    //var start1 = data.IndexOf(@"#EXTM3U") + 7;
+                    //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
 
-                // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
+                    // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
 
-                string global = playlist.Split(new string[] { @"#EXTM3U" },
-                    StringSplitOptions.None)[1]
-                    .Split(@"#EXTINF".ToCharArray())[0]
-                    .Trim();
+                    string global = playlist.Split(new string[] { @"#EXTM3U" },
+                        StringSplitOptions.None)[1]
+                        .Split(@"#EXTINF".ToCharArray())[0]
+                        .Trim();
 
-                global = "#EXTM3U " + global;
-                return global;
+                    global = "#EXTM3U " + global;
+                    return global;
+                }              
             }
             catch (Exception ex)
             {
