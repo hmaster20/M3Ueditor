@@ -40,11 +40,13 @@
             this.groupTitleComboBox = new System.Windows.Forms.ComboBox();
             this.ltvgName = new System.Windows.Forms.Label();
             this.lName = new System.Windows.Forms.Label();
-            this.lUDPbox = new System.Windows.Forms.Label();
+            this.lCustomTags = new System.Windows.Forms.Label();
+            this.lAddress = new System.Windows.Forms.Label();
             this.lgroupTitle = new System.Windows.Forms.Label();
             this.ltvglogo = new System.Windows.Forms.Label();
             this.NameBox = new System.Windows.Forms.TextBox();
-            this.UDPbox = new System.Windows.Forms.TextBox();
+            this.CustomTagsBox = new System.Windows.Forms.TextBox();
+            this.Addressbox = new System.Windows.Forms.TextBox();
             this.tvglogoBox = new System.Windows.Forms.TextBox();
             this.tvgNameBox = new System.Windows.Forms.TextBox();
             this.status = new System.Windows.Forms.StatusStrip();
@@ -167,11 +169,13 @@
             this.panelEdit.Controls.Add(this.groupTitleComboBox);
             this.panelEdit.Controls.Add(this.ltvgName);
             this.panelEdit.Controls.Add(this.lName);
-            this.panelEdit.Controls.Add(this.lUDPbox);
+            this.panelEdit.Controls.Add(this.lCustomTags);
+            this.panelEdit.Controls.Add(this.lAddress);
             this.panelEdit.Controls.Add(this.lgroupTitle);
             this.panelEdit.Controls.Add(this.ltvglogo);
             this.panelEdit.Controls.Add(this.NameBox);
-            this.panelEdit.Controls.Add(this.UDPbox);
+            this.panelEdit.Controls.Add(this.CustomTagsBox);
+            this.panelEdit.Controls.Add(this.Addressbox);
             this.panelEdit.Controls.Add(this.tvglogoBox);
             this.panelEdit.Controls.Add(this.tvgNameBox);
             resources.ApplyResources(this.panelEdit, "panelEdit");
@@ -212,10 +216,15 @@
             resources.ApplyResources(this.lName, "lName");
             this.lName.Name = "lName";
             // 
-            // lUDPbox
+            // lCustomTags
             // 
-            resources.ApplyResources(this.lUDPbox, "lUDPbox");
-            this.lUDPbox.Name = "lUDPbox";
+            resources.ApplyResources(this.lCustomTags, "lCustomTags");
+            this.lCustomTags.Name = "lCustomTags";
+            // 
+            // lAddress
+            // 
+            resources.ApplyResources(this.lAddress, "lAddress");
+            this.lAddress.Name = "lAddress";
             // 
             // lgroupTitle
             // 
@@ -234,12 +243,19 @@
             this.NameBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             this.NameBox.Validating += new System.ComponentModel.CancelEventHandler(this.NameBox_Validating);
             // 
-            // UDPbox
+            // CustomTagsBox
             // 
-            resources.ApplyResources(this.UDPbox, "UDPbox");
-            this.UDPbox.Name = "UDPbox";
-            this.UDPbox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            this.UDPbox.Validating += new System.ComponentModel.CancelEventHandler(this.UDPbox_Validating);
+            resources.ApplyResources(this.CustomTagsBox, "CustomTagsBox");
+            this.CustomTagsBox.Name = "CustomTagsBox";
+            this.CustomTagsBox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.CustomTagsBox.Validating += new System.ComponentModel.CancelEventHandler(this.UDPbox_Validating);
+            // 
+            // Addressbox
+            // 
+            resources.ApplyResources(this.Addressbox, "Addressbox");
+            this.Addressbox.Name = "Addressbox";
+            this.Addressbox.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.Addressbox.Validating += new System.ComponentModel.CancelEventHandler(this.UDPbox_Validating);
             // 
             // tvglogoBox
             // 
@@ -588,12 +604,12 @@
         private System.Windows.Forms.Panel panelEdit;
         private System.Windows.Forms.Label ltvglogo;
         private System.Windows.Forms.TextBox NameBox;
-        private System.Windows.Forms.TextBox UDPbox;
+        private System.Windows.Forms.TextBox Addressbox;
         private System.Windows.Forms.TextBox tvglogoBox;
         private System.Windows.Forms.TextBox tvgNameBox;
         private System.Windows.Forms.Label ltvgName;
         private System.Windows.Forms.Label lName;
-        private System.Windows.Forms.Label lUDPbox;
+        private System.Windows.Forms.Label lAddress;
         private System.Windows.Forms.Label lgroupTitle;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TreeView tree;
@@ -629,6 +645,8 @@
         private System.Windows.Forms.TextBox textBoxGlobal;
         private System.Windows.Forms.Label labelGlobal;
         private System.Windows.Forms.Button btnSaveGlobal;
+        private System.Windows.Forms.Label lCustomTags;
+        private System.Windows.Forms.TextBox CustomTagsBox;
     }
 }
 

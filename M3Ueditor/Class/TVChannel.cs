@@ -13,12 +13,12 @@ namespace M3Ueditor
 {
     public class TVChannel
     {
-        public TVChannel(string _tvgName, string _tvglogo, string _groupTitle, string _udp, string _Name)
+        public TVChannel(string _tvgName, string _tvglogo, string _groupTitle, string _address, string _Name)
         {
             TvgName = _tvgName;
             Tvglogo = _tvglogo;
             GroupTitle = _groupTitle;
-            UDP = _udp;
+            Address = _address;
             Name = _Name;
         }
 
@@ -43,11 +43,11 @@ namespace M3Ueditor
             set { groupTitle = (value != "") ? value : "N/A"; }
         }
 
-        private string uDP;
-        public string UDP
+        private string address;
+        public string Address
         {
-            get { return uDP; }
-            set { uDP = (value != "") ? value : "N/A"; }
+            get { return address; }
+            set { address = (value != "") ? value : "N/A"; }
         }
 
         private string name;
@@ -61,7 +61,7 @@ namespace M3Ueditor
         {
             if (tvc != null)
             {
-                if (tvc.UDP == this.UDP)
+                if (tvc.Address == this.Address)
                 {
                     return true;
                 }

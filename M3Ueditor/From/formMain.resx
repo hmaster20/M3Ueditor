@@ -256,7 +256,7 @@
     <value>Top, Right</value>
   </data>
   <data name="btnChangeCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>218, 337</value>
+    <value>218, 386</value>
   </data>
   <data name="btnChangeCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -286,7 +286,7 @@
     <value>0</value>
   </data>
   <data name="btnChangeApprove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 337</value>
+    <value>24, 386</value>
   </data>
   <data name="btnChangeApprove.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -402,35 +402,68 @@
   <data name="&gt;&gt;lName.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="lUDPbox.AutoSize" type="System.Boolean, mscorlib">
+  <data name="lCustomTags.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lUDPbox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 246</value>
+  <data name="lCustomTags.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="lUDPbox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="lCustomTags.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 303</value>
+  </data>
+  <data name="lCustomTags.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="lUDPbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 17</value>
+  <data name="lCustomTags.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 17</value>
   </data>
-  <data name="lUDPbox.TabIndex" type="System.Int32, mscorlib">
+  <data name="lCustomTags.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="lUDPbox.Text" xml:space="preserve">
-    <value>UDP/IP</value>
+  <data name="lCustomTags.Text" xml:space="preserve">
+    <value>Custom tags</value>
   </data>
-  <data name="&gt;&gt;lUDPbox.Name" xml:space="preserve">
-    <value>lUDPbox</value>
+  <data name="&gt;&gt;lCustomTags.Name" xml:space="preserve">
+    <value>lCustomTags</value>
   </data>
-  <data name="&gt;&gt;lUDPbox.Type" xml:space="preserve">
+  <data name="&gt;&gt;lCustomTags.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lUDPbox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lCustomTags.Parent" xml:space="preserve">
     <value>panelEdit</value>
   </data>
-  <data name="&gt;&gt;lUDPbox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lCustomTags.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="lAddress.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lAddress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 246</value>
+  </data>
+  <data name="lAddress.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lAddress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 17</value>
+  </data>
+  <data name="lAddress.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lAddress.Text" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="&gt;&gt;lAddress.Name" xml:space="preserve">
+    <value>lAddress</value>
+  </data>
+  <data name="&gt;&gt;lAddress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lAddress.Parent" xml:space="preserve">
+    <value>panelEdit</value>
+  </data>
+  <data name="&gt;&gt;lAddress.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="lgroupTitle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -460,7 +493,7 @@
     <value>panelEdit</value>
   </data>
   <data name="&gt;&gt;lgroupTitle.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="ltvglogo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -490,7 +523,7 @@
     <value>panelEdit</value>
   </data>
   <data name="&gt;&gt;ltvglogo.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="NameBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -517,34 +550,61 @@
     <value>panelEdit</value>
   </data>
   <data name="&gt;&gt;NameBox.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
-  <data name="UDPbox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="CustomTagsBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="UDPbox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 266</value>
+  <data name="CustomTagsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 324</value>
   </data>
-  <data name="UDPbox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="CustomTagsBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="UDPbox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CustomTagsBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>293, 22</value>
   </data>
-  <data name="UDPbox.TabIndex" type="System.Int32, mscorlib">
+  <data name="CustomTagsBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;UDPbox.Name" xml:space="preserve">
-    <value>UDPbox</value>
+  <data name="&gt;&gt;CustomTagsBox.Name" xml:space="preserve">
+    <value>CustomTagsBox</value>
   </data>
-  <data name="&gt;&gt;UDPbox.Type" xml:space="preserve">
+  <data name="&gt;&gt;CustomTagsBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;UDPbox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CustomTagsBox.Parent" xml:space="preserve">
     <value>panelEdit</value>
   </data>
-  <data name="&gt;&gt;UDPbox.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;CustomTagsBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="Addressbox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="Addressbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 266</value>
+  </data>
+  <data name="Addressbox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="Addressbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>293, 22</value>
+  </data>
+  <data name="Addressbox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Addressbox.Name" xml:space="preserve">
+    <value>Addressbox</value>
+  </data>
+  <data name="&gt;&gt;Addressbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Addressbox.Parent" xml:space="preserve">
+    <value>panelEdit</value>
+  </data>
+  <data name="&gt;&gt;Addressbox.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="tvglogoBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -571,7 +631,7 @@
     <value>panelEdit</value>
   </data>
   <data name="&gt;&gt;tvglogoBox.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="tvgNameBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -598,7 +658,7 @@
     <value>panelEdit</value>
   </data>
   <data name="&gt;&gt;tvgNameBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="panelEdit.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

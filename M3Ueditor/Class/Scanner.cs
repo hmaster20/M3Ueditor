@@ -163,14 +163,14 @@ namespace M3Ueditor
                 string tvglogo = "New Logo";
                 string groupTitle = "New Group";
                 string Name = lastchan.ToString();
-                string udp = "udp://@" + curip.ToString() + ":" + Port;
+                string address = "udp://@" + curip.ToString() + ":" + Port;
 
                 TVChannel tvc =
                 new TVChannel(
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
-                            _udp: udp.Trim(),
+                            _address: address.Trim(),
                             _Name: Name.Trim()
                             );
 

@@ -285,7 +285,7 @@ namespace M3Ueditor
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
-                            _udp: udp.Trim(),
+                            _address: udp.Trim(),
                             _Name: Name.Trim()
                             ));
 
@@ -397,7 +397,8 @@ namespace M3Ueditor
                     {
                         fileName = currentfileName;
                     }
-                    else if (fileName != null)
+                    //else if (fileName != null)
+                    else
                     {
                         fileName = new FileInfo(Path.GetFileNameWithoutExtension(fileName.Name) + "_Merge" + fileName.Extension);
                     }
@@ -496,7 +497,7 @@ namespace M3Ueditor
                     + "tvg-logo=\"" + channels[i].Tvglogo + "\" "
                     + "group-title=\"" + channels[i].GroupTitle + "\""
                     + "," + channels[i].Name);
-                file.WriteLine(channels[i].UDP);
+                file.WriteLine(channels[i].Address);
             }
             file.Close();
         }
@@ -651,13 +652,13 @@ namespace M3Ueditor
             string tvglogo = "New Logo";
             string groupTitle = "New Group";
             string Name = "New Channel";
-            string udp = "udp://@224.1.1.1:6000";
+            string address = "udp://@224.1.1.1:6000";
 
             channels.Add(new TVChannel(
                         _tvgName: tvgName.Trim(),
                         _tvglogo: tvglogo.Trim(),
                         _groupTitle: groupTitle.Trim(),
-                        _udp: udp.Trim(),
+                        _address: address.Trim(),
                         _Name: Name.Trim()
                         ));
 
@@ -862,7 +863,7 @@ namespace M3Ueditor
                 tvgNameBox.Text = tvc.TvgName;
                 tvglogoBox.Text = tvc.Tvglogo;
                 groupTitleComboBox.Text = tvc.GroupTitle;
-                UDPbox.Text = tvc.UDP;
+                Addressbox.Text = tvc.Address;
                 NameBox.Text = tvc.Name;
             }
         }
@@ -1028,7 +1029,7 @@ namespace M3Ueditor
             //return status
             tvgNameBox.Modified = false;
             tvglogoBox.Modified = false;
-            UDPbox.Modified = false;
+            Addressbox.Modified = false;
             NameBox.Modified = false;
             Debug.Print("Change status for textBox");
 
@@ -1079,7 +1080,7 @@ namespace M3Ueditor
 
                 if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = groupTitleComboBox.Text;
 
-                if (ValidatorUDP(UDPbox.Text)) tvc.UDP = UDPbox.Text;
+                if (ValidatorUDP(Addressbox.Text)) tvc.Address = Addressbox.Text;
 
                 if (ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
             }
@@ -1100,7 +1101,7 @@ namespace M3Ueditor
             Debug.Print("btnChangeCancel - TableRefresh");
 
             //errorProvider.Clear();  //errorProvider.SetError(UDPbox, null);
-            errorProvider.SetError(UDPbox, null);
+            errorProvider.SetError(Addressbox, null);
             Debug.Print("btnChangeCancel - errorProvider");
 
             UnModified();
@@ -1115,7 +1116,7 @@ namespace M3Ueditor
         private void tvgNameBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(tvgNameBox, ltvgName.Text);
         private void tvglogoBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(tvglogoBox, ltvglogo.Text);
         private void groupTitleComboBox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(groupTitleComboBox, lgroupTitle.Text);
-        private void UDPbox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(UDPbox, lUDPbox.Text);
+        private void UDPbox_Validating(object sender, CancelEventArgs e) => TextEnterValidate(Addressbox, lAddress.Text);
 
 
         private void TextEnterValidate(Control ctrl, string lblText)
@@ -1132,7 +1133,7 @@ namespace M3Ueditor
 
         bool RunValidate(Control ctrl)
         {
-            if (ctrl.Name == UDPbox.Name) { return ValidatorUDP(ctrl.Text); }
+            if (ctrl.Name == Addressbox.Name) { return ValidatorUDP(ctrl.Text); }
             else { return ValidatorText(ctrl.Text); }
         }
 
@@ -1261,5 +1262,6 @@ namespace M3Ueditor
         }
 
         #endregion
+
     }
 }

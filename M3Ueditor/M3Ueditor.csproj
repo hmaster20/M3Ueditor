@@ -90,7 +90,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Class\stringOperations.cs" />
     <EmbeddedResource Include="From\formAbout.en-US.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,6 +164,7 @@
     <Content Include="Resources\select_all.png" />
     <Content Include="Resources\unselect_all.png" />
     <Content Include="Resources\flag_usa.png" />
+    <Content Include="ToDo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

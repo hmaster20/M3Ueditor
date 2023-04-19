@@ -220,4 +220,7 @@
   <data name="tsSave.Text" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="labelGlobal.Text" xml:space="preserve">
+    <value>Common parameters:</value>
+  </data>
 </root>
