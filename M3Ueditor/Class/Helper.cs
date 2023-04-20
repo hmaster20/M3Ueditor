@@ -26,7 +26,7 @@ namespace M3Ueditor
                 return "";
             }
         }
-        
+
         /// <summary>Получает файл и извлекает строку EXTM3U с общими параметрами</summary>
         /// <returns>Возвращает EXTM3U... (string)</returns>
         public static string getGlobalParams(string fullName)
@@ -36,25 +36,6 @@ namespace M3Ueditor
                 using (StreamReader RAWlist = new StreamReader(fullName))
                 {
                     string playlist = RAWlist.ReadToEnd();
-
-                    // Старая версия
-                    //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
-                    //var options = mt[0].Value;
-                    //return options;
-
-                    //string valueFind = @"#EXTM3U";
-                    //string raw = playlist;
-                    //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
-                    //var F2 = raw.IndexOf(@"#EXTINF");
-                    //var RESULT = raw.Substring(F1, F2 - F1);
-
-
-                    //string data = playlist;
-                    //var start1 = data.IndexOf(@"#EXTM3U") + 7;
-                    //var finish2 = data.Substring(start1, data.IndexOf(@"#EXTINF") - start1);
-
-                    // https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
-
                     string global = playlist.Split(new string[] { @"#EXTM3U" },
                         StringSplitOptions.None)[1]
                         .Split(@"#EXTINF".ToCharArray())[0]
@@ -62,7 +43,7 @@ namespace M3Ueditor
 
                     global = "#EXTM3U " + global;
                     return global;
-                }              
+                }
             }
             catch (Exception ex)
             {
@@ -72,8 +53,19 @@ namespace M3Ueditor
         }
 
         /// <summary>Разбивает содержимое файла на список каналов</summary>
+        /// <returns>Возвращает построчный список будущих каналов... </returns>
         private static List<string> getRawChannels(string playlist)
         {
+            // Старая версия
+            //MatchCollection mt = ParseStream(playlist, @"#EXTM3U((.*\r\n.*)||(.*))#EXTINF");
+            //var options = mt[0].Value;
+
+            //string valueFind = @"#EXTM3U";
+            //string raw = playlist;
+            //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
+            //var F2 = raw.IndexOf(@"#EXTINF");
+            //var RESULT = raw.Substring(F1, F2 - F1);
+            
             //string input = playlist;
             ////input = input.Replace("\r\n", "");
             ////input = Regex.Replace(input, @"\s+", string.Empty);
@@ -122,7 +114,8 @@ namespace M3Ueditor
             return listChannel;
         }
 
-        /// <summary>Раcпознает каналы и выдет готовый реестр</summary>
+        /// <summary>Раcпознает построчный список как объекты каналов</summary>
+        /// <returns>Возвращает готовый реестр каналов (обектовы типа TVChannel)... </returns>
         public static SortableBindingList<TVChannel> getChannels(string fullName)
         {
             SortableBindingList<TVChannel> channels = new SortableBindingList<TVChannel>();
@@ -145,7 +138,33 @@ namespace M3Ueditor
 
                     // "-1 tvg-name=\"tvgFirst\" tvg-logo=\"New Logo\" group-title=\"New Group\",First\r\nudp://@224.1.1.1:6000\r\n"
                     // "1740 tvg-name=\"5 канал (Россия) (+4)\" tvg-logo=\"http://web.web/1740.png?w=250&h=250\" group-title=\"Эфирные\",5 канал +4 http://web.web/web.php?channel=1740 "
+                    //   245 tvg-name="ZeeTV Россия" tvg-logo="http://web.web/245.png?w=250&h=250" aspect-ratio=16:9 group-title="Фильмы и Сериалы",ZeeTV http://web.web/web.php?channel=245
 
+                    // Нужно парсить -1 и 1740 
+                    // Нужно парсить типа aspect-ratio и ...
+
+                    // "3450 tvg-name=\"Еврокино\" tvg-logo=\"http://web.web/3450.png?w=250&h=250\" aspect-ratio=4:3 croppadd=0x131 group-title=\"Фильмы и Сериалы\",Еврокино HD http:/web.web/web.php?channel=3450 "
+
+                    string addon = "";
+
+                    //var tags = Keywords.getTags();
+                    List<string> tags = Keywords.getTags().Keys.ToList();
+                    tags.Remove("tvg-logo");
+                    tags.Remove("tvg-name");
+                    tags.Remove("group-title");
+
+                    for (int t = 0; t < tags.Count; t++)
+                    {
+                        string valueTags = tags[t];
+
+                    
+                        var aaa = Between(ch, valueTags + "=", " ");
+                        if (aaa.Length > 0)
+                        {
+                            addon = addon + " " + valueTags + "=" + aaa;
+                            Debug.Print(valueTags);
+                        }    
+                    }
 
                     tvgName = Between(ch, "tvg-name=\"", "\"");
                     tvglogo = Between(ch, "tvg-logo=\"", "\"");
