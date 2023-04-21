@@ -57,6 +57,13 @@ namespace M3Ueditor
             set { name = (value != "") ? value : "N/A"; }
         }
 
+        private string addon;
+        public string Addon
+        {
+            get { return addon; }
+            set { addon = value; }
+        }
+
         public bool Equals(TVChannel tvc)
         {
             if (tvc != null)
