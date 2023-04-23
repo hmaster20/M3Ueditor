@@ -31,24 +31,48 @@ namespace M3Ueditor
         /// <returns>Возвращает EXTM3U... (string)</returns>
         public static string getGlobalParams(string fullName)
         {
+            string tagHeader = "#EXTM3U";
+            string tagChannel = "#EXTINF";
+
             try
             {
                 using (StreamReader RAWlist = new StreamReader(fullName))
                 {
                     string playlist = RAWlist.ReadToEnd();
-                    string global = playlist.Split(new string[] { @"#EXTM3U" },
-                        StringSplitOptions.None)[1]
-                        .Split(@"#EXTINF".ToCharArray())[0]
-                        .Trim();
 
-                    global = "#EXTM3U " + global;
+                    // V1 - 100% рабочий вариант (но трудно читаемый)
+                    //string global = playlist.Split(new string[] { @tagHeader },
+                    //    StringSplitOptions.None)[1]
+                    //    .Split(@tagChannel.ToCharArray())[0]
+                    //    .Trim();
+
+                    // V2 - По идее код более понятный, хотя его больше
+                    string raw = playlist;
+                    var F1 = raw.IndexOf(@tagHeader) + tagHeader.Length;
+                    var F2 = raw.IndexOf(@tagChannel);
+                    string RESULT = "";
+                    RESULT = raw.Substring(F1, F2 - F1);
+                    RESULT = Regex.Replace(RESULT, @"\t|\n|\r", "");
+                    RESULT = RESULT.Trim();
+
+                    string global = RESULT;
+
+                    if (global.Length > 0)
+                    {
+                        global = tagHeader + " " + global;
+                    }
+                    else
+                    {
+                        global = tagHeader;
+                    }
+
                     return global;
                 }
             }
             catch (Exception ex)
             {
                 Debug.Print(ex.Message);
-                return "#EXTM3U";
+                return tagHeader;
             }
         }
 
