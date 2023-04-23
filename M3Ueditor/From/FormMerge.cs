@@ -64,6 +64,7 @@ namespace M3Ueditor
                             _groupTitle: item.GroupTitle,
                             _address: item.Address,
                             _Name: item.Name,
+                            _Addon: item.Addon,
                             _check: false));
         }
 

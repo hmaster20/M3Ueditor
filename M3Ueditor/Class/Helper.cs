@@ -65,7 +65,7 @@ namespace M3Ueditor
             //var F1 = raw.IndexOf(valueFind) + valueFind.Length;
             //var F2 = raw.IndexOf(@"#EXTINF");
             //var RESULT = raw.Substring(F1, F2 - F1);
-            
+
             //string input = playlist;
             ////input = input.Replace("\r\n", "");
             ////input = Regex.Replace(input, @"\s+", string.Empty);
@@ -132,7 +132,8 @@ namespace M3Ueditor
                     string tvglogo = "N/A";
                     string groupTitle = "N/A";
                     string Name = "N/A";
-                    string udp = "N/A";
+                    string protocol = "N/A";
+                    string addon = "";
 
                     string ch = RawChannels[i];
 
@@ -145,9 +146,7 @@ namespace M3Ueditor
 
                     // "3450 tvg-name=\"Еврокино\" tvg-logo=\"http://web.web/3450.png?w=250&h=250\" aspect-ratio=4:3 croppadd=0x131 group-title=\"Фильмы и Сериалы\",Еврокино HD http:/web.web/web.php?channel=3450 "
 
-                    string addon = "";
-
-                    //var tags = Keywords.getTags();
+                    // Подготовка к парсингу на основе списка тэгов
                     List<string> tags = Keywords.getTags().Keys.ToList();
                     tags.Remove("tvg-logo");
                     tags.Remove("tvg-name");
@@ -156,14 +155,12 @@ namespace M3Ueditor
                     for (int t = 0; t < tags.Count; t++)
                     {
                         string valueTags = tags[t];
-
-                    
-                        var aaa = Between(ch, valueTags + "=", " ");
-                        if (aaa.Length > 0)
+                        string valueNewTags = Between(ch, valueTags + "=", " ");
+                        if (valueNewTags.Length > 0)
                         {
-                            addon = addon + " " + valueTags + "=" + aaa;
+                            addon = addon + " " + valueTags + "=" + valueNewTags.Trim();
                             Debug.Print(valueTags);
-                        }    
+                        }
                     }
 
                     tvgName = Between(ch, "tvg-name=\"", "\"");
@@ -188,7 +185,7 @@ namespace M3Ueditor
 
                     if (indexatorFIND > 0)
                     {
-                        udp = Name.Substring(indexatorFIND);
+                        protocol = Name.Substring(indexatorFIND);
                         Name = Name.Remove(indexatorFIND);
                     }
 
@@ -198,8 +195,9 @@ namespace M3Ueditor
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
-                            _address: udp.Trim(),
-                            _Name: Name.Trim()
+                            _address: protocol.Trim(),
+                            _Name: Name.Trim(),
+                            _Addon: addon.Trim()
                             ));
                     }
                     catch (ArgumentOutOfRangeException)
