@@ -869,6 +869,8 @@ namespace M3Ueditor
                 groupTitleComboBox.Text = tvc.GroupTitle;
                 Addressbox.Text = tvc.Address;
                 NameBox.Text = tvc.Name;
+                CustomTagsBox.Text = tvc.Addon;
+
             }
         }
 
