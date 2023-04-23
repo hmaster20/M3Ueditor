@@ -164,6 +164,7 @@ namespace M3Ueditor
                 string groupTitle = "New Group";
                 string Name = lastchan.ToString();
                 string address = "udp://@" + curip.ToString() + ":" + Port;
+                string addon = "";
 
                 TVChannel tvc =
                 new TVChannel(
@@ -171,7 +172,8 @@ namespace M3Ueditor
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
                             _address: address.Trim(),
-                            _Name: Name.Trim()
+                            _Name: Name.Trim(),
+                            _Addon: addon
                             );
 
                 bool isTVC = false;

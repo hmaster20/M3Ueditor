@@ -279,14 +279,16 @@ namespace M3Ueditor
                 string tvglogo = "New Logo";
                 string groupTitle = "New Group";
                 string Name = "New Channel";
-                string udp = "udp://@224.1.1.1:6000";
+                string protocol = "udp://@224.1.1.1:6000";
+                string addon = "";
 
                 channels.Add(new TVChannel(
                             _tvgName: tvgName.Trim(),
                             _tvglogo: tvglogo.Trim(),
                             _groupTitle: groupTitle.Trim(),
-                            _address: udp.Trim(),
-                            _Name: Name.Trim()
+                            _address: protocol.Trim(),
+                            _Name: Name.Trim(),
+                            _Addon: addon
                             ));
 
                 dgvTV.DataSource = channels;
@@ -653,13 +655,15 @@ namespace M3Ueditor
             string groupTitle = "New Group";
             string Name = "New Channel";
             string address = "udp://@224.1.1.1:6000";
+            string addon = "";
 
             channels.Add(new TVChannel(
                         _tvgName: tvgName.Trim(),
                         _tvglogo: tvglogo.Trim(),
                         _groupTitle: groupTitle.Trim(),
                         _address: address.Trim(),
-                        _Name: Name.Trim()
+                        _Name: Name.Trim(),
+                        _Addon: addon
                         ));
 
             try

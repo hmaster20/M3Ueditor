@@ -13,13 +13,14 @@ namespace M3Ueditor
 {
     public class TVChannel
     {
-        public TVChannel(string _tvgName, string _tvglogo, string _groupTitle, string _address, string _Name)
+        public TVChannel(string _tvgName, string _tvglogo, string _groupTitle, string _address, string _Name, string _Addon)
         {
             TvgName = _tvgName;
             Tvglogo = _tvglogo;
             GroupTitle = _groupTitle;
             Address = _address;
             Name = _Name;
+            Addon = _Addon;
         }
 
         private string tvgName;
@@ -55,6 +56,13 @@ namespace M3Ueditor
         {
             get { return name; }
             set { name = (value != "") ? value : "N/A"; }
+        }
+
+        private string addon;
+        public string Addon
+        {
+            get { return addon; }
+            set { addon = (value != "") ? value : "N/A"; }
         }
 
         public bool Equals(TVChannel tvc)
