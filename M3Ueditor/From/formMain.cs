@@ -869,6 +869,8 @@ namespace M3Ueditor
                 groupTitleComboBox.Text = tvc.GroupTitle;
                 Addressbox.Text = tvc.Address;
                 NameBox.Text = tvc.Name;
+                CustomTagsBox.Text = tvc.Addon;
+
             }
         }
 
@@ -1078,15 +1080,17 @@ namespace M3Ueditor
             TVChannel tvc = GetSelected();
             if (tvc != null)
             {
-                if (ValidatorText(tvgNameBox.Text)) tvc.TvgName = tvgNameBox.Text;
+                if (Helper.ValidatorText(tvgNameBox.Text)) tvc.TvgName = tvgNameBox.Text;
 
-                if (ValidatorText(tvglogoBox.Text)) tvc.Tvglogo = tvglogoBox.Text;
+                if (Helper.ValidatorText(tvglogoBox.Text)) tvc.Tvglogo = tvglogoBox.Text;
 
-                if (ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = groupTitleComboBox.Text;
+                if (Helper.ValidatorText(groupTitleComboBox.Text)) tvc.GroupTitle = groupTitleComboBox.Text;
 
-                if (ValidatorUDP(Addressbox.Text)) tvc.Address = Addressbox.Text;
+                if (Helper.ValidatorUDP(Addressbox.Text)) tvc.Address = Addressbox.Text;
 
-                if (ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
+                if (Helper.ValidatorText(NameBox.Text)) tvc.Name = NameBox.Text;
+
+                tvc.Addon = CustomTagsBox.Text;
             }
 
             dgvTVtreeEnabled(true);
@@ -1137,8 +1141,8 @@ namespace M3Ueditor
 
         bool RunValidate(Control ctrl)
         {
-            if (ctrl.Name == Addressbox.Name) { return ValidatorUDP(ctrl.Text); }
-            else { return ValidatorText(ctrl.Text); }
+            if (ctrl.Name == Addressbox.Name) { return Helper.ValidatorUDP(ctrl.Text); }
+            else { return Helper.ValidatorText(ctrl.Text); }
         }
 
         #endregion
@@ -1168,8 +1172,8 @@ namespace M3Ueditor
 
             Control edit = dgvTV.EditingControl;
 
-            if (e.ColumnIndex != 3 && (!ValidatorText(e.FormattedValue.ToString()))
-            || (e.ColumnIndex == 3 && (!ValidatorUDP(e.FormattedValue.ToString()))))
+            if (e.ColumnIndex != 3 && (!Helper.ValidatorText(e.FormattedValue.ToString()))
+            || (e.ColumnIndex == 3 && (!Helper.ValidatorUDP(e.FormattedValue.ToString()))))
             {
                 CelleError(e, edit);
             }
@@ -1185,84 +1189,6 @@ namespace M3Ueditor
             TableRefresh();
 
             Changed();
-        }
-
-        #endregion
-
-
-        #region Методы проверки
-
-        public static bool ValidatorUDP(string UDPserver)
-        {
-            //udp://@224.1.1.1:6000 - шаблон для парсинга
-            string re_protocl = "(udp(?!.*udp)|http(?!.*http))";
-            string re_at = "(:\\/\\/@)";
-            string re_IPv4 = "((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])";
-            string re7 = "(:)";
-            string re_port = "(6553[0-5]|655[0-2][0-9]|65[0-4][0-9][0-9]|6[0-4][0-9][0-9][0-9]|[0-5]?[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9]?)(?![\\d])";//string re_port = "(\\d+)";//65535
-
-            Regex r = new Regex(re_protocl + re_at + re_IPv4 + re7 + re_port, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            Match m = r.Match(UDPserver);
-            if (m.Success)
-            {
-                String protocol = m.Groups[1].ToString();
-                String c1 = m.Groups[2].ToString();
-                String ipaddress1 = m.Groups[3].ToString();
-                String c5 = m.Groups[4].ToString();
-                String port = m.Groups[5].ToString();
-
-                Debug.Print("(" + protocol.ToString() + ")"
-                    + "(" + c1.ToString() + ")"
-                    + "(" + ipaddress1.ToString() + ")"
-                    + "(" + c5.ToString() + ")"
-                    + "(" + port.ToString() + ")" + "\n");
-
-                return true;
-            }
-            else
-            {
-                Debug.Print("UDP сервер не распознан!");
-            }
-            return false;
-        }
-
-        public static bool ValidatorText(string txt)
-        {
-            //string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
-            //string pattern = "((?:[а-яА-Яa-zA-Z][а-яА-Яa-zA-Z0-9_]*))"; ;
-            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9_]*))";
-            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+))";
-            //string pattern = @"((^[\w\s+/-]+$))";
-            //string pattern = @"([\w\s]+$)";
-            //string pattern = @"((?:[\w][\w\s]+$))";
-            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+$))";
-            //string pattern = "([а-яА-Яa-zA-Z]|[а-яА-Яa-zA-Z0-9]?)(?![\\w])";
-            //string pattern = "((?:[a-z][a-z0-9]*))";
-            //string pattern = "(?:[a-z][a-z0-9_ -=]*)";
-            //string pattern = "(?:[а-яА-Яa-zA-Z0-9]|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
-            //string pattern = "(^[а-яА-Яa-zA-Z0-9]*|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
-            //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]+$*)";
-            //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]*)";
-            //string pattern = "([а-яА-Яa-zA-Z0-9])(?![\\d])";
-            //string pattern = "([а-яА-Яa-zA-Z0-9])(?![\\w])";
-            //string pattern = "([а-яА-Яa-zA-Z])";
-            //string pattern = "^[ A-Za-z0-9]$";
-            //string pattern = "[a-zA-Z]^[A-Za-z0-9]$";//"(?:[^a-z0-9 ]|(?<=['\"])s)"
-            //string pattern = "(?:[^a-z0-9 ]|(?<=['\"])s)";
-            //string pattern = @"(^[\w\s+/-]+$)";
-            //string pattern = "(^[а-яА-Яa-zA-Z0-9])";
-
-            string pattern = "(^[а-яА-Яa-zA-Z0-9@])";
-
-            Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            Match m = r.Match(txt);
-            if (m.Success)
-            {
-                String TextAfterParsing = m.Groups[1].ToString();
-                Debug.Print("(" + TextAfterParsing.ToString() + ")" + "\n");
-                return true;
-            }
-            return false;
         }
 
         #endregion
