@@ -14,7 +14,7 @@ namespace M3Ueditor.UnitTests
         [TestCase("_fghfg")]
         public void TestValidatorTextfalse(string txt)
         {
-            bool result = Main.ValidatorText(txt);
+            bool result = Helper.ValidatorText(txt);
             Assert.False(result);
         }
 
@@ -26,7 +26,7 @@ namespace M3Ueditor.UnitTests
         [TestCase("@Disney")]
         public void TestValidatorTextTrue(string txt)
         {
-            bool result = Main.ValidatorText(txt);
+            bool result = Helper.ValidatorText(txt);
             Assert.True(result);
         }
 
@@ -40,7 +40,7 @@ namespace M3Ueditor.UnitTests
         [TestCase("http://@192.168.1.1:1024")]
         public void TestValidatorUDPtrue(string srv)
         {
-            bool result = Main.ValidatorUDP(srv);
+            bool result = Helper.ValidatorUDP(srv);
             Assert.True(result);
         }
 
@@ -51,7 +51,7 @@ namespace M3Ueditor.UnitTests
         [TestCase("udp://224.1.1.1:33")]
         public void TestValidatorUDP(string srv)
         {
-            bool result = Main.ValidatorUDP(srv);
+            bool result = Helper.ValidatorUDP(srv);
             Assert.False(result);
         }
 
