@@ -870,7 +870,6 @@ namespace M3Ueditor
                 Addressbox.Text = tvc.Address;
                 NameBox.Text = tvc.Name;
                 CustomTagsBox.Text = tvc.Addon;
-
             }
         }
 
@@ -930,7 +929,6 @@ namespace M3Ueditor
             {
                 TableDragDrop(e);
             }
-
         }
 
         private void TableDragDrop(DataGridViewCellMouseEventArgs e)
@@ -1038,8 +1036,7 @@ namespace M3Ueditor
             Addressbox.Modified = false;
             NameBox.Modified = false;
             Debug.Print("Change status for textBox");
-
-
+            
             dgvTVtreeEnabled(true);
             ButtonControlEnabled(false);
             Debug.Print("UnModified - Finish");
@@ -1102,9 +1099,7 @@ namespace M3Ueditor
 
         private void btnChangeCancel_Click(object sender, EventArgs e)  // Кнопка Отмена
         {
-            // dgvTVtreeEnabled(true);
             Debug.Print("btnChangeCancel - Click");
-
             TableRefresh();
             Debug.Print("btnChangeCancel - TableRefresh");
 
@@ -1182,7 +1177,6 @@ namespace M3Ueditor
         private void dgvTV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             errorProvider.Clear();
-            // TableRefresh();
 
             dgvTVtreeEnabled(true);
 
