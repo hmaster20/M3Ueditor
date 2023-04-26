@@ -276,30 +276,6 @@ namespace M3Ueditor
 
         public static bool ValidatorText(string txt)
         {
-            //string pattern = "((?:[a-z][a-z0-9_]*))";   // Шаблон
-            //string pattern = "((?:[а-яА-Яa-zA-Z][а-яА-Яa-zA-Z0-9_]*))"; ;
-            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9_]*))";
-            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+))";
-            //string pattern = @"((^[\w\s+/-]+$))";
-            //string pattern = @"([\w\s]+$)";
-            //string pattern = @"((?:[\w][\w\s]+$))";
-            //string pattern = "((?:[^а-яА-Яa-zA-Z0-9]+$))";
-            //string pattern = "([а-яА-Яa-zA-Z]|[а-яА-Яa-zA-Z0-9]?)(?![\\w])";
-            //string pattern = "((?:[a-z][a-z0-9]*))";
-            //string pattern = "(?:[a-z][a-z0-9_ -=]*)";
-            //string pattern = "(?:[а-яА-Яa-zA-Z0-9]|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
-            //string pattern = "(^[а-яА-Яa-zA-Z0-9]*|^[а-яА-Яa-zA-Z0-9_]+$*)"; //^[a-zA-Z0-9_]+$
-            //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]+$*)";
-            //string pattern = "([а-яА-Яa-zA-Z0-9]*|[а-яА-Яa-zA-Z0-9_]*)";
-            //string pattern = "([а-яА-Яa-zA-Z0-9])(?![\\d])";
-            //string pattern = "([а-яА-Яa-zA-Z0-9])(?![\\w])";
-            //string pattern = "([а-яА-Яa-zA-Z])";
-            //string pattern = "^[ A-Za-z0-9]$";
-            //string pattern = "[a-zA-Z]^[A-Za-z0-9]$";//"(?:[^a-z0-9 ]|(?<=['\"])s)"
-            //string pattern = "(?:[^a-z0-9 ]|(?<=['\"])s)";
-            //string pattern = @"(^[\w\s+/-]+$)";
-            //string pattern = "(^[а-яА-Яa-zA-Z0-9])";
-
             string pattern = "(^[а-яА-Яa-zA-Z0-9@])";
 
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
