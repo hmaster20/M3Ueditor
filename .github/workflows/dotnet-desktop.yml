@@ -18,7 +18,8 @@ jobs:
 
     env:
       Solution_Name: M3Ueditor.sln      
-      Test_Project_Path: M3Ueditor.UnitTests\M3Ueditor.UnitTests.csproj      
+      Test_Project_Path: M3Ueditor.UnitTests\M3Ueditor.UnitTests.csproj
+      Wap_Project_Directory: M3Ueditor
       
     steps:
 
@@ -40,3 +41,9 @@ jobs:
       run: msbuild $env:Solution_Name -t:rebuild /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: MSIX Package
+        path: ${{ env.Wap_Project_Directory }}\bin\Release\
