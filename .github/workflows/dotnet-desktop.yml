@@ -33,7 +33,22 @@ jobs:
 
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1
-      
+
+    - name: Restore Packages
+      run: nuget restore $env:Solution_Name 
+
+    - name: Restore the application
+      run: msbuild $env:Solution_Name -t:rebuild /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+          name: M3Ueditor-artifact
+          path: ${{ github.workspace }}/M3Ueditor/bin/Release/*
+          retention-days: 5
+
     - name: echo GITHUB_WORKSPACE !!!
       run: echo "${{ GITHUB_WORKSPACE }}"        
       
@@ -51,21 +66,6 @@ jobs:
       
     - name: print M3Ueditor
       run: dir "${{ github.workspace }}/M3Ueditor/"
-
-    - name: Restore Packages
-      run: nuget restore $env:Solution_Name 
-
-    - name: Restore the application
-      run: msbuild $env:Solution_Name -t:rebuild /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-          name: M3Ueditor-artifact
-          path: ${{ github.workspace }}/M3Ueditor/bin/Release/*
-          retention-days: 5
 
     - name: Release
       uses: softprops/action-gh-release@v1
