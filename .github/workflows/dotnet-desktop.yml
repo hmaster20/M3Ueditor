@@ -72,6 +72,6 @@ jobs:
         body_path: ${{ github.workspace }}/ChangeLog.txt        
         files: |
           LICENSE
-          ${{ github.workspace }}\M3Ueditor\ChangeLog.txt
-          ${{ github.workspace }}\M3Ueditor\M3Ueditor\bin\Release\M3Ueditor.exe
+          "${{ github.workspace }}/M3Ueditor/ChangeLog.txt"
+
 
