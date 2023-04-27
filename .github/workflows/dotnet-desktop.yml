@@ -77,8 +77,11 @@ jobs:
           ./M3Ueditor/bin/Release/M3Ueditor.exe.config
           ./M3Ueditor/bin/Release/en-US/M3Ueditor.resources.dll
           
-    - name: Release Zip Folder
-      run: zip -r release.zip ${{ github.workspace }}/M3Ueditor/bin/Release/
-      
+    - name: Create zip
+      uses: vimtor/action-zip@v1
+      with:
+        files: ${{ github.workspace }}/M3Ueditor/bin/Release/
+        dest: result.zip
+
     - name: dir
       run: dir
