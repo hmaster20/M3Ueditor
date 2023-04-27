@@ -33,7 +33,13 @@ jobs:
 
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1
+      
+    - name: echo GITHUB_WORKSPACE
+      run: echo ${GITHUB_WORKSPACE}
 
+    - name: dir GITHUB_WORKSPACE
+      run: dir ${GITHUB_WORKSPACE}      
+      
     - name: Restore Packages
       run: nuget restore $env:Solution_Name 
 
