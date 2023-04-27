@@ -73,4 +73,12 @@ jobs:
         files: |
           LICENSE
           ./M3Ueditor/ChangeLog.txt
-
+          ./M3Ueditor/bin/Release/M3Ueditor.exe
+          ./M3Ueditor/bin/Release/M3Ueditor.exe.config
+          ./M3Ueditor/bin/Release/en-US/M3Ueditor.resources.dll
+          
+    - name: Release Zip Folder
+      run: zip -r release.zip ${{ github.workspace }}/M3Ueditor/bin/Release/
+      
+    - name: dir
+      run: dir
