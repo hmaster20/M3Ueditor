@@ -39,7 +39,10 @@ jobs:
 
     - name: dir GITHUB_WORKSPACE
       run: dir ${GITHUB_WORKSPACE}      
-      
+ 
+    - name: print M3Ueditor
+      run: dir ${GITHUB_WORKSPACE}\M3Ueditor\  
+
     - name: Restore Packages
       run: nuget restore $env:Solution_Name 
 
