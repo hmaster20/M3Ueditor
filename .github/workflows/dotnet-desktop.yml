@@ -52,6 +52,12 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: [Release]
+        tag_name: Release
         name: M3Ueditor v.New
-        files: ${{ github.workspace }}/M3Ueditor/bin/Release/*
+        body_path: ${{ github.workspace }}/ChangeLog.txt        
+        files: |
+          LICENSE
+          ${{ github.workspace }}/ChangeLog.txt
+          ${{ github.workspace }}/M3Ueditor/bin/Release/M3Ueditor.exe
+          ${{ github.workspace }}/M3Ueditor/bin/Release/M3Ueditor.exe.config
+          ${{ github.workspace }}/M3Ueditor/bin/Release/en-US/M3Ueditor.resources.dll
