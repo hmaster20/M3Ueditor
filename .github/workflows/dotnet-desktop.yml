@@ -48,9 +48,6 @@ jobs:
           name: M3Ueditor-artifact
           path: ${{ github.workspace }}/M3Ueditor/bin/Release/*
           retention-days: 5
-
-    - name: echo GITHUB_WORKSPACE !!!
-      run: echo "${{ GITHUB_WORKSPACE }}"        
       
     - name: echo github.workspace
       run: echo "${{ github.workspace }}"  
