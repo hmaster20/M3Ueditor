@@ -64,24 +64,21 @@ jobs:
     - name: print M3Ueditor
       run: dir "${{ github.workspace }}/M3Ueditor/"
 
+    - name: Create zip
+      uses: vimtor/action-zip@v1
+      with:
+        files: ${{ github.workspace }}/M3Ueditor/bin/Release/ ChangeLog.txt LICENSE
+        dest: Release.zip
+
+
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: Release
-        name: M3Ueditor v.11
+        name: M3Ueditor v.12
         body_path: ./M3Ueditor/ChangeLog.txt
         files: |
-          LICENSE
-          ./M3Ueditor/ChangeLog.txt
-          ./M3Ueditor/bin/Release/M3Ueditor.exe
-          ./M3Ueditor/bin/Release/M3Ueditor.exe.config
-          ./M3Ueditor/bin/Release/en-US/M3Ueditor.resources.dll
+          Release.zip
           
-    - name: Create zip
-      uses: vimtor/action-zip@v1
-      with:
-        files: ${{ github.workspace }}/M3Ueditor/bin/Release/
-        dest: result.zip
-
     - name: dir
       run: dir
