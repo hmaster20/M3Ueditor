@@ -11,8 +11,10 @@ using System.Windows.Forms;
 
 namespace M3Ueditor
 {
+    /// <summary>Базовый класс каналов</summary>
     public class TVChannel
     {
+        /// <summary>Базовый конструктор</summary>
         public TVChannel(string _tvgName, string _tvglogo, string _groupTitle, string _address, string _Name, string _Addon)
         {
             TvgName = _tvgName;
