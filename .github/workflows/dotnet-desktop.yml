@@ -35,13 +35,19 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
       
     - name: echo GITHUB_WORKSPACE
-      run: echo ${GITHUB_WORKSPACE}
+      run: echo "${{ github.workspace }}"  
 
-    - name: dir GITHUB_WORKSPACE
-      run: dir ${GITHUB_WORKSPACE}      
- 
+    - name: pwd
+      run: pwd    
+
+    - name: dir
+      run: dir    
+      
+    - name: dir github.workspace
+      run: dir "${{ github.workspace }}"  
+      
     - name: print M3Ueditor
-      run: dir "${GITHUB_WORKSPACE}\M3Ueditor\"
+      run: dir "${{ github.workspace }}/M3Ueditor/"
 
     - name: Restore Packages
       run: nuget restore $env:Solution_Name 
