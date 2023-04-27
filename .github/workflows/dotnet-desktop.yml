@@ -34,7 +34,10 @@ jobs:
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1
       
-    - name: echo GITHUB_WORKSPACE
+    - name: echo GITHUB_WORKSPACE !!!
+      run: echo "${{ GITHUB_WORKSPACE }}"        
+      
+    - name: echo github.workspace
       run: echo "${{ github.workspace }}"  
 
     - name: pwd
@@ -68,10 +71,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: Release
-        name: M3Ueditor v.New 
+        name: M3Ueditor v.11
+        body_path: ./M3Ueditor/ChangeLog.txt
         files: |
           LICENSE
-          ./M3Ueditor/ToDo.txt
-          "${{ github.workspace }}/M3Ueditor/ChangeLog.txt"
-
+          ./M3Ueditor/ChangeLog.txt
 
