@@ -68,8 +68,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: Release
-        name: M3Ueditor v.New
-        body_path: ${{ github.workspace }}/ChangeLog.txt        
+        name: M3Ueditor v.New 
         files: |
           LICENSE
           ./M3Ueditor/ToDo.txt
