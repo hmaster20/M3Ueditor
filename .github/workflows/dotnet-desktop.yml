@@ -48,3 +48,10 @@ jobs:
           name: M3Ueditor-artifact
           path: ${{ github.workspace }}/M3Ueditor/bin/Release/*
           retention-days: 5
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          LICENSE
