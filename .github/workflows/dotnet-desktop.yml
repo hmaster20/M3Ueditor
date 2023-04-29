@@ -48,3 +48,44 @@ jobs:
           name: M3Ueditor-artifact
           path: ${{ github.workspace }}/M3Ueditor/bin/Release/*
           retention-days: 5
+      
+    - name: echo github.workspace
+      run: echo "${{ github.workspace }}"  
+
+    - name: pwd
+      run: pwd    
+
+    - name: dir
+      run: dir    
+      
+    - name: dir github.workspace
+      run: dir "${{ github.workspace }}"  
+      
+    - name: print M3Ueditor
+      run: dir "${{ github.workspace }}/M3Ueditor/"
+
+    - name: Create zip
+      uses: vimtor/action-zip@v1
+      with:
+        files: ${{ github.workspace }}/M3Ueditor/bin/Release/ ChangeLog.txt LICENSE
+        dest: Release.zip
+
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: Release
+        name: M3Ueditor v.12
+        body_path: ./M3Ueditor/ChangeLog.txt
+        files: |
+          Release.zip
+          
+    - name: dir
+      run: dir
+
+    - name: version
+      run: echo "::set-output name=version::$(./M3Ueditor/bin/Release/M3Ueditor.exe --version)"
+      id: version
+
+    - name: echo github.workspace
+      run: echo "${{ steps.version.outputs.version }}"  
