@@ -51,19 +51,24 @@ namespace M3Ueditor.Class
             }
         }
 
+        private static Version GetVersion()
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version;
+        }
+
         public static string AssemblyVersion
         {
             get
             {
                 if (isDebugMode)
                 {
-                    return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    return GetVersion().ToString();
                 }
                 else
                 {
-                    return Assembly.GetExecutingAssembly().GetName().Version.Major.ToString()
+                    return GetVersion().Major.ToString()
                         + "."
-                        + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString();
+                        + GetVersion().Minor.ToString();
                 }
 
             }
