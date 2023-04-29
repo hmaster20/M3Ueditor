@@ -17,7 +17,7 @@ namespace M3Ueditor
             "num"
         };
 
-        /// <summary>Выдает фиксированный реестр тэгов с описанием</summary>
+        /// <summary>Генератор реестра тэгов с описанием</summary>
         public static Dictionary<string, string> getTags()
         {
             Dictionary<string, string> chTags = new Dictionary<string, string>();
