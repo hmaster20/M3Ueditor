@@ -82,3 +82,7 @@ jobs:
           
     - name: dir
       run: dir
+
+    - name: version
+      run: echo "::set-output name=version::$(./M3Ueditor/bin/Release/M3Ueditor.exe --version)"
+      id: version
