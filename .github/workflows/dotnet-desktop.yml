@@ -86,3 +86,6 @@ jobs:
     - name: version
       run: echo "::set-output name=version::$(./M3Ueditor/bin/Release/M3Ueditor.exe --version)"
       id: version
+
+    - name: echo github.workspace
+      run: echo "${{ steps.version.outputs.version }}"  
