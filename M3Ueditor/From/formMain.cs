@@ -29,8 +29,34 @@ namespace M3Ueditor
         string fileNameFilter { get; set; } = "Файлы плейлиста (*.m3u)|*.m3u"; // "Файлы плейлиста (*.m3u)|*.m3u|CSV files (*.csv)|*.csv"
         string fileNameTitleOpen { get; set; } = "Открыть плейлист";
         string fileNameTitleSave { get; set; } = "Сохранить плейлист";
+        #endregion
 
 
+        #region Изменение локализации меню
+        private ComponentResourceManager resources { get; set; } = new ComponentResourceManager(typeof(Main));
+        public string lng { get; set; } = "";
+
+
+        //private void ChangeLanguage(string lang)
+        //{
+        //    //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+        //    foreach (Control c in this.Controls)
+        //    {
+        //        resources.ApplyResources(c, c.Name, new CultureInfo(lang));
+        //    }
+        //    ChangeLanguage(menu.Items);
+        //}
+
+        private void ChangeLanguageMenu(ToolStripItemCollection collection)
+        {
+            foreach (ToolStripItem item in collection)
+            {
+                //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(item, item.Name, new CultureInfo(lng));
+                if (item is ToolStripDropDownItem)
+                    ChangeLanguageMenu(((ToolStripDropDownItem)item).DropDownItems);
+            }
+        }
         #endregion
 
 
@@ -104,34 +130,6 @@ namespace M3Ueditor
         #endregion
 
 
-        #region Изменение локализации меню
-        private ComponentResourceManager resources { get; set; } = new ComponentResourceManager(typeof(Main));
-        public string lng { get; set; } = "";
-
-
-        //private void ChangeLanguage(string lang)
-        //{
-        //    //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-        //    foreach (Control c in this.Controls)
-        //    {
-        //        resources.ApplyResources(c, c.Name, new CultureInfo(lang));
-        //    }
-        //    ChangeLanguage(menu.Items);
-        //}
-
-        private void ChangeLanguageMenu(ToolStripItemCollection collection)
-        {
-            foreach (ToolStripItem item in collection)
-            {
-                //ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-                resources.ApplyResources(item, item.Name, new CultureInfo(lng));
-                if (item is ToolStripDropDownItem)
-                    ChangeLanguageMenu(((ToolStripDropDownItem)item).DropDownItems);
-            }
-        }
-        #endregion
-
-
         #region Main методы
 
         public Main()
@@ -178,7 +176,8 @@ namespace M3Ueditor
             SetCurrentLanguage(e.ClickedItem.ToString());
         }
 
-        private void SetCurrentLanguage(string lang)
+
+        public void SetCurrentLanguage(string lang)
         {
             switch (lang)
             {
@@ -209,8 +208,6 @@ namespace M3Ueditor
                 default: break;
             }
         }
-
-
 
         private void Main_Load(object sender, EventArgs e)
         {
